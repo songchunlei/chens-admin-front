@@ -59,6 +59,7 @@
 
 <script>
 import { fetchList } from '@/api/article'
+import api from '@/api'
 import { parseTime } from '@/utils'
 
 const roles = () => [
@@ -88,9 +89,22 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    this.userList()
   },
   methods: {
+    userList() {
+      let params = {
+        "current": "1",
+        "size": "2",
+        "search": ""
+        
+      }
+      api.getUserById((res) => {
+        this.listLoading = false;
+        debugger;
+
+      });
+    },
     fetchData() {
       this.listLoading = true
       fetchList().then(response => {

@@ -17,6 +17,8 @@ import './errorLog'// error log
 import './permission' // permission control
 import './mock' // simulation data
 
+import USP from '@/utils/urlsearchparams';
+
 import * as filters from './filters' // global filters
 
 Vue.use(Element, {
