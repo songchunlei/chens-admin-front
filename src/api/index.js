@@ -63,14 +63,27 @@ const ajax = function (obj) {
             loadingInstance.close();
         });
     } else {
-        let params = new URLSearchParams();
+        //let params = new URLSearchParams();
         let objParams = obj.params;
-        if (objParams && Object.keys(objParams).length > 0) {
-            for (var key in objParams) {
-                params.append(key, objParams[key]);
-            }
-        }
-        axios.post(url, params, {}).then((res) => {
+        // if (objParams && Object.keys(objParams).length > 0) {
+        //     // params.append("page", {'currentPage': '1', 'size': '10'});
+        //     // params.append("search", {});
+        //     for (var key in objParams) {
+        //         debugger;
+        //         if (objParams[key] && Object.keys(objParams[key]).length > 0) {
+        //             let params_p = new URLSearchParams();
+        //             for (var key_k in objParams[key]) {
+        //                 params_p.append(key_k, objParams[key][key_k]);
+        //             }
+        //             params.append(key, params_p);
+        //         } else {
+        //             params.append(key, objParams[key]);
+        //         }
+                
+        //     }
+        // }
+        let headers = {headers: {"Content-Type": "application/json"}};
+        axios.post(url, objParams, headers).then((res) => {
             // TODO 遮罩关闭
             loadingInstance.close();
             debugger;

@@ -94,12 +94,10 @@ export default {
   methods: {
     userList() {
       let params = {
-        "current": "1",
-        "size": "2",
-        "search": ""
-        
+        "page": {"current": "1", "size": "2"},
+        "search": {}
       }
-      api.getUserById((res) => {
+      api.getUsers(params, (res) => {
         this.listLoading = false;
         debugger;
 
