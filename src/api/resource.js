@@ -11,12 +11,12 @@ const apiChens = {
     /** 真实数据 **/
     usersRes: proxyUrl + 'userController/pagelist', // 获取当前登录用户下面的 用户
     userByIdRes: proxyUrl + 'userController/info/1',
+    rolesRes: proxyUrl + 'roleController/list', // 获取角色数据
     /** 真实数据 **/
 
-    menus: reUrlSer + 'portalMenuController/portalMenuList',
 }
 
 export const usersApi = API_ROOT.concat(apiChens.usersRes);
 export const userByIdApi = API_ROOT.concat(apiChens.userByIdRes);
+export const rolesApi = API_ROOT.concat(apiChens.rolesRes);
 
-export const menusApi = API_ROOT.concat(apiChens.menus);

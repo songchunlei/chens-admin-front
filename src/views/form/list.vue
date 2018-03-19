@@ -5,13 +5,13 @@
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleDownload" :loading="downloadLoading">查询</el-button>
     
     <!-- Role -->
-    <el-button style="float: right;" type="success" @click="dialogFormVisible = true">分配角色</el-button>
+    <el-button style="float: right;" type="success" @click="openRolesPopo">分配角色</el-button>
 
     <el-dialog title="分配角色" :visible.sync="dialogFormVisible">
       <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
       <div style="margin: 15px 0;"></div>
       <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRoleChange">
-        <el-checkbox v-for="role in roles" :label="role.id" :key="role.id">{{role.name}}</el-checkbox>
+        <el-checkbox v-for="role in roles" :label="role.id" :key="role.id">{{role.roleName}}</el-checkbox>
       </el-checkbox-group>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -34,18 +34,18 @@
       </el-table-column>
       <el-table-column label="用户名">
         <template slot-scope="scope">
-          {{scope.row.author}}
+          {{scope.row.name}}
         </template>
       </el-table-column>
       <el-table-column label="创建者" width="150" align="center">
         
-        <template slot-scope="scope">尹皓</template>
+        <template slot-scope="scope">{{scope.row.tenantId}}</template>
       </el-table-column>
       
       <el-table-column align="center" label="创建日期" width="220">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
-          <span>{{scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="235" align="center">
@@ -60,6 +60,7 @@
 <script>
 import { fetchList } from '@/api/article'
 import api from '@/api'
+import { mapState, mapActions } from 'vuex';
 import { parseTime } from '@/utils'
 
 const roles = () => [
@@ -77,13 +78,21 @@ export default {
     return {
       list: null,
       listLoading: true,
+      page: { // 分页信息
+        current: '1',
+        size: '10'
+      },
+      search: { // 查询条件
+
+      },
+
       downloadLoading: false,
       filename: '',
 
       checkedRoles: [], // 选中的角色
       checkAll: false,
-      roles: roles(),
-      ids: this.getIds(roles()), // 所有的id
+      roles: [],
+      ids: [], // 所有的id
       dialogFormVisible: false,
       isIndeterminate: false
     }
@@ -94,15 +103,23 @@ export default {
   methods: {
     userList() {
       let params = {
-        "page": {"current": "1", "size": "2"},
-        "search": {}
+        "page": this.page,
+        "search": this.search
       }
-      api.getUsers(params, (res) => {
+      let _this = this;
+      api.getUsers(params).then((res) => {
+        _this.listLoading = false;
+        if (res.data.code == 1) {
+          let json = res.data.data;
+          let records = json.records;
+          _this.list = records;
+        } else {
+        }
+      }).catch( (error) => {
         this.listLoading = false;
-        debugger;
-
       });
     },
+
     fetchData() {
       this.listLoading = true
       fetchList().then(response => {
@@ -131,10 +148,40 @@ export default {
       }))
     },
 
-    
+    computed:{
+      ...mapState({
+
+      })
+    },
+
 
     // 分配角色
+
+    // getRoles
+    getRoles () {
+      
+    },
+
+
+    // 打开角色弹窗
+    
+    openRolesPopo () {
+      this.dialogFormVisible = true;
+      let _this = this;
+      api.getRoleList().then((res) => {
+        _this.listLoading = false;
+        if (res.data.code == 1) {
+          let roles = res.data.data;
+          _this.roles = roles;
+          _this.getIds(_this.roles); // 拿到所有角色id
+        }
+      }).catch( (error) => {
+        this.listLoading = false;
+      });
+
+    },
     // getIds
+
     getIds (arr) {
       let ids = [];
       if (arr && arr.length > 0) {
@@ -142,7 +189,7 @@ export default {
           ids.push(arr[i].id);
         }
       }
-      return ids;
+      this.ids = ids;
     },
 
     // -- 单选

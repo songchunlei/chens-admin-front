@@ -45,53 +45,17 @@ const loadingOpts = { // 遮罩层配置项
     spinner: 'el-icon-loading',
     background: 'rgba(255, 255, 255, 0)'
 }
+// let loadingInstance = Loading.service(loadingOpts);
 const ajax = function (obj) {
-    // TODO 遮罩
-    let loadingInstance = Loading.service(loadingOpts);
     let url = obj.url + suffix;
     let type = obj.type || 'get';
     if (type == 'get') {
-        axios.get(url, {
-            params: obj.params || {}
-        }).then((res) => {
-            // TODO 遮罩关闭
-            debugger;
-            loadingInstance.close();
-            obj.success && obj.success(res);
-        }).catch( (error) => {
-            //TODO 信息提示
-            loadingInstance.close();
-        });
+        return axios.get(url, { params: obj.params || {} })
     } else {
         //let params = new URLSearchParams();
         let objParams = obj.params;
-        // if (objParams && Object.keys(objParams).length > 0) {
-        //     // params.append("page", {'currentPage': '1', 'size': '10'});
-        //     // params.append("search", {});
-        //     for (var key in objParams) {
-        //         debugger;
-        //         if (objParams[key] && Object.keys(objParams[key]).length > 0) {
-        //             let params_p = new URLSearchParams();
-        //             for (var key_k in objParams[key]) {
-        //                 params_p.append(key_k, objParams[key][key_k]);
-        //             }
-        //             params.append(key, params_p);
-        //         } else {
-        //             params.append(key, objParams[key]);
-        //         }
-                
-        //     }
-        // }
         let headers = {headers: {"Content-Type": "application/json"}};
-        axios.post(url, objParams, headers).then((res) => {
-            // TODO 遮罩关闭
-            loadingInstance.close();
-            debugger;
-            obj.success && obj.success(res);
-        }).catch( (error) => {
-            //TODO 信息提示
-            loadingInstance.close();
-        });;
+        return axios.post(url, objParams, headers);
     }
 }
 
@@ -99,21 +63,23 @@ const ajax = function (obj) {
 import { 
     usersApi,
     userByIdApi,
-    menusApi
+    rolesApi
 } from './resource';
 
 export default {
     // 菜单
     getUsers (params, success) {
         debugger;
-        return ajax({ url: usersApi, params: params, success: success , type: 'POST'});
+        return ajax({ url: usersApi, params: params, success: success, type: 'POST' });
     },
- 
+    
+    // 根据ID获取用户
     getUserById (success) {
         return ajax({ url: userByIdApi, success: success});
     },
 
-    getMenus (success) {
-        return ajax({ url: menusApi, success: success});
+    // 获取所有角色
+    getRoleList (success) {
+        return ajax({ url: rolesApi, success: success });
     }
 }
