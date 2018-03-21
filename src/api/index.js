@@ -46,16 +46,22 @@ const loadingOpts = { // 遮罩层配置项
     background: 'rgba(255, 255, 255, 0)'
 }
 // let loadingInstance = Loading.service(loadingOpts);
+
 const ajax = function (obj) {
     let url = obj.url + suffix;
-    let type = obj.type || 'get';
-    if (type == 'get') {
-        return axios.get(url, { params: obj.params || {} })
-    } else {
-        //let params = new URLSearchParams();
-        let objParams = obj.params;
-        let headers = {headers: {"Content-Type": "application/json"}};
-        return axios.post(url, objParams, headers);
+    let type = obj.type ? obj.type.toUpperCase() : 'GET';
+    let headers = {headers: {"Content-Type": "application/json"}};
+    let params = obj.params || {};
+    switch (type) {
+        case 'GET': return axios.get(url, { params: params });
+        break;
+        case 'POST': return axios.post(url, params, headers);
+        break;
+        case 'PUT': return axios.put(url, params, headers);
+        break;
+        case 'DELETE': return axios.delete(url, params, headers);
+        break;
+        default: break;
     }
 }
 
@@ -63,23 +69,47 @@ const ajax = function (obj) {
 import { 
     usersApi,
     userByIdApi,
-    rolesApi
+    rolesApi,
+    menusApi,
+    updateUserApi,
+    createUserApi,
+    deleteUserApi
 } from './resource';
 
 export default {
-    // 菜单
-    getUsers (params, success) {
+    // 系统菜单
+    getMenus () {
+        return ajax({ url: menusApi });
+    },
+
+    // 用户列表
+    getUsers (params) {
         debugger;
-        return ajax({ url: usersApi, params: params, success: success, type: 'POST' });
+        return ajax({ url: usersApi, params: params, type: 'POST' });
     },
     
     // 根据ID获取用户
-    getUserById (success) {
-        return ajax({ url: userByIdApi, success: success});
+    getUserById (id) {
+        return ajax({ url: userByIdApi + '/' + id});
     },
 
-    // 获取所有角色
-    getRoleList (success) {
-        return ajax({ url: rolesApi, success: success });
+    // 获取角色列表
+    getRoles (params) {
+        return ajax({ url: rolesApi, params: params, type: 'POST' });
+    },
+
+    // 更新用户信息
+    updateUser (params) {
+        return ajax({ url: updateUserApi, params: params, type: 'PUT' });
+    },
+
+    // 创建用户
+    createUser (params) {
+        return ajax({ url: createUserApi, params: params, type: 'POST' });
+    },
+
+    // 删除用户
+    deleteUserById (id) {
+        return ajax({ url: deleteUserApi + '/' + id, type: 'DELETE' });
     }
 }

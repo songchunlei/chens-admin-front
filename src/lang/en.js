@@ -2,9 +2,8 @@ export default {
   route: {
     dashboard: '统计',
     introduction: '资源列表',
-    form: '角色管理',
-    createForm: '用户列表',
-    editForm: '角色分配',
+    userManager: '用户管理',
+    editUser: '用户编辑',
     listUser: '用户列表',
     documentation: 'documentation',
     permission: 'Permission',

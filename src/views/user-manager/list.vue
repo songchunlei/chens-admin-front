@@ -2,7 +2,7 @@
  <!-- $t is vue-i18n global function to translate lang -->
   <div class="app-container">
     <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="filename"></el-input>
-    <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleDownload" :loading="downloadLoading">查询</el-button>
+    <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
     
     <!-- Role -->
     <el-button style="float: right;" type="success" @click="openRolesPopo">分配角色</el-button>
@@ -22,14 +22,14 @@
     <!-- Role -->
     
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='Id' width="95">
-        <template slot-scope="scope">
-          {{scope.$index}}
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="选择框" width="65">
         <template slot-scope="scope">
           <el-checkbox></el-checkbox>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label='Id' width="95">
+        <template slot-scope="scope">
+          {{scope.$index}}
         </template>
       </el-table-column>
       <el-table-column label="用户名">
@@ -50,7 +50,9 @@
       </el-table-column>
       <el-table-column label="操作" width="235" align="center">
         <template slot-scope="scope">
-          <el-button type="primary" @click='goEidt()' size="small" icon="el-icon-edit">修改</el-button>
+          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{$t('table.edit')}}</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.row,'deleted')">{{$t('table.delete')}}
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,15 +65,6 @@ import api from '@/api'
 import { mapState, mapActions } from 'vuex';
 import { parseTime } from '@/utils'
 
-const roles = () => [
-  { name: '管理员', id: '00001' },
-  { name: '用户管理员', id: '00002' },
-  { name: '资源管理员', id: '00003' },
-  { name: '试卷管理员', id: '00004' },
-  { name: '图书管理员', id: '00005' },
-  { name: '财务管理员', id: '00006' },
-]
-
 export default {
   name: 'exportExcel',
   data() {
@@ -79,8 +72,8 @@ export default {
       list: null,
       listLoading: true,
       page: { // 分页信息
-        current: '1',
-        size: '10'
+        current: 1,
+        size: 10
       },
       search: { // 查询条件
 
@@ -97,11 +90,16 @@ export default {
       isIndeterminate: false
     }
   },
+  computed:{
+    ...mapState({
+
+    })
+  },
   created() {
     this.userList()
   },
   methods: {
-    userList() {
+    userList(success) {
       let params = {
         "page": this.page,
         "search": this.search
@@ -112,7 +110,11 @@ export default {
         if (res.data.code == 1) {
           let json = res.data.data;
           let records = json.records;
-          _this.list = records;
+          if (success) {
+            success(records);
+          } else {
+            _this.list = records;
+          }
         } else {
         }
       }).catch( (error) => {
@@ -120,40 +122,26 @@ export default {
       });
     },
 
-    fetchData() {
-      this.listLoading = true
-      fetchList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
-    },
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
-        const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
-        const list = this.list
-        const data = this.formatJson(filterVal, list)
-        excel.export_json_to_excel(tHeader, data, this.filename)
-        this.downloadLoading = false
-      })
-    },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => {
-        if (j === 'timestamp') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
+    // 搜索
+    handleSearch () {
+
     },
 
-    computed:{
-      ...mapState({
-
-      })
+    // 用户修改
+    handleUpdate (user) {
+      debugger;
+      let id = user ? user.id : '000000';
+      this.$router.push({ path: '/userManager/editUser/' + id });
     },
 
+    // 删除用户
+    handleDelete (user, type) {
+      if (type == 'deleted') {
+        api.deleteUserById(user.id).then((res) => {
+          console.log(3);
+        });
+      }
+    },
 
     // 分配角色
 
@@ -210,12 +198,7 @@ export default {
 
     // 提交
     subRoles() {
-
       this.dialogFormVisible = false;
-    },
-
-    goEidt() {
-        this.$router.push({ path: '/form/edit-form' });
     }
   }
 }

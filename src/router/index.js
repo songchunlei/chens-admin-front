@@ -143,18 +143,32 @@ export const asyncRouterMap = [
   },
 
   {
-    path: '/form',
+    path: '/userManager',
     component: Layout,
     redirect: 'noredirect',
-    name: 'form',
+    name: 'userManager',
     meta: {
-      title: 'form',
+      title: 'userManager',
       icon: 'form'
     },
     children: [
-      { path: 'create-form', component: _import('form/create'), name: 'createForm', meta: { title: 'createForm', icon: 'table' }},
-      { path: 'edit-form', component: _import('form/edit'), name: 'editForm', meta: { title: 'editForm', icon: 'table' }},
-      { path: 'user-list', component: _import('form/list'), name: 'listUser', meta: { title: 'listUser', icon: 'table' }}
+      { path: 'editUser/:id', component: _import('user-manager/edit'), name: 'editUser', meta: { title: 'editUser', icon: 'form' }},
+      { path: 'userList', component: _import('user-manager/list'), name: 'listUser', meta: { title: 'listUser', icon: 'table' }}
+    ]
+  },
+  
+  {
+    path: '/roleManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'roleManager',
+    meta: {
+      title: 'roleManager',
+      icon: 'form'
+    },
+    children: [
+      { path: 'editRole', component: _import('role-manager/edit'), name: 'editRole', meta: { title: 'editRole', icon: 'form' }},
+      { path: 'roleList', component: _import('role-manager/list'), name: 'listRole', meta: { title: 'listRole', icon: 'table' }}
     ]
   },
 
