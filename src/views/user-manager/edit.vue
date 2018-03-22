@@ -58,6 +58,7 @@ export default {
     init () {
       this.rules = Rules.rules;
       this.id = this.$route.params.id;
+      debugger;
       if (this.id == '000000' || this.id == ':id') { // 新增
 
       } else {
@@ -87,7 +88,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           debugger;
-          if (this.id == '000000') { // 新增
+          if (this.id == '000000' || this.id == ':id') { // 新增
             api.createUser(this.userForm).then((res) => {debugger;
               if (res.data.code == 1) {
 

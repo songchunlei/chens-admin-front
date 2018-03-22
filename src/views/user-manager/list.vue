@@ -156,7 +156,7 @@ export default {
     openRolesPopo () {
       this.dialogFormVisible = true;
       let _this = this;
-      api.getRoleList().then((res) => {
+      api.getRoles().then((res) => {
         _this.listLoading = false;
         if (res.data.code == 1) {
           let roles = res.data.data;

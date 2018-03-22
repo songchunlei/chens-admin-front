@@ -1,12 +1,30 @@
 'use strict'
 
 import axios from 'axios';
+import store from '@/store'
+import { getToken } from '@/utils/auth'
+
 import { Loading } from 'element-ui';
-
-axios.defaults.timeout =  10000;
-axios.defaults.retry = 4;
-axios.defaults.retryDelay = 1000;
-
+const service = axios.create({
+    //baseURL: process.env.BASE_API, // api的base_url
+    timeout: 5000 // request timeout
+})
+// axios.defaults.timeout =  10000;
+// axios.defaults.retry = 4;
+// axios.defaults.retryDelay = 1000;
+// request interceptor
+service.interceptors.request.use(config => {
+    debugger;
+    // Do something before request is sent
+    if (store.getters.token) {
+      config.headers['Authorization'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+    }
+    return config
+  }, error => {
+    // Do something with request error
+    console.log(error) // for debug
+    Promise.reject(error)
+  })
 
 axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
     var config = err.config;
@@ -53,13 +71,13 @@ const ajax = function (obj) {
     let headers = {headers: {"Content-Type": "application/json"}};
     let params = obj.params || {};
     switch (type) {
-        case 'GET': return axios.get(url, { params: params });
+        case 'GET': return service.get(url, { params: params });
         break;
-        case 'POST': return axios.post(url, params, headers);
+        case 'POST': return service.post(url, params, headers);
         break;
-        case 'PUT': return axios.put(url, params, headers);
+        case 'PUT': return service.put(url, params, headers);
         break;
-        case 'DELETE': return axios.delete(url, params, headers);
+        case 'DELETE': return service.delete(url, params, headers);
         break;
         default: break;
     }
@@ -67,6 +85,9 @@ const ajax = function (obj) {
 
 
 import { 
+    loginApi,
+    logoutApi,
+    registerApi,
     usersApi,
     userByIdApi,
     rolesApi,
@@ -77,6 +98,21 @@ import {
 } from './resource';
 
 export default {
+    // 登录
+    doLogin (params) {
+        return ajax({ url: loginApi, params: params, type: 'POST' });
+    },
+    
+    // 退出
+    doLogout () {
+        return ajax({ url: logoutApi });
+    },
+
+    // 注册
+    doRegister (params) {
+        return ajax({ url: registerApi, params: params, type: 'POST' });
+    },
+
     // 系统菜单
     getMenus () {
         return ajax({ url: menusApi });

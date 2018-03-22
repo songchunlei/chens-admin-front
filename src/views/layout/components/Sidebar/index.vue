@@ -25,6 +25,10 @@ export default {
       debugger;
       return !this.sidebar.opened
     }
+  },
+  created () {
+    debugger;
+    console.log(this.permission_routers);
   }
 }
 </script>

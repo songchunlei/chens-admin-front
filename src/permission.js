@@ -14,32 +14,45 @@ function hasPermission(roles, permissionRoles) {
   return roles.some(role => permissionRoles.indexOf(role) >= 0)
 }
 const whiteList = ['/login', '/authredirect']// no redirect whitelist
-
+let isLogin = false;
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   debugger;
   if (getToken()) { // determine if there has token
+    debugger;
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
-      if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
-        store.dispatch('GetUserInfo').then(res => { // 拉取user_info
-          const roles = res.data.roles // note: roles must be a array! such as: ['editor','develop']
-          store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
-            router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-          })
-        }).catch(() => {
-          store.dispatch('FedLogOut').then(() => {
-            Message.error('Verification failed, please login again')
-            next({ path: '/login' })
-          })
+      // if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
+      debugger;
+      console.log(store.getters.userInfo);
+      if (!isLogin) { // 暂时 用 用户名 查看是否已经拉取了 用户信息 （）
+        isLogin = true;
+        // const roles = res.data.roles || ['admin'] // note: roles must be a array! such as: ['editor','develop']
+        const roles = ['admin'] // 暂时admin
+        store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
+          router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+          next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
         })
+        // store.dispatch('GetUserInfo').then(res => { // 拉取user_info
+        //   debugger;
+        //   const roles = res.data.roles || ['admin'] // note: roles must be a array! such as: ['editor','develop']
+        //   store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
+        //     router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+        //     next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+        //   })
+        // }).catch(() => {
+        //   store.dispatch('FedLogOut').then(() => {
+        //     Message.error('Verification failed, please login again')
+        //     next({ path: '/login' })
+        //   })
+        // })
       } else {
         // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
-        if (hasPermission(store.getters.roles, to.meta.roles)) {
+        // if (hasPermission(store.getters.roles, to.meta.roles)) {
+        if (store.getters.userInfo.password) {  // 暂时不校验权限
           next()//
         } else {
           next({ path: '/401', replace: true, query: { noGoBack: true }})

@@ -1,9 +1,15 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import api from '@/api'
+import { doLogin, logout, getUserInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
     user: '',
+    userInfo: {
+      userName: '',
+      password: '',
+    },
+    isLogin: false,
     status: '',
     code: '',
     token: getToken(),
@@ -11,6 +17,7 @@ const user = {
     avatar: '',
     introduction: '',
     roles: [],
+    menuIds: [], // 菜单id集合
     setting: {
       articlePlatform: []
     }
@@ -19,6 +26,13 @@ const user = {
   mutations: {
     SET_CODE: (state, code) => {
       state.code = code
+    },
+    SET_USERINFO: (state, info) => {
+      state.userInfo.userName = info.userName;
+      state.userInfo.password = info.password
+    },
+    SET_ISLOGIN: (state, flag) => {
+      state.isLogin = flag;
     },
     SET_TOKEN: (state, token) => {
       state.token = token
@@ -45,14 +59,19 @@ const user = {
 
   actions: {
     // 用户名登录
-    LoginByUsername({ commit }, userInfo) {
+    DoLogin({ commit }, userInfo) {
       debugger;
-      const username = userInfo.username.trim()
+      // const username = userInfo.username.trim();
+      userInfo.userName = userInfo.userName.trim();
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
+        api.doLogin(userInfo).then(response => {
+          debugger;
           const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          // commit('SET_TOKEN', data.token)
+          console.log(data.data.accessToken);
+          commit('SET_TOKEN', data.data.accessToken);
+          commit('SET_USERINFO', userInfo);
+          setToken(response.data.data.accessToken);
           resolve()
         }).catch(error => {
           reject(error)
@@ -69,6 +88,7 @@ const user = {
             reject('error')
           }
           const data = response.data
+          commit('SET_ROLES', data.roles)
           commit('SET_ROLES', data.roles)
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
@@ -95,9 +115,9 @@ const user = {
     // },
 
     // 登出
-    LogOut({ commit, state }) {
+    DoLogout({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        doLogout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()
@@ -122,7 +142,7 @@ const user = {
       return new Promise(resolve => {
         commit('SET_TOKEN', role)
         setToken(role)
-        getUserInfo(role).then(response => {
+        getUserById(role).then(response => {
           debugger;
           const data = response.data
           commit('SET_ROLES', data.roles)

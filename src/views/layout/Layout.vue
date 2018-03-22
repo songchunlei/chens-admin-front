@@ -22,6 +22,8 @@ export default {
   },
   computed: {
     sidebar() {
+			debugger;
+			console.log(this.$store.state.app.sidebar);
       return this.$store.state.app.sidebar
     }
   }
