@@ -2,6 +2,8 @@ export default {
   route: {
     dashboard: '统计',
     introduction: '资源列表',
+    menusManager: '菜单管理',
+    editMenus: '菜单编辑',
     userManager: '用户管理',
     editUser: '用户编辑',
     listUser: '用户列表',

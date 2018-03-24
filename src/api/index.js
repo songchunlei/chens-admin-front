@@ -15,6 +15,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(config => {
     debugger;
+    console.log(store.getters.token);
     // Do something before request is sent
     if (store.getters.token) {
       config.headers['Authorization'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
@@ -90,8 +91,12 @@ import {
     registerApi,
     usersApi,
     userByIdApi,
+    userInfoApi,
     rolesApi,
     menusApi,
+    createMenuApi,
+    updateMenuApi,
+    deleteMenuApi,
     updateUserApi,
     createUserApi,
     deleteUserApi
@@ -104,8 +109,8 @@ export default {
     },
     
     // 退出
-    doLogout () {
-        return ajax({ url: logoutApi });
+    doLogout (token) {
+        return ajax({ url: logoutApi, params: { token: token } });
     },
 
     // 注册
@@ -118,6 +123,21 @@ export default {
         return ajax({ url: menusApi });
     },
 
+    // 新增菜单
+    createMenu (params) {
+        return ajax({ url: createMenuApi, params: params, type: 'POST'});
+    },
+
+    // 修改菜单
+    updateMenu (params) {
+        return ajax({ url: updateMenuApi, params: params, type: 'PUT'});
+    },
+
+    // 删除菜单
+    deleteMenu (id) {
+        return ajax({ url: deleteMenuApi, params: params, type: 'DELETE'});
+    },
+
     // 用户列表
     getUsers (params) {
         debugger;
@@ -127,6 +147,11 @@ export default {
     // 根据ID获取用户
     getUserById (id) {
         return ajax({ url: userByIdApi + '/' + id});
+    },
+
+    // 根据token获取用户
+    getUserInfoByToken (token) {
+        return ajax({ url: userInfoApi, params: { token: token } });
     },
 
     // 获取角色列表

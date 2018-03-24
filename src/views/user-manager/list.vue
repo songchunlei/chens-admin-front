@@ -62,7 +62,7 @@
 <script>
 import { fetchList } from '@/api/article'
 import api from '@/api'
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import { parseTime } from '@/utils'
 
 export default {

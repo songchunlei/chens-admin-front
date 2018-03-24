@@ -173,6 +173,20 @@ export const asyncRouterMap = [
   },
 
   {
+    path: '/menusManager',
+    component: Layout,
+    redirect: '/menusManager/editMenus',
+    name: 'menusManager',
+    meta: {
+      title: 'menusManager',
+      icon: 'table'
+    },
+    children: [
+      { path: 'editMenus', component: _import('menus-manager/edit'), name: 'editMenus', meta: { title: 'editMenus', icon: 'table' }},
+    ]
+  },
+
+  {
     path: '/error',
     component: Layout,
     redirect: 'noredirect',

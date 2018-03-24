@@ -5,19 +5,18 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 const user = {
   state: {
     user: '',
-    userInfo: {
-      userName: '',
-      password: '',
-    },
-    isLogin: false,
     status: '',
     code: '',
     token: getToken(),
     name: '',
+    username: '',
+    id: '',
+    tenantId: '',
     avatar: '',
     introduction: '',
     roles: [],
-    menuIds: [], // 菜单id集合
+    menus: [], // 菜单
+    menusJson: {}, // 放为同级的菜单
     setting: {
       articlePlatform: []
     }
@@ -26,10 +25,6 @@ const user = {
   mutations: {
     SET_CODE: (state, code) => {
       state.code = code
-    },
-    SET_USERINFO: (state, info) => {
-      state.userInfo.userName = info.userName;
-      state.userInfo.password = info.password
     },
     SET_ISLOGIN: (state, flag) => {
       state.isLogin = flag;
@@ -46,14 +41,30 @@ const user = {
     SET_STATUS: (state, status) => {
       state.status = status
     },
-    SET_NAME: (state, name) => {
-      state.name = name
-    },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+
+    SET_NAME: (state, name) => {
+      state.name = name
+    },
+    SET_USERNAME: (state, username) => {
+      state.username = username
+    },
+    SET_ID: (state, id) => {
+      state.id = id
+    },
+    SET_TENANTID: (state, tenantId) => {
+      state.tenantId = tenantId
+    },
+    SET_MENUS: (state, menus) => {
+      state.menus = menus
+    },
+    SET_MENUSJSON: (state, menusJson) => {
+      state.menusJson = menusJson
     }
   },
 
@@ -65,14 +76,23 @@ const user = {
       userInfo.userName = userInfo.userName.trim();
       return new Promise((resolve, reject) => {
         api.doLogin(userInfo).then(response => {
-          debugger;
-          const data = response.data
-          // commit('SET_TOKEN', data.token)
-          console.log(data.data.accessToken);
-          commit('SET_TOKEN', data.data.accessToken);
-          commit('SET_USERINFO', userInfo);
-          setToken(response.data.data.accessToken);
-          resolve()
+          const json = response.data;
+          if (json.code == 1) {
+            commit('SET_TOKEN', json.data.accessToken);
+            commit('SET_ID', json.data.user.id);
+            commit('SET_TENANTID', json.data.user.tenantId);
+            commit('SET_NAME', json.data.user.name);
+            commit('SET_USERNAME', json.data.user.username);
+            commit('SET_MENUSJSON', json.data.all);
+            commit('SET_MENUS', json.data.menus);
+            
+            setToken(json.data.accessToken);
+            resolve();
+          } else {
+            // TODO 错误
+            reject(json.msg || 'error');
+          }
+          
         }).catch(error => {
           reject(error)
         })
@@ -83,17 +103,21 @@ const user = {
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         debugger;
-        getUserInfo(state.token).then(response => {
-          if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
-            reject('error')
+        api.getUserInfoByToken(state.token).then(response => {
+          debugger;
+          const json = response.data;
+          if (json.code != 1) { // 由于mockjs 不支持自定义状态码只能这样hack
+            reject(json.msg || '用户token已经失效，请重新登录。');
           }
-          const data = response.data
-          commit('SET_ROLES', data.roles)
-          commit('SET_ROLES', data.roles)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve(response)
+          commit('SET_TOKEN', json.data.accessToken);
+          commit('SET_ID', json.data.user.id);
+          commit('SET_TENANTID', json.data.user.tenantId);
+          commit('SET_NAME', json.data.user.name);
+          commit('SET_USERNAME', json.data.user.username);
+          commit('SET_MENUSJSON', json.data.all);
+          commit('SET_MENUS', json.data.menus);
+
+          resolve(response);
         }).catch(error => {
           reject(error)
         })
@@ -117,11 +141,16 @@ const user = {
     // 登出
     DoLogout({ commit, state }) {
       return new Promise((resolve, reject) => {
-        doLogout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
+        api.doLogout(state.token).then(() => {
+          commit('SET_TOKEN', '');
+          commit('SET_ID', '');
+          commit('SET_TENANTID', '');
+          commit('SET_NAME', '');
+          commit('SET_USERNAME', '');
+          commit('SET_MENUSJSON', '');
+          commit('SET_MENUS', '');
+          removeToken();
+          resolve();
         }).catch(error => {
           reject(error)
         })
@@ -131,9 +160,9 @@ const user = {
     // 前端 登出
     FedLogOut({ commit }) {
       return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        removeToken()
-        resolve()
+        commit('SET_TOKEN', '');
+        removeToken();
+        resolve();
       })
     },
 
