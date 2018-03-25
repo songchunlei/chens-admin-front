@@ -46,13 +46,24 @@ export default {
             }
         }
     },
-    watch: {
-        form () { // 表单的值发生变化
-            this.menusForm = this.form;
-        }
+    created () {
+        console.log("=============");
+        console.log(this.form);
     },
-    props: ['form'],
+    watch: {
+        'form.parentId' () { // 表单的值发生变化
+            debugger;
+            console.log("```````````````");
+            console.log(this.form);
+            this.menusForm = this.form;
+        },
+        deep: true
+    },
+    props: ['form', 'handleStatus', 'currentNode'],
     methods: {
+        initData () {
+            
+        },
         submitForm (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {

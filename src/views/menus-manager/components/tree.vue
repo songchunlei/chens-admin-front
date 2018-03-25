@@ -51,13 +51,13 @@ export default {
             }    
         },
 
-        renderForm (data) {
-            this.$emit('updateTree', data);
+        renderForm (data, type) {
+            this.$emit('updateTree', data, type);
         },
 
         append (data) {
             debugger;
-            this.renderForm();
+            this.renderForm(data, 'append');
             //const newChild = { id: id++, label: 'testtest', children: [] };
             //if (!data.children) {
             //this.$set(data, 'children', []);

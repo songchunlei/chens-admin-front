@@ -89,17 +89,23 @@ import {
     loginApi,
     logoutApi,
     registerApi,
-    usersApi,
-    userByIdApi,
-    userInfoApi,
-    rolesApi,
     menusApi,
     createMenuApi,
     updateMenuApi,
     deleteMenuApi,
+    usersApi,
+    userByIdApi,
+    userInfoApi,
     updateUserApi,
     createUserApi,
-    deleteUserApi
+    deleteUserApi,
+    rolesApi,
+    sysRolesApi,
+    rolesByUserIdApi,
+    roleByIdApi,
+    createRoleApi,
+    updateRoleApi,
+    deleteRoleApi
 } from './resource';
 
 export default {
@@ -157,6 +163,36 @@ export default {
     // 获取角色列表
     getRoles (params) {
         return ajax({ url: rolesApi, params: params, type: 'POST' });
+    },
+
+    // 获取所有角色
+    getSysRoles () {
+        return ajax({ url: sysRolesApi })
+    },
+    
+    // 根据userId 获取角色
+    getRolesByUserId (userId) {
+        return ajax({ url: rolesByUserIdApi, params: {userId: userId} });
+    },
+
+    // 根据id获取角色
+    getRoleById (id) {
+        return ajax({ url: roleByIdApi + '/' + id });
+    },
+
+    // 新增角色
+    createRole (params) {
+        return ajax({ url: createRoleApi, params: params, type: 'POST' })
+    },
+    
+    // 更新角色信息
+    updateRole (params) {
+        return ajax({ url: updateRoleApi, params: params, type: 'PUT' })
+    },
+
+    // 新增角色
+    deleteRole (id) {
+        return ajax({ url: deleteRoleApi + '/' + id, type: 'DELETE' })
     },
 
     // 更新用户信息

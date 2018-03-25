@@ -4,6 +4,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
+    sysRoles: [],
     user: '',
     status: '',
     code: '',
@@ -23,6 +24,9 @@ const user = {
   },
 
   mutations: {
+    SET_SYSROLES: (state, sysRoles) => {
+      state.sysRoles = sysRoles
+    },
     SET_CODE: (state, code) => {
       state.code = code
     },
@@ -121,6 +125,22 @@ const user = {
         }).catch(error => {
           reject(error)
         })
+      })
+    },
+
+    // 系统角色
+    GetSysRoles({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        api.getSysRoles().then((response) => {
+          const json = response.data;
+          if (json.code != 1) {
+            reject(json.msg || '获取失败。');
+          }
+          commit('SET_SYSROLES', json.data);
+          resolve(response);
+        }).catch((error) => {
+          reject(error);
+        });
       })
     },
 

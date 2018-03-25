@@ -5,6 +5,8 @@
 @import './sidebar.scss';
 @import './btn.scss';
 
+$border-color: #e0e0e0;
+$font-mark: #ff9a4c;
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -190,4 +192,21 @@ code {
 
 .multiselect--active {
   z-index: 1000 !important;
+}
+.font-mark {
+  color: $font-mark;
+}
+.b-b {
+  border-bottom: 1px solid $border-color;
+}
+.p-sm {
+  padding: 10px;
+}
+.p-tb-sm {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.p-lr-sm {
+  padding-left: 10px;
+  padding-right: 10px;
 }

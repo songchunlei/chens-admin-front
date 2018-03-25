@@ -19,7 +19,7 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+          <img class="user-avatar" :src="avatarCh+'?imageView2/1/w/80/h/80'">
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -52,6 +52,11 @@ import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
 
 export default {
+  data () {
+    return {
+      avatarCh: '',
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger,
@@ -67,7 +72,17 @@ export default {
       'avatar'
     ])
   },
+  created () {
+    this.initData();
+  },
   methods: {
+    initData () {
+      if (!this.avatar) {
+        this.avatarCh = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif';
+      } else {
+        this.avatarCh = this.avatar;
+      }
+    },
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar')
     },

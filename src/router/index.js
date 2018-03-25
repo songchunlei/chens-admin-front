@@ -167,7 +167,7 @@ export const asyncRouterMap = [
       icon: 'form'
     },
     children: [
-      { path: 'editRole', component: _import('role-manager/edit'), name: 'editRole', meta: { title: 'editRole', icon: 'form' }},
+      { path: 'editRole/:id', component: _import('role-manager/edit'), name: 'editRole', meta: { title: 'editRole', icon: 'form' }},
       { path: 'roleList', component: _import('role-manager/list'), name: 'listRole', meta: { title: 'listRole', icon: 'table' }}
     ]
   },
