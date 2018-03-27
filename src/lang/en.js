@@ -1,7 +1,10 @@
 export default {
   route: {
     dashboard: '统计',
-    introduction: '资源列表',
+    sourceManager: '资源管理',
+    allSource: '全部资源',
+    errorSource: '报错资源',
+    otherSource: '其他资源',
     menusManager: '菜单管理',
     editMenus: '编辑菜单',
     userManager: '用户管理',

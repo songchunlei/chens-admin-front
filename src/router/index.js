@@ -141,7 +141,21 @@ export const asyncRouterMap = [
       { path: 'tab/index', icon: 'tab', component: _import('example/tab/index'), name: 'tab', meta: { title: 'tab' }}
     ]
   },
-
+  {
+    path: '/sourceManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'sourceManager',
+    meta: {
+      title: 'sourceManager',
+      icon: 'table'
+    },
+    children: [
+      { path: 'all', component: _import('source-manager/all'), name: 'all-source', meta: { title: 'allSource', icon: 'table' }},
+      { path: 'error', component: _import('source-manager/error'), name: 'error-source', meta: { title: 'errorSource', icon: 'table' }},
+      { path: 'other', component: _import('source-manager/other'), name: 'other-source', meta: { title: 'otherSource', icon: 'table' }}
+    ]
+  },
   {
     path: '/userManager',
     component: Layout,
