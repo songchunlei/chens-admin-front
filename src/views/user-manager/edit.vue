@@ -85,6 +85,7 @@ export default {
       } else {
         this.getUser(this.id);
       }
+      this.getSysRoles();
     },
     // id 获取用户
     getUser (id) {
@@ -132,7 +133,7 @@ export default {
       if (this.sysRoles && this.sysRoles.length > 0) {
         this.allRoles = this.sysRoles;
       } else {
-        this.$store.distach('GetSysRoles').then((res) => {
+        this.$store.distach('GetSysRoles').then((res) => {debugger;
           const json = res.data;
           this.allRoles = json.data;
           this.renderRoles();
