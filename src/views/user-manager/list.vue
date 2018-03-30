@@ -34,12 +34,12 @@
       </el-table-column>
       <el-table-column label="用户名">
         <template slot-scope="scope">
-          {{scope.row.name}}
+          {{scope.row.username}}
         </template>
       </el-table-column>
-      <el-table-column label="创建者" width="150" align="center">
+      <el-table-column label="姓名" width="150" align="center">
         
-        <template slot-scope="scope">{{scope.row.tenantId}}</template>
+        <template slot-scope="scope">{{scope.row.name}}</template>
       </el-table-column>
       
       <el-table-column align="center" label="创建日期" width="220">
@@ -52,6 +52,8 @@
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{$t('table.edit')}}</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.row,'deleted')">{{$t('table.delete')}}
+          </el-button>
+          <el-button size="mini" type="danger" @click="restPwd(scope.row)">{{$t('table.restPwd')}}
           </el-button>
         </template>
       </el-table-column>
@@ -138,9 +140,19 @@ export default {
     handleDelete (user, type) {
       if (type == 'deleted') {
         api.deleteUserById(user.id).then((res) => {
-          console.log(3);
+          console.log(res);
         });
       }
+    },
+
+    // 密码重置
+    restPwd (user, type) {
+        api.restPwdUserApi({
+          "userId":user.id,
+          "isRandom":false
+        }).then((res) => {
+          console.log(res);
+        });
     },
 
     // 分配角色
