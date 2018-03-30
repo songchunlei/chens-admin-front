@@ -20,7 +20,7 @@ RUN npm install
 
 #编译代码
 COPY . /app/
-RUN npm run build
+RUN npm run build:prod
 
 #复制打包后的代码进入nginx
 RUN cp -R /app/dist/*  /usr/share/nginx/html
