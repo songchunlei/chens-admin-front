@@ -2,9 +2,9 @@
 <div class="example-full">
   <button type="button" class="btn btn-danger float-right btn-is-option" @click.prevent="isOption = !isOption">
     <i class="fa fa-cog" aria-hidden="true"></i>
-    Options
+    设置
   </button>
-  <h1 id="example-title" class="example-title">Full Example</h1>
+  <h1 id="example-title" class="example-title">资源上传</h1>
 
   <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
 		<h3>Drop files to upload</h3>
@@ -15,19 +15,19 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Thumb</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Speed</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>缩略图</th>
+            <th>文件名</th>
+            <th>大小</th>
+            <th>速度</th>
+            <th>状态</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
           <tr v-if="!files.length">
             <td colspan="7">
               <div class="text-center p-5">
-                <h4>Drop files anywhere to upload<br/>or</h4>
+                <h4>选择上传文件<br/>or</h4>
                 <label :for="name" class="btn btn-lg btn-primary">Select Files</label>
               </div>
             </td>
@@ -212,8 +212,9 @@
 
 
 
-
+  <!--
   <div :class="{'modal-backdrop': true, 'fade': true, show: addData.show}"></div>
+  -->
   <div :class="{modal: true, fade: true, show: addData.show}" id="modal-add-data" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -253,8 +254,9 @@
 
 
 
-
+  <!--
   <div :class="{'modal-backdrop': true, 'fade': true, show: editFile.show}"></div>
+  -->
   <div :class="{modal: true, fade: true, show: editFile.show}" id="modal-edit-file" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -297,9 +299,11 @@
     </div>
   </div>
 
+  <!--
   <div class="pt-5">
     Source code: <a href="https://github.com/lian-yue/vue-upload-component/blob/master/docs/views/examples/Full.vue">/docs/views/examples/Full.vue</a>
   </div>
+  -->
 
 </div>
 </template>
@@ -566,7 +570,129 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+th {
+  text-align: left;
+}
+.table td, .table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #e9ecef;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #e9ecef;
+  vertical-align: top;
+  border-top: 1px solid #e9ecef;
+}
+button, html [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: button;
+}
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  border-radius: .25rem;
+  transition: all .15s ease-in-out;
+}
+.btn-success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+button, select {
+  text-transform: none;
+}
+button, input {
+  overflow: visible;
+}
+button, input, optgroup, select, textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+}
+.fade {
+  opacity: 0;
+  transition: opacity .15s linear;
+}
+label {
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.text-muted {
+  color: #868e96!important;
+}
+.form-check {
+  position: relative;
+  display: block;
+  margin-bottom: .5rem;
+}
+.form-check-input:only-child {
+  position: static;
+}
+.form-text {
+  display: block;
+  margin-top: .25rem
+}
 .example-full .btn-group .dropdown-menu {
   display: block;
   visibility: hidden;

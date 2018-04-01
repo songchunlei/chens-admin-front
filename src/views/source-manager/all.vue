@@ -43,7 +43,7 @@ export default {
     }
   },
 
-  components: { upTable },
+  components: { upTable, uploadTable },
   created () {
 
   },
