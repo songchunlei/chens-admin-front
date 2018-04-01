@@ -129,8 +129,7 @@ export default {
 
     // 用户修改
     handleUpdate (user) {
-      debugger;
-      let id = user ? user.id : '000000';
+      let id = user ? user.id : ':id';
       this.$router.push({ path: '/userManager/editUser/' + id });
     },
 

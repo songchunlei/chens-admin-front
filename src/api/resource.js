@@ -18,13 +18,13 @@ const apiChens = {
     deleteMenuRes: proxyUrl + 'menuController/delete', // 删除菜单
     usersRes: proxyUrl + 'userController/pagelist', // 获取当前登录用户下面的用户路径
     userByIdRes: proxyUrl + 'userController/info', // 根据ID查用户
-    userInfoRes: proxyUrl + '/authController/parseToken', // 根据token查用户信息
+    userInfoRes: proxyUrl + 'authController/parseToken', // 根据token查用户信息
     createUserRes: proxyUrl + 'userController/createUser', // 修改用户
     updateUserRes: proxyUrl + 'userController/update', // 修改用户
     deleteUserRes: proxyUrl + 'userController/delete', // 删除用户
     rolesRes: proxyUrl + 'roleController/pagelist', // 获取角色数据
     sysRolesRes: proxyUrl + 'roleController/list', // 获取所有角色数据
-    rolesByUserIdRes: proxyUrl + '/roleController/getRoleListByUserId', // 根据用户ID获取角色
+    rolesByUserIdRes: proxyUrl + 'roleController/getRoleListByUserId', // 根据用户ID获取角色
     roleByIdRes: proxyUrl + 'roleController/info', // 获取角色信息
     createRoleRes: proxyUrl + 'roleController/create', // 新增角色信息
     updateRoleRes: proxyUrl + 'roleController/update', // 修改角色信息

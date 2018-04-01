@@ -9,23 +9,20 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button type="primary" icon="el-icon-share">新建文件夹</el-button>
+      <el-button type="default" icon="el-icon-share" class="m-lr-md">新建文件夹</el-button>
     </div>
 
     <div>
-      <el-popover
-        ref="filePopover"
-        placement="right"
-        width="800"
-        trigger="manual">
-        <popover-content></popover-content>
-      </el-popover>
+      <el-dialog :visible.sync="upload.dialogTableVisible">
+        <upload-table :files="upload.files"></upload-table>
+      </el-dialog>
     </div>
 
   </div>
 </template>
 <script>
-import popoverContent from './components/popover';
+import upTable from './components/upTable';
+import uploadTable from './components/upLoad';
 
 const sourcesAdds = () => [
   { name: '上传文件', value: '001', icon: 'icon-shangchuanwenjian' },
@@ -38,10 +35,15 @@ export default {
       sourcesAdds: sourcesAdds(), // 添加资源的方法
       addType: '', // 添加方法
       sourceTitle: '', // 资源名 用来搜索
+      upload: {
+        dialogTableVisible: false,
+        files: [], // 文件
+      }
+      
     }
   },
 
-  components: { popoverContent },
+  components: { upTable },
   created () {
 
   },
@@ -52,7 +54,7 @@ export default {
     // 上传文件
     uploadSource () {
       console.log('上传');
-      this.$refs.filePopover.doShow();
+      this.upload.dialogTableVisible = true;
     },
     // 图文新建
     editSource () {
