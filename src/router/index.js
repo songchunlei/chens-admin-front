@@ -201,6 +201,49 @@ export const asyncRouterMap = [
   },
 
   {
+    path: '/dictTypeManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'dictTypeManager',
+    meta: {
+      title: 'dictTypeManager',
+      icon: 'form'
+    },
+    children: [
+      { path: 'editDictType/:id', component: _import('dict-type-manager/edit'), name: 'editDictType', meta: { title: 'editDictType', icon: 'form' }},
+      { path: 'dictTypeList', component: _import('dict-type-manager/list'), name: 'listDictType', meta: { title: 'listDictType', icon: 'table' }}
+    ]
+  },
+
+  {
+    path: '/sysLogManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'sysLogManager',
+    meta: {
+      title: 'sysLogManager',
+      icon: 'form'
+    },
+    children: [
+      { path: 'sysLogManagerList', component: _import('sys-log-manager/list'), name: 'sysLogManager', meta: { title: 'listSysLog', icon: 'table' }}
+    ]
+  },
+
+  {
+    path: '/tenantManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'tenantManager',
+    meta: {
+      title: 'tenantManager',
+      icon: 'form'
+    },
+    children: [
+      { path: 'tenantManagerList', component: _import('tenant-manager/list'), name: 'tenantManager', meta: { title: 'listTenantManager', icon: 'table' }}
+    ]
+  },
+
+  {
     path: '/error',
     component: Layout,
     redirect: 'noredirect',
