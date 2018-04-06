@@ -171,6 +171,21 @@ export const asyncRouterMap = [
       { path: 'other', component: _import('source-manager/other'), name: 'other-source', meta: { title: 'otherSource', icon: 'table' }}
     ]
   },
+
+  {
+    path: '/dictTypeManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'dictTypeManager',
+    meta: {
+      title: 'dictTypeManager',
+      icon: 'form'
+    },
+    children: [
+      { path: 'editDictType/:id', component: _import('dict-type-manager/edit'), name: 'editDictType', meta: { title: 'editDictType', icon: 'form' }},
+      { path: 'dictTypeList', component: _import('dict-type-manager/list'), name: 'listDictType', meta: { title: 'listDictType', icon: 'table' }}
+    ]
+  },
   {
     path: '/excel',
     component: Layout,
