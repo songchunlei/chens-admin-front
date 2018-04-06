@@ -42,17 +42,6 @@ export const constantRouterMap = [
       name: 'dashboard',
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
-  },
-  {
-    path: '/documentation',
-    component: Layout,
-    redirect: '/documentation/index',
-    children: [{
-      path: 'index',
-      component: _import('documentation/index'),
-      name: 'documentation',
-      meta: { title: 'documentation', icon: 'documentation', noCache: true }
-    }]
   }
 ]
 
@@ -63,23 +52,6 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/permission',
-    component: Layout,
-    redirect: '/permission/index',
-    meta: { roles: ['admin'] }, // you can set roles in root nav
-    children: [{
-      path: 'index',
-      component: _import('permission/index'),
-      name: 'permission',
-      meta: {
-        title: 'permission',
-        icon: 'lock',
-        roles: ['admin'] // or you can only set roles in sub nav
-      }
-    }]
-  },
-
   {
     path: '/icon',
     component: Layout,
@@ -141,87 +113,64 @@ export const asyncRouterMap = [
       { path: 'tab/index', icon: 'tab', component: _import('example/tab/index'), name: 'tab', meta: { title: 'tab' }}
     ]
   },
+
   {
-    path: '/sourceManager',
+    path: '/sysManager',
     component: Layout,
-    redirect: 'noredirect',
-    name: 'sourceManager',
+    redirect: '/sysManager/userManager/userList',
+    name: 'sysManager',
     meta: {
-      title: 'sourceManager',
+      title: 'sysManager',
       icon: 'table'
     },
     children: [
-      { path: 'all', component: _import('source-manager/all'), name: 'all-source', meta: { title: 'allSource', icon: 'table' }},
+      {
+        path: '/sysManager/user',
+        component: _import('sys-manager/user-manager/index'),
+        redirect: '/sysManager/userManager/userList',
+        name: 'userManager',
+        meta: {
+          title: 'userManager',
+          icon: 'form'
+        },
+        children: [
+          { path: 'userUpdate', component: _import('sys-manager/user-manager/edit'), name: 'updateUser', meta: { title: 'userUpdate' }},
+          { path: 'userPage', component: _import('sys-manager/user-manager/list'), name: 'listUser', meta: { title: 'userPage' }}
+        ]
+      },
+      {
+        path: '/sysManager/role',
+        component: _import('sys-manager/role-manager/index'),
+        redirect: '/sysManager/roleManager/roleList',
+        name: 'roleManager',
+        meta: {
+          title: 'roleManager',
+          icon: 'form'
+        },
+        children: [
+          { path: 'roleUpdate', component: _import('sys-manager/role-manager/edit'), name: 'editRole', meta: { title: 'roleUpdate' }},
+          { path: 'rolePage', component: _import('sys-manager/role-manager/list'), name: 'listRole', meta: { title: 'rolePage' }}
+        ]
+      },
+      { path: 'menusManager/menusList',  component: _import('sys-manager/menus-manager/edit'), name: 'menusManager', meta: { title: 'menusManager' }}
+    ]
+  },
+
+  {
+    path: '/resourceManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'resourceManager',
+    meta: {
+      title: 'resourceManager',
+      icon: 'table'
+    },
+    children: [
+      { path: 'resourcePage', component: _import('source-manager/resourcePage'), name: 'source-page', meta: { title: 'resourcePage', icon: 'table' }},
       { path: 'error', component: _import('source-manager/error'), name: 'error-source', meta: { title: 'errorSource', icon: 'table' }},
       { path: 'other', component: _import('source-manager/other'), name: 'other-source', meta: { title: 'otherSource', icon: 'table' }}
     ]
   },
-  {
-    path: '/userManager',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'userManager',
-    meta: {
-      title: 'userManager',
-      icon: 'form'
-    },
-    children: [
-      { path: 'editUser/:id', component: _import('user-manager/edit'), name: 'editUser', meta: { title: 'editUser', icon: 'form' }},
-      { path: 'userList', component: _import('user-manager/list'), name: 'listUser', meta: { title: 'listUser', icon: 'table' }}
-    ]
-  },
-  
-  {
-    path: '/roleManager',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'roleManager',
-    meta: {
-      title: 'roleManager',
-      icon: 'form'
-    },
-    children: [
-      { path: 'editRole/:id', component: _import('role-manager/edit'), name: 'editRole', meta: { title: 'editRole', icon: 'form' }},
-      { path: 'roleList', component: _import('role-manager/list'), name: 'listRole', meta: { title: 'listRole', icon: 'table' }}
-    ]
-  },
-
-  {
-    path: '/menusManager',
-    component: Layout,
-    redirect: '/menusManager/editMenus',
-    name: 'menusManager',
-    meta: {
-      title: 'menusManager',
-      icon: 'table'
-    },
-    children: [
-      { path: 'editMenus', component: _import('menus-manager/edit'), name: 'editMenus', meta: { title: 'editMenus', icon: 'table' }},
-    ]
-  },
-
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'errorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404'
-    },
-    children: [
-      { path: '401', component: _import('errorPage/401'), name: 'page401', meta: { title: 'page401', noCache: true }},
-      { path: '404', component: _import('errorPage/404'), name: 'page404', meta: { title: 'page404', noCache: true }}
-    ]
-  },
-
-  {
-    path: '/error-log',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{ path: 'log', component: _import('errorLog/index'), name: 'errorLog', meta: { title: 'errorLog', icon: 'bug' }}]
-  },
-
   {
     path: '/excel',
     component: Layout,
@@ -245,26 +194,6 @@ export const asyncRouterMap = [
     alwaysShow: true,
     meta: { title: 'zip', icon: 'zip' },
     children: [{ path: 'download', component: _import('zip/index'), name: 'exportZip', meta: { title: 'exportZip' }}]
-  },
-
-  {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{ path: 'index', component: _import('theme/index'), name: 'theme', meta: { title: 'theme', icon: 'theme' }}]
-  },
-
-  {
-    path: '/clipboard',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{ path: 'index', component: _import('clipboard/index'), name: 'clipboardDemo', meta: { title: 'clipboardDemo', icon: 'clipboard' }}]
-  },
-
-  {
-    path: '/i18n',
-    component: Layout,
-    children: [{ path: 'index', component: _import('i18n-demo/index'), name: 'i18n', meta: { title: 'i18n', icon: 'international' }}]
   },
 
   { path: '*', redirect: '/404', hidden: true }

@@ -1,7 +1,7 @@
 <template>
   <scroll-bar>
     <el-menu mode="vertical" :default-active="$route.path" :collapse="isCollapse" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
-      <sidebar-item :routes="permission_routers"></sidebar-item>
+      <sidebar-item :routes="menus"></sidebar-item>
     </el-menu>
   </scroll-bar>
 </template>
@@ -19,16 +19,16 @@ export default {
   computed: {
     ...mapGetters([
       'permission_routers',
-      'sidebar'
+      'sidebar',
+      'menus'
     ]),
     isCollapse() {
-      debugger;
       return !this.sidebar.opened
     }
   },
   created () {
-    debugger;
-    console.log(this.permission_routers);
+    console.log("====================");
+    console.log(this.menus);
   }
 }
 </script>

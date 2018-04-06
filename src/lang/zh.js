@@ -2,7 +2,7 @@ export default {
   route: {
     dashboard: '统计',
     sourceManager: '资源管理',
-    allSource: '全部资源',
+    sourcePage: '全部资源',
     errorSource: '报错资源',
     otherSource: '其他资源',
     menusManager: '菜单管理',
@@ -13,9 +13,8 @@ export default {
     roleManager: '角色管理',
     editRole: '角色编辑',
     listRole: '角色列表',
-    documentation: 'documentation',
-    permission: 'Permission',
-    icons: 'Icons',
+    permission: '权限',
+    icons: '图片库',
     components: '题库管理',
     componentIndex: 'Introduction',
     tinymce: 'Tinymce',
@@ -42,20 +41,20 @@ export default {
     treeTable: 'Tree Table',
     customTreeTable: 'Custom TreeTable',
     tab: 'Tab',
-    
-    errorPages: '图书管理',
-    page401: '全部图书',
-    page404: '图书回收站',
+    sysManager: '系统管理',
+    roleManager: '角色管理',
+    editRole: '角色编辑',
+    listRole: '角色列表',
+    errorPages: '错误',
+    page401: '401',
+    page404: '404',
     errorLog: 'Error Log',
     excel: 'Excel',
     exportExcel: '导出Excel',
     selectExcel: '筛选Excel',
     uploadExcel: '上传Excel',
-    zip: '课程管理',
-    exportZip: '课程',
-    theme: 'Theme',
-    clipboardDemo: 'Clipboard',
-    i18n: 'I18n'
+    zip: '导出',
+    exportZip: '导出',
   },
   navbar: {
     logOut: '退出登录',
@@ -72,10 +71,6 @@ export default {
     any: '随便填',
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
-  },
-  documentation: {
-    documentation: '文档',
-    github: 'Github 地址'
   },
   permission: {
     roles: '你的权限',
