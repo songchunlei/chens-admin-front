@@ -38,11 +38,7 @@ export default {
   },
   methods: {
     initData () {
-      if (!this.userId) {
-          alert(2);
-        this.userId = this.$route.params.id;
-      }
-      if (this.userId != ':id') { // 修改
+      if (this.userId) { // 修改
         this.getRolesByUserId();
       }
       this.getSysRoles();

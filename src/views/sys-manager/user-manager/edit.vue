@@ -68,7 +68,7 @@ export default {
   methods: {
     init () {
       this.rules = Rules.rules;
-      this.id = this.$route.query.userId;
+      this.id = this.$route.query.userId || '';
       this.rolesShow = true;
       if (this.id) {
         this.getUser(this.id);
@@ -91,19 +91,19 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          debugger;
-          if (this.id == ':id') { // 新增
+          if (!this.id) { // 新增
+            alert('createUser');
             api.createUser(this.userForm).then((res) => {debugger;
+            
               if (res.data.code == 1) {
 
               }
             });
           } else { // 修改
+          alert('updateUser');
             api.updateUser(this.userForm).then((res) => {
-              console.log(res.data);
-              if (res.data.code == 1) {
-
-              }
+              const json = res.data;
+              console.log(json);
             }).catch((error) => {
               console.log(error);
             })
