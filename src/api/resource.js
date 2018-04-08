@@ -19,7 +19,7 @@ const apiChens = {
     usersRes: proxyUrl + 'userController/pagelist', // 获取当前登录用户下面的用户路径
     userByIdRes: proxyUrl + 'userController/info', // 根据ID查用户
     userInfoRes: proxyUrl + 'authController/parseToken', // 根据token查用户信息
-    createUserRes: proxyUrl + 'userController/createUser', // 修改用户
+    createUserRes: proxyUrl + 'userController/create', // 创建用户
     updateUserRes: proxyUrl + 'userController/update', // 修改用户
     deleteUserRes: proxyUrl + 'userController/delete', // 删除用户
     rolesRes: proxyUrl + 'roleController/pagelist', // 获取角色数据
