@@ -29,6 +29,7 @@ const apiChens = {
     createRoleRes: proxyUrl + 'roleController/create', // 新增角色信息
     updateRoleRes: proxyUrl + 'roleController/update', // 修改角色信息
     deleteRoleRes: proxyUrl + 'roleController/deleteWithRel', // 删除角色信息
+    sysLogsRes: proxyUrl + 'sysLogController/pagelist', // 系统日志列表
     /** 真实数据 **/
 
 }
@@ -53,5 +54,6 @@ export const roleByIdApi = API_ROOT.concat(apiChens.roleByIdRes);
 export const createRoleApi = API_ROOT.concat(apiChens.createRoleRes);
 export const updateRoleApi = API_ROOT.concat(apiChens.updateRoleRes);
 export const deleteRoleApi = API_ROOT.concat(apiChens.deleteRoleRes);
+export const sysLogsApi = API_ROOT.concat(apiChens.sysLogsRes);
 
 
