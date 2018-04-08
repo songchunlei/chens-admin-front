@@ -35,8 +35,8 @@ export default {
     },
     
     // 退出
-    doLogout (token) {
-        return ajax({ url: logoutApi, params: { token: token } });
+    doLogout () {
+        return ajax({ url: logoutApi });
     },
 
     // 注册

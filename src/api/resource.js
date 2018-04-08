@@ -10,7 +10,7 @@ const reUrlSer = '/zq-web/'; // 服务器资源路径代理抬头
 const apiChens = {
     /** 真实数据 **/
     loginRes: proxyUrl + 'authController/login', // 登录请求路径
-    logoutRes: proxyUrl + 'authController/loginout', // 退出请求路径
+    logoutRes: proxyUrl + 'authController/logout', // 退出请求路径
     registerRes: proxyUrl + 'authController/register', // 注册请求路径
     menusRes: proxyUrl + 'menuController/tree', // 获取系统菜单路径
     createMenuRes: proxyUrl + 'menuController/create', // 新增菜单

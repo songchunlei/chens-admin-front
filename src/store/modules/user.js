@@ -159,9 +159,9 @@ const user = {
     // },
 
     // 登出
-    DoLogout({ commit, state }) {
+    DoLogout({ commit }) {
       return new Promise((resolve, reject) => {
-        api.doLogout(state.token).then(() => {
+        api.doLogout().then(() => {
           commit('SET_TOKEN', '');
           commit('SET_ID', '');
           commit('SET_TENANTID', '');
