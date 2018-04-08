@@ -1,7 +1,7 @@
 <template>
   <div id="userForm" class="app-container simpleForm">
     <div>
-      <el-form class="form-container app-container" label-width="80px" label-position="right" :model="userForm" :rules="rules" ref="userForm">
+      <el-form class="form-container app-container" v-loading.body="listLoading" label-width="80px" label-position="right" :model="userForm" :rules="rules" ref="userForm">
         <el-row :gutter="50">
           <el-col :span="10">
             <h4><i class="iconFont icon-jibenziliao"></i>用户基本信息</h4>
@@ -45,6 +45,7 @@ export default {
   name: 'editForm',
   data () {
     return {
+      listLoading: false,
       id: '', // 用户id
       rules: '',
       userForm: {
@@ -91,21 +92,24 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.listLoading = true;
           if (!this.id) { // 新增
-            alert('createUser');
-            api.createUser(this.userForm).then((res) => {debugger;
-            
-              if (res.data.code == 1) {
-
-              }
+            api.createUser(this.userForm).then((res) => {
+              this.listLoading = false;
+              res.data.code === 1 ? this.$message.success('新增用户成功。') : '';
+              this.$router.push({ path: '/sysManager/user/userPage' })
+            }).catch((error) => {
+              this.listLoading = false;
+              this.$message.error(error);
             });
           } else { // 修改
-          alert('updateUser');
             api.updateUser(this.userForm).then((res) => {
-              const json = res.data;
-              console.log(json);
+              this.listLoading = false;
+              res.data.code === 1 ? this.$message.success('修改用户成功。') : '';
+              this.$router.push({ path: '/sysManager/user/userPage' })
             }).catch((error) => {
-              console.log(error);
+              this.listLoading = false;
+              this.$message.error(error);
             })
           }
         } else {

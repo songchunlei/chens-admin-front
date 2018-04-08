@@ -132,12 +132,8 @@ export default {
         break;
         default:;
       }
-    },
-
-    // 提交
-    subRoles() {
-      this.dialogFormVisible = false;
     }
+
   }
 }
 </script>

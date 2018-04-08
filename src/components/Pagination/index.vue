@@ -20,9 +20,10 @@ export default {
   name: 'page-pagination',
   data () {
     return {
+      totalSize: 0,
       params: {
         page: {
-          totalSize: 0,
+          
         },
         search: {
 
