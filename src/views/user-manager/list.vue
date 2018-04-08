@@ -131,8 +131,8 @@ export default {
 
     // 用户修改
     handleUpdate (user) {
-      let id = user ? user.id : ':id';
-      this.$router.push({ path: '/userManager/editUser/' + id });
+      let userId = user ? user.id : '';
+      this.$router.push({ path: '/sysManager/user/userUpdate', query: { userId: userId }});
     },
 
     // 删除用户

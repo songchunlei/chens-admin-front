@@ -135,7 +135,7 @@ export const asyncRouterMap = [
         },
         children: [
           { path: 'userUpdate', component: _import('sys-manager/user-manager/edit'), name: 'updateUser', meta: { title: 'userUpdate' }},
-          { path: 'userPage', component: _import('sys-manager/user-manager/list'), name: 'listUser', meta: { title: 'userPage' }}
+          { path: 'userPage', component: _import('sys-manager/user-manager/list'), name: 'listUser', meta: { title: 'userPage', code: 'user/userPage' }}
         ]
       },
       {
@@ -149,10 +149,10 @@ export const asyncRouterMap = [
         },
         children: [
           { path: 'roleUpdate', component: _import('sys-manager/role-manager/edit'), name: 'editRole', meta: { title: 'roleUpdate' }},
-          { path: 'rolePage', component: _import('sys-manager/role-manager/list'), name: 'listRole', meta: { title: 'rolePage' }}
+          { path: 'rolePage', component: _import('sys-manager/role-manager/list'), name: 'listRole', meta: { title: 'rolePage', code: 'role/rolePage' }}
         ]
       },
-      { path: 'menusManager/menusList',  component: _import('sys-manager/menus-manager/edit'), name: 'menusManager', meta: { title: 'menusManager' }}
+      { path: 'menuList',  component: _import('sys-manager/menus-manager/edit'), name: 'menusList', meta: { title: 'menusManager', code: 'menusList' }}
     ]
   },
 

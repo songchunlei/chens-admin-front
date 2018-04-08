@@ -122,7 +122,7 @@ export default {
     // 修改
     handleMdf (role, type) {
       let roleId = type == 'update' ? role.id : '';
-      this.$router.push({ path: '/roleManager/editRole/', query: { roleId: roleId }});
+      this.$router.push({ path: '/sysManager/role/roleUpdate/', query: { roleId: roleId }});
     }
   }
 }

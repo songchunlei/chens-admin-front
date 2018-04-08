@@ -1,3 +1,5 @@
+'use strict'
+
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
@@ -5,23 +7,20 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.BASE_API, // api的base_url
   timeout: 5000 // request timeout
 })
-
-// request interceptor
 service.interceptors.request.use(config => {
-  debugger;
-  // Do something before request is sent
+  // Do something before request is sent 
   if (store.getters.token) {
-    config.headers['X-Token'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+    config.headers['Authorization'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
   }
   return config
-}, error => {
-  // Do something with request error
-  console.log(error) // for debug
-  Promise.reject(error)
+  }, error => {
+    // Do something with request error
+    console.log(error) // for debug
+    Promise.reject(error)
 })
+
 
 // respone interceptor
 service.interceptors.response.use(
@@ -61,6 +60,27 @@ service.interceptors.response.use(
       duration: 5 * 1000
     })
     return Promise.reject(error)
-  })
+})
+  
 
-export default service
+const suffix = ''; // 后缀
+const ajax = function (obj) {
+    const _suffix = obj.suffix || suffix;
+    let url = obj.url + _suffix;
+    let type = obj.type ? obj.type.toUpperCase() : 'GET';
+    let headers = {headers: {"Content-Type": "application/json"}};
+    let params = obj.params || {};
+    switch (type) {
+        case 'GET': return service.get(url, { params: params });
+        break;
+        case 'POST': return service.post(url, params, headers);
+        break;
+        case 'PUT': return service.put(url, params, headers);
+        break;
+        case 'DELETE': return service.delete(url, params, headers);
+        break;
+        default: break;
+    }
+}
+
+export default ajax;

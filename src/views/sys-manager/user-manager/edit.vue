@@ -70,7 +70,7 @@ export default {
       this.rules = Rules.rules;
       this.id = this.$route.query.userId;
       this.rolesShow = true;
-      if (!this.id) {
+      if (this.id) {
         this.getUser(this.id);
       }
     },
