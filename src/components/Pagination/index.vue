@@ -7,7 +7,7 @@
       :page-sizes="pagesizes"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
+      :total="totalSize">
     </el-pagination>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     return {
       params: {
         page: {
-
+          totalSize: 0,
         },
         search: {
 
@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     initData () {
+      this.totalSize = this.total;
       if (this.api) {
         this.pageList();
       }
@@ -73,7 +74,7 @@ export default {
     },
     pageList () {
       api[this.api](this.params).then((res) => {
-        this.total = res.data.data.total;
+        this.totalSize = res.data.data.total;
         this.$emit('complete', res)
       }).catch((error) => {
         this.$message.error(error || '系统异常。');
