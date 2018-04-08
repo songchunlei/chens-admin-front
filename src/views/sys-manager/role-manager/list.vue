@@ -3,8 +3,6 @@
   <div class="app-container">
     <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.name"></el-input>
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
-    <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleMdf">新增</el-button>
-    
     
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='Id' width="95">
@@ -31,99 +29,54 @@
       </el-table-column>
       <el-table-column label="操作" width="235" align="center">
         <template slot-scope="scope">
-          <el-button type="primary" @click="handleMdf(scope.row, 'update')" size="small">修改</el-button>
-          <el-button type="success" v-if="scope.row.isDelete == 0" @click="handleModifyStatus(scope.row, scope.$index)" size="mini">恢复</el-button>
-          <el-button type="warning" v-if="scope.row.isDelete != 0" @click="handleModifyStatus(scope.row, scope.$index)" size="mini">删除</el-button>
-          
+          <perm-btn :item="scope.row" :code="$route.meta.code" @handlerAllot="handlerAllot"></perm-btn>
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-container">
+      <page-pagination ref="pagination" :api="'getRoles'" :search="search" @complete="complete">
+      </page-pagination>
+    </div>
   </div>
 </template>
 
 <script>
 import { fetchList } from '@/api/article'
 import api from '@/api'
-import { mapState, mapActions } from 'vuex';
+import { mapGetter } from 'vuex'
 import { parseTime } from '@/utils'
+import permBtn from '@/components/BtnTemp'
+import pagePagination from '@/components/Pagination'
 
 export default {
-  name: 'exportExcel',
+  name: 'roleManager',
   data() {
     return {
       list: null,
       listLoading: true,
+      search: {
 
-
-      page: { // 分页信息
-        current: 1,
-        size: 10
-      },
-      search: { // 查询条件
-        name: '',
-      },
-
+      }
     }
   },
+  components: { permBtn, pagePagination },
   computed: {
-    ...mapState({
-
-    })
   },
   created () {
-    this.roleList()
   },
   methods: {
-    roleList() {
-      let params = {
-        "page": this.page,
-        "search": this.search
-      }
-      let _this = this;
-      api.getRoles(params).then((res) => {
-        _this.listLoading = false;
-        let json = res.data;
-        if (json.code == 1) {
-          let records = json.data.records;
-          _this.list = records;
-          if (records && records.length == page.size ) {
-            page.current ++;
-          }
-        } else {
-          this.$message.error(json.msg || '查询失败');
-        }
-      }).catch( (error) => {
-        this.listLoading = false;
-        this.$message.error(error || '系统异常。');
-      });
+    complete (res) {
+      this.listLoading = false;
+      this.list = res.data.data.records;
     },
 
     handleSearch () {
+      this.$refs.pagination.search(this.search);
     },
     
-    // getRoles
-    getRoles () {
-      
+    // 权限btns 子组件触发
+    handlerAllot (item, type) {
     },
-    // 复原 或者 删除
-    handleModifyStatus (role, index) {
-      role.isDelete = role.isDelete == 0 ? 1 : 0;
-      api.updateRole(role).then((res) => {
-        let json = res.data;
-        if (json.code != 1) {
-          this.$message.error(json.msg || '角色恢复失败。');
-          return;
-        }
-        this.list[index].isDelete = role.isDelete;
-      }).catch((error) => {
-        this.$message.error(error || '系统异常。');
-      })
-    },
-    // 修改
-    handleMdf (role, type) {
-      let roleId = type == 'update' ? role.id : '';
-      this.$router.push({ path: '/sysManager/role/roleUpdate/', query: { roleId: roleId }});
-    }
   }
 }
 </script>

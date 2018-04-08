@@ -37,6 +37,7 @@ export default {
   methods: {
     // 处理数据 判断按钮是否显示
     initData () {
+      debugger;
       const b_cs = this.menusJson[this.code].children;
       if (!b_cs || b_cs.length < 1) {
         return;

@@ -39,6 +39,11 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div class="pagination-container">
+      <page-pagination :api="'getUsers'" :search="search" @complete="complete">
+      </page-pagination>
+    </div>
   </div>
 </template>
 
@@ -48,6 +53,7 @@ import api from '@/api'
 import { mapState } from 'vuex';
 import { parseTime } from '@/utils'
 import permBtn from '@/components/BtnTemp'
+import pagePagination from '@/components/Pagination'
 
 export default {
   name: 'userPage',
@@ -55,58 +61,31 @@ export default {
     return {
       list: null,
       listLoading: true,
-      page: { // 分页信息
-        current: 1,
-        size: 10
-      },
       search: { // 查询条件
         keyword: '', // 关键字
       },
-      btnChilds: [{ code: 'user-create' }, { code: 'user-update' }],
-
       dialogFormVisible: false,
       isIndeterminate: false
     }
   },
   computed:{
-    ...mapState({
 
-    })
   },
-  components: { permBtn },
+  components: { permBtn, pagePagination },
   created() {
-    this.initDate()
+    console.log('parent created');
+  },
+  mounted () {
+    console.log('parent mounted');
   },
   methods: {
-    initDate () {
-      this.userList();
+    complete (res) {
+      this.listLoading = false;
+      this.list = res.data.data.records;
     },
-    userList(success) {
-      let params = {
-        "page": this.page,
-        "search": this.search
-      }
-      let _this = this;
-      api.getUsers(params).then((res) => {
-        _this.listLoading = false;
-        if (res.data.code == 1) {
-          let json = res.data.data;
-          let records = json.records;
-          if (success) {
-            success(records);
-          } else {
-            _this.list = records;
-          }
-        } else {
-        }
-      }).catch( (error) => {
-        this.listLoading = false;
-      });
-    },
-
     // 搜索
     handleSearch () {
-
+      this.$refs.pagination.search(this.search);
     },
 
     // 用户修改
@@ -144,8 +123,6 @@ export default {
     
     // 权限btns 子组件触发
     handlerAllot (item, type) {
-      console.log(item);
-      console.log(type);
     },
 
     // 提交
