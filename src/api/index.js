@@ -25,7 +25,8 @@ import {
     roleByIdApi,
     createRoleApi,
     updateRoleApi,
-    deleteRoleApi
+    deleteRoleApi,
+    sysLogsApi
 } from './resource';
 
 export default {
@@ -128,5 +129,10 @@ export default {
     // 删除用户
     deleteUserById (id) {
         return ajax({ url: deleteUserApi + '/' + id, type: 'DELETE' });
+    },
+
+    // 日志列表
+    getSysLogs (params) {
+        return ajax({ url: sysLogsApi, params: params, type: 'POST' });
     }
 }

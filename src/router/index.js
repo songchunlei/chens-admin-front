@@ -152,7 +152,17 @@ export const asyncRouterMap = [
           { path: 'rolePage', component: _import('sys-manager/role-manager/list'), name: 'listRole', meta: { title: 'rolePage', code: 'role/rolePage' }}
         ]
       },
-      { path: 'menuList',  component: _import('sys-manager/menus-manager/edit'), name: 'menusList', meta: { title: 'menusManager', code: 'menusList' }}
+      { path: 'menuList',  component: _import('sys-manager/menus-manager/edit'), name: 'menusList', meta: { title: 'menusManager', code: 'menusList' }},
+      {
+        path: 'sysLogList',
+        component: _import('sys-manager/sys-log-manager/list'),
+        name: 'sysLogList',
+        meta: {
+          title: 'sysLogList',
+          icon: 'form'
+        }
+      }
+    
     ]
   },
 
