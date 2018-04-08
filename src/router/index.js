@@ -141,7 +141,7 @@ export const asyncRouterMap = [
       {
         path: '/sysManager/role',
         component: _import('sys-manager/role-manager/index'),
-        redirect: '/sysManager/roleManager/roleList',
+        redirect: '/sysManager/role/roleList',
         name: 'roleManager',
         meta: {
           title: 'roleManager',

@@ -123,6 +123,15 @@ export default {
     
     // 权限btns 子组件触发
     handlerAllot (item, type) {
+      switch (type) {
+        case 'create': this.$router.push({ path: '/sysManager/user/edit' });
+        break;
+        case 'update': this.$router.push({ path: '/sysManager/user/edit', query: { userId: item.id }});
+        break;
+        case 'delete': this.handleDelete(item);
+        break;
+        default:;
+      }
     },
 
     // 提交
