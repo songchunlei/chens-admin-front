@@ -83,11 +83,13 @@ export default {
     
     // 条数显示条数
     handleSizeChange(val) {
-      this.$emit('sizeChange', val);
+      this.params.pageSize = val;
+      this.pageList();
     },
     // 当前页
     handleCurrentChange(val) {
-      this.$emit('currentChange', val);
+      this.params.page.currentPage = val;
+      this.pageList();
     }
   }
   
