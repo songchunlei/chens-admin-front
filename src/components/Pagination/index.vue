@@ -3,9 +3,9 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
+      :current-page="current"
       :page-sizes="pagesizes"
-      :page-size="pageSize"
+      :page-size="size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalSize">
     </el-pagination>
@@ -32,11 +32,11 @@ export default {
     }
   },
   props: {
-    currentPage: {
+    current: {
       type: Number,
       default: 1
     },
-    pageSize: {
+    size: {
       type: Number,
       default: 10
     },
@@ -56,11 +56,9 @@ export default {
   },
   components: {},
   created () {
-    console.log('child created');
     this.initData();
   },
   mounted () {
-    console.log('child mounted');
   },
   methods: {
     initData () {
@@ -84,12 +82,12 @@ export default {
     
     // 条数显示条数
     handleSizeChange(val) {
-      this.params.pageSize = val;
+      this.params.page.size = val;
       this.pageList();
     },
     // 当前页
     handleCurrentChange(val) {
-      this.params.page.currentPage = val;
+      this.params.page.current = val;
       this.pageList();
     }
   }

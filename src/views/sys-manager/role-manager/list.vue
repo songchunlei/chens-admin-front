@@ -4,7 +4,13 @@
     <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.name"></el-input>
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
     
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+    <el-table :data="list" ref="roleTable" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+      <el-table-column align="center" label="选择框" width="65">
+        <template slot-scope="scope">
+          <el-radio class="radio" :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.$index)"></el-radio>
+        </template>
+      </el-table-column>
+      
       <el-table-column align="center" label='Id' width="95">
         <template slot-scope="scope">
           {{scope.$index}}
@@ -54,6 +60,7 @@ export default {
     return {
       list: null,
       listLoading: true,
+      radio: '',
       search: {
 
       }
@@ -74,6 +81,11 @@ export default {
       this.$refs.pagination.search(this.search);
     },
     
+    // 选中
+    getCurrentRow (val) {
+      // TODO 请求数据 或者调用子组件请求数据
+    },
+
     // 权限btns 子组件触发
     handlerAllot (item, type) {
     },
