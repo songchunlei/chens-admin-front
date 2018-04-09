@@ -248,11 +248,11 @@ export function debounce(func, wait, immediate) {
   }
 }
 
-export function deepClone(source) {
+export function deepClone(source, arrive) {
   if (!source && typeof source !== 'object') {
     throw new Error('error arguments', 'shallowClone')
   }
-  const targetObj = source.constructor === Array ? [] : {}
+  const targetObj = arrive || source.constructor === Array ? [] : {}
   for (const keys in source) {
     if (source.hasOwnProperty(keys)) {
       if (source[keys] && typeof source[keys] === 'object') {

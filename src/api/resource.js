@@ -22,6 +22,7 @@ const apiChens = {
     createUserRes: proxyUrl + 'userController/createUser', // 修改用户
     updateUserRes: proxyUrl + 'userController/update', // 修改用户
     deleteUserRes: proxyUrl + 'userController/delete', // 删除用户
+    userListByRoleIdRes: proxyUrl + '/userController/getUserListByRoleId', // 该角色的用户
     rolesRes: proxyUrl + 'roleController/pagelist', // 获取角色数据
     sysRolesRes: proxyUrl + 'roleController/list', // 获取所有角色数据
     rolesByUserIdRes: proxyUrl + 'roleController/getRoleListByUserId', // 根据用户ID获取角色
@@ -47,6 +48,7 @@ export const userInfoApi = API_ROOT.concat(apiChens.userInfoRes);
 export const createUserApi = API_ROOT.concat(apiChens.createUserRes);
 export const updateUserApi = API_ROOT.concat(apiChens.updateUserRes);
 export const deleteUserApi = API_ROOT.concat(apiChens.deleteUserRes);
+export const userListByRoleIdApi = API_ROOT.concat(apiChens.userListByRoleIdRes);
 export const rolesApi = API_ROOT.concat(apiChens.rolesRes);
 export const sysRolesApi = API_ROOT.concat(apiChens.sysRolesRes);
 export const rolesByUserIdApi = API_ROOT.concat(apiChens.rolesByUserIdRes);

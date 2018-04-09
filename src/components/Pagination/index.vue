@@ -31,6 +31,9 @@ export default {
       }
     }
   },
+  watch: {
+   
+  },
   props: {
     current: {
       type: Number,
@@ -52,6 +55,10 @@ export default {
     },
     api: {
       type: String
+    },
+    // 一定有查询条件的 list (比如通过某个角色id查询对应的用户列表)
+    mustParams: {
+      type: Object
     }
   },
   components: {},
@@ -63,6 +70,9 @@ export default {
   methods: {
     initData () {
       this.totalSize = this.total;
+      if (this.mustParams && Object.keys(this.mustParams).length > 0) {
+        this.params.search = deepClone(this.mustParams);
+      }
       if (this.api) {
         this.pageList();
       }
@@ -79,7 +89,7 @@ export default {
         this.$message.error(error || '系统异常。');
       });
     },
-    
+
     // 条数显示条数
     handleSizeChange(val) {
       this.params.page.size = val;

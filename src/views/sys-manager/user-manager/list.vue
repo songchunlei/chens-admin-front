@@ -122,7 +122,7 @@ export default {
     },
     
     // 权限btns 子组件触发
-    handlerAllot (item, type) {
+    handlerAllot (type, item) {
       switch (type) {
         case 'create': this.$router.push({ path: '/sysManager/user/userUpdate' });
         break;

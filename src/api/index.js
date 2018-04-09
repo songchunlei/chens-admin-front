@@ -19,6 +19,7 @@ import {
     updateUserApi,
     createUserApi,
     deleteUserApi,
+    userListByRoleIdApi,
     rolesApi,
     sysRolesApi,
     rolesByUserIdApi,
@@ -67,7 +68,6 @@ export default {
 
     // 用户列表
     getUsers (params) {
-        debugger;
         return ajax({ url: usersApi, params: params, type: 'POST' });
     },
     
@@ -131,6 +131,11 @@ export default {
         return ajax({ url: deleteUserApi + '/' + id, type: 'DELETE' });
     },
 
+    // 角色下面的用户
+    userListByRoleId (params) {
+        return ajax({ url: userListByRoleIdApi, params: params, type: 'POST' });
+    },
+    
     // 日志列表
     getSysLogs (params) {
         return ajax({ url: sysLogsApi, params: params, type: 'POST' });

@@ -58,7 +58,7 @@ export default {
 
     // 触发父组件的方法
     handlerEmit (type) {
-      this.$emit('handlerAllot', this.item, type);
+      this.$emit('handlerAllot', type, this.item);
     }
   }
 }

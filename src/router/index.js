@@ -134,8 +134,8 @@ export const asyncRouterMap = [
           icon: 'form'
         },
         children: [
-          { path: 'userUpdate', component: _import('sys-manager/user-manager/edit'), name: 'updateUser', meta: { title: 'userUpdate' }},
-          { path: 'userPage', component: _import('sys-manager/user-manager/list'), name: 'listUser', meta: { title: 'userPage', code: 'user/userPage' }}
+          { path: 'userUpdate', component: _import('sys-manager/user-manager/edit'), name: 'userUpdate', meta: { title: 'userUpdate' }},
+          { path: 'userPage', component: _import('sys-manager/user-manager/list'), name: 'userPage', meta: { title: 'userPage', code: 'user/userPage' }}
         ]
       },
       {
@@ -148,8 +148,8 @@ export const asyncRouterMap = [
           icon: 'form'
         },
         children: [
-          { path: 'roleUpdate', component: _import('sys-manager/role-manager/edit'), name: 'editRole', meta: { title: 'roleUpdate' }},
-          { path: 'rolePage', component: _import('sys-manager/role-manager/list'), name: 'listRole', meta: { title: 'rolePage', code: 'role/rolePage' }}
+          { path: 'roleUpdate', component: _import('sys-manager/role-manager/edit'), name: 'roleUpdate', meta: { title: 'roleUpdate' }},
+          { path: 'rolePage', component: _import('sys-manager/role-manager/list'), name: 'rolePage', meta: { title: 'rolePage', code: 'role/rolePage' }}
         ]
       },
       { path: 'menuList',  component: _import('sys-manager/menus-manager/edit'), name: 'menusList', meta: { title: 'menusManager', code: 'menusList' }},

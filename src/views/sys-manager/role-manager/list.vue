@@ -7,7 +7,7 @@
     <el-table :data="list" ref="roleTable" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label="选择框" width="65">
         <template slot-scope="scope">
-          <el-radio class="radio" :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.$index)"></el-radio>
+          <el-radio class="radio" :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.row)"></el-radio>
         </template>
       </el-table-column>
       
@@ -43,6 +43,11 @@
       <page-pagination ref="pagination" :api="'getRoles'" :search="search" @complete="complete">
       </page-pagination>
     </div>
+
+    <div style="margin-top: 100px" v-if="currentItem">
+      <h4 class="m-b-md">角色<span class="font-mark">{{currentItem.roleName}}</span>下的用户</h4>
+      <role-users :roleId="currentItem.id"></role-users>
+    </div>
   </div>
 </template>
 
@@ -53,6 +58,7 @@ import { mapGetter } from 'vuex'
 import { parseTime } from '@/utils'
 import permBtn from '@/components/BtnTemp'
 import pagePagination from '@/components/Pagination'
+import roleUsers from './components/role.users'
 
 export default {
   name: 'roleManager',
@@ -61,12 +67,13 @@ export default {
       list: null,
       listLoading: true,
       radio: '',
+      currentItem: '',
       search: {
 
       }
     }
   },
-  components: { permBtn, pagePagination },
+  components: { permBtn, pagePagination, roleUsers },
   computed: {
   },
   created () {
@@ -82,12 +89,13 @@ export default {
     },
     
     // 选中
-    getCurrentRow (val) {
-      // TODO 请求数据 或者调用子组件请求数据
+    getCurrentRow (item) {
+      console.log(item.id);
+      this.currentItem = item;
     },
 
     // 权限btns 子组件触发
-    handlerAllot (item, type) {
+    handlerAllot (type, item) {
     },
   }
 }
