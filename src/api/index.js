@@ -27,7 +27,8 @@ import {
     createRoleApi,
     updateRoleApi,
     deleteRoleApi,
-    sysLogsApi
+    sysLogsApi,
+    sourceFolderApi
 } from './resource';
 
 export default {
@@ -139,5 +140,10 @@ export default {
     // 日志列表
     getSysLogs (params) {
         return ajax({ url: sysLogsApi, params: params, type: 'POST' });
+    },
+
+    // 资源子目录
+    getSourceFolder (id) {
+        return ajax({ url: sourceFolderApi + '/' + id, });
     }
 }

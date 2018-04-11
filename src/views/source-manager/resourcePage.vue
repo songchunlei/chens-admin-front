@@ -11,18 +11,25 @@
       </el-dropdown>
       <el-button type="default" icon="el-icon-share" class="m-lr-md">新建文件夹</el-button>
     </div>
-
+    
+    
+    
     <div>
       <el-dialog :visible.sync="upload.dialogTableVisible">
         <upload-table :files="upload.files"></upload-table>
       </el-dialog>
     </div>
 
+    <div class="m-t-md">
+      <resource-table></resource-table>
+    </div>
+
   </div>
 </template>
 <script>
-import upTable from './components/upTable';
-import uploadTable from './components/upLoad';
+import upTable from './components/upTable'
+import uploadTable from './components/upLoad'
+import resourceTable from '@/components/Resource'
 
 const sourcesAdds = () => [
   { name: '上传文件', value: '001', icon: 'icon-shangchuanwenjian' },
@@ -38,12 +45,11 @@ export default {
       upload: {
         dialogTableVisible: false,
         files: [], // 文件
-      }
-      
+      },
     }
   },
 
-  components: { upTable, uploadTable },
+  components: { upTable, uploadTable, resourceTable },
   created () {
 
   },

@@ -71,7 +71,7 @@ const ajax = function (obj) {
     const _suffix = obj.suffix || suffix;
     let url = obj.url + _suffix;
     let type = obj.type ? obj.type.toUpperCase() : 'GET';
-    let headers = {headers: {"Content-Type": "application/json"}};
+    let headers = { headers: { "Content-Type": "application/json" }};
     let params = obj.params || {};
     switch (type) {
         case 'GET': return service.get(url, { params: params });
