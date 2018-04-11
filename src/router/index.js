@@ -115,7 +115,7 @@ export const asyncRouterMap = [
   },
 
   {
-    path: '/sysManager',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  path: '/sysManager',
     component: Layout,
     redirect: '/sysManager/userManager/userList',
     name: 'sysManager',
@@ -162,21 +162,21 @@ export const asyncRouterMap = [
           icon: 'form'
         }
       }
-    
+
     ]
   },
 
   {
-    path: '/resourceManager',
+    path: '/sourceManager',
     component: Layout,
     redirect: 'noredirect',
-    name: 'resourceManager',
+    name: 'sourceManager',
     meta: {
-      title: 'resourceManager',
+      title: 'sourceManager',
       icon: 'table'
     },
     children: [
-      { path: 'resourcePage', component: _import('source-manager/resourcePage'), name: 'source-page', meta: { title: 'resourcePage', icon: 'table' }},
+      { path: 'sourcePage', component: _import('source-manager/sourcePage'), name: 'source-page', meta: { title: 'sourcePage', icon: 'table' }},
       { path: 'error', component: _import('source-manager/error'), name: 'error-source', meta: { title: 'errorSource', icon: 'table' }},
       { path: 'other', component: _import('source-manager/other'), name: 'other-source', meta: { title: 'otherSource', icon: 'table' }}
     ]
