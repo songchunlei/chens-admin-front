@@ -1,3 +1,7 @@
+'use strict'
+
+import Dict from './dict'
+
 function pluralize(time, label) {
   if (time === 1) {
     return time + label
@@ -115,4 +119,16 @@ export function formatSize (size) {
     return (size / 1024).toFixed(2) + ' KB'
   }
   return size.toString() + ' B'
+}
+
+export function parseDict (key, dictKey, valName) {
+  if (!dictKey || !key) {
+    return;
+  }
+  const dict = Dict[dictKey];
+  const name = valName || 'label';
+  if (!dict || Object.keys(dict).length < 1) {
+    return;
+  }
+  return dict[key][name];
 }

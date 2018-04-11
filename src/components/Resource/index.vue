@@ -1,5 +1,12 @@
 <template>
   <div class="resourceList">
+    <div class="backBox b-b">
+      <el-button-group>
+        <el-button type="primary" size="mini" icon="el-icon-d-arrow-left" @click="parantFolder('source')"></el-button>
+        <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="parantFolder()"></el-button>
+      </el-button-group>
+    </div>
+
     <el-table :data="resourceData" v-loading.body="listLoading" element-loading-text="拼命加载中" bolder fit highlight-current-row>
       <el-table-column align="center" label="选择框" width="65">
         <template slot-scope="scope">
@@ -9,11 +16,17 @@
       
       <el-table-column label="文件名">
         <template slot-scope="scope">
-          <file-tag :item="scope.row.name" @resetFolder="getSourceFolder(scope.row.id)"></file-tag>
+          <file-tag :item="scope.row" @resetFolder="getSourceFolder(scope.row.id)"></file-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="文件类型" width="140">
+        <template slot-scope="scope">
+          {{scope.type | parseDict('fileTag')}}
         </template>
       </el-table-column>
       
-      <el-table-column align="center" label="更新日期" width="200">
+      <el-table-column align="center" label="更新日期" width="160">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span>{{scope.row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
@@ -35,7 +48,6 @@
 <script>
 import api from '@/api'
 import fileTag from './fileTag'
-import { praseTime } from '@/filters'
 
 export default {
   data () {
@@ -43,7 +55,7 @@ export default {
       listLoading: false,
       currentFold: {},
       resourceData: [], // 根资源数据
-      sourceId: 'b33493fc4c7f4537b3079c6cf25daf66', //'-1', // 根资源id
+      sourceId: '-1', // 根资源id
     }
   },
   props: {
@@ -68,9 +80,26 @@ export default {
         this.$message.error(error);  
       })
     },
-    resetFolder (data) {
-      this.data = data;  
+    
+    // 重新加载此页， 用于外部调用
+    handleReset () {
+      this.getSourceFolder(this.currentFold.id);
+    },
+
+    parantFolder (type) {
+      let id = type === 'source' ? this.sourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';
+      if (!id) {
+        id = this.sourceId;
+      }
+      this.getSourceFolder(id);
     }
   }
 }
 </script>
+<style scoped>
+.backBox {
+  margin: 10px 0;
+  padding: 6px 10px;
+}
+
+</style>
