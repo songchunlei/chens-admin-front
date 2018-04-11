@@ -38,7 +38,7 @@ const apiChens = {
     updateMenuRes: proxyUrl + csweb + 'menuController/update', // 修改菜单
     deleteMenuRes: proxyUrl + csweb + 'menuController/delete', // 删除菜单
 
-    /**租户管理 */ 
+    /**租户管理 */
     tenantRes: proxyUrl + csweb + 'tenantController/pagelist', // 获取租户数据
     userListByTenantIdRes: proxyUrl + csweb + 'userController/getUserListByTenantId', // 获取租户下的用户数据
 
@@ -99,24 +99,24 @@ export const deleteMenuApi = API_ROOT.concat(apiChens.deleteMenuRes);
 export const tenantsApi = API_ROOT.concat(apiChens.tenantRes);
 export const userListByTenantIdApi = API_ROOT.concat(apiChens.userListByTenantIdRes);
 export const sysLogsApi = API_ROOT.concat(apiChens.sysLogsRes);
-export const tagClassesApi = API_ROOT.concat(tagClassRes);
-export const createTagClassApi = API_ROOT.concat(createTagClassRes);
-export const updateTagClassApi = API_ROOT.concat(updateTagClassRes);
-export const deleteTagClassApi = API_ROOT.concat(deleteTagClassRes);
-export const tagsApi = API_ROOT.concat(tagRes);
-export const createTagApi = API_ROOT.concat(createTagRes);
-export const updateTagApi = API_ROOT.concat(updateTagRes);
-export const deleteTagApi = API_ROOT.concat(deleteTagRes);
+export const tagClassesApi = API_ROOT.concat(apiChens.tagClassRes);
+export const createTagClassApi = API_ROOT.concat(apiChens.createTagClassRes);
+export const updateTagClassApi = API_ROOT.concat(apiChens.updateTagClassRes);
+export const deleteTagClassApi = API_ROOT.concat(apiChens.deleteTagClassRes);
+export const tagsApi = API_ROOT.concat(apiChens.tagRes);
+export const createTagApi = API_ROOT.concat(apiChens.createTagRes);
+export const updateTagApi = API_ROOT.concat(apiChens.updateTagRes);
+export const deleteTagApi = API_ROOT.concat(apiChens.deleteTagRes);
 export const sourceFolderApi = API_ROOT.concat(apiChens.sourceFolderRes);
-export const questionApi = API_ROOT.concat(questionRes);
-export const saveQuestionApi = API_ROOT.concat(saveQuestionRes);
-export const selectQuestionDetailApi = API_ROOT.concat(selectQuestionDetailRes);
-export const examPappersApi = API_ROOT.concat(examPapperRes);
-export const createExamPapperApi = API_ROOT.concat(createExamPapperRes);
-export const updateExamPapperApi = API_ROOT.concat(updateExamPapperRes);
-export const deleteExamPapperApi = API_ROOT.concat(deleteExamPapperRes);
-export const addQuestionsInExamPapperApi = API_ROOT.concat(addQuestionsInExamPapperRes);
-export const deleteQuestionsInPapperApi = API_ROOT.concat(deleteQuestionsInExamPapperRes);
+export const questionApi = API_ROOT.concat(apiChens.questionRes);
+export const saveQuestionApi = API_ROOT.concat(apiChens.saveQuestionRes);
+export const selectQuestionDetailApi = API_ROOT.concat(apiChens.selectQuestionDetailRes);
+export const examPappersApi = API_ROOT.concat(apiChens.examPapperRes);
+export const createExamPapperApi = API_ROOT.concat(apiChens.createExamPapperRes);
+export const updateExamPapperApi = API_ROOT.concat(apiChens.updateExamPapperRes);
+export const deleteExamPapperApi = API_ROOT.concat(apiChens.deleteExamPapperRes);
+export const addQuestionsInExamPapperApi = API_ROOT.concat(apiChens.addQuestionsInExamPapperRes);
+export const deleteQuestionsInPapperApi = API_ROOT.concat(apiChens.deleteQuestionsInExamPapperRes);
 
 
 
