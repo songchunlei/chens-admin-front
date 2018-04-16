@@ -86,7 +86,6 @@
         <file-upload
           class="btn btn-primary dropdown-toggle"
           :post-action="postAction"
-          :put-action="putAction"
           :extensions="extensions"
           :accept="accept"
           :multiple="multiple"
@@ -312,6 +311,8 @@
 import Cropper from 'cropperjs'
 import ImageCompressor from '@xkeshi/image-compressor'
 import FileUpload from 'vue-upload-component'
+import { getToken } from '@/utils/auth'
+
 export default {
   name: 'upload-table',
   components: {
@@ -334,10 +335,11 @@ export default {
       addIndex: false,
       thread: 3,
       name: 'file',
-      postAction: '/upload/post',
-      putAction: '/upload/put',
+      postAction: '/chens-api/exam-wms/sourceController/createDraft',
+      putAction: '/chens-api/exam-wms/sourceController/createDraft',
       headers: {
-        'X-Csrf-Token': 'xxxx',
+        'Authorization': getToken(),
+        "Content-Type": "application/json"
       },
       data: {
         '_csrf_token': 'xxxxxx',

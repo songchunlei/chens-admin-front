@@ -1,9 +1,11 @@
 <template>
  <!-- $t is vue-i18n global function to translate lang -->
   <div class="app-container">
-    <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keyword"></el-input>
-    <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
-    
+    <div class="clearBoth">
+      <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keyword"></el-input>
+      <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
+      <el-button v-if="createVisable" style='float:right' type="success" icon="document" @click="routerUpdate">新增</el-button>
+    </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label="选择框" width="65">
         <template slot-scope="scope">
@@ -33,7 +35,7 @@
       </el-table-column>
       <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-          <perm-btn :item="scope.row" :code="$route.meta.code" @handlerAllot="handlerAllot">
+          <perm-btn :item="scope.row" :code="$route.meta.code" @handlerAllot="handlerAllot" @btnTempComplete="btnTempComplete">
             <el-button slot="resetPwd" size="mini" type="danger" @click="restPwd(scope.row)">{{$t('table.restPwd')}}</el-button>
           </perm-btn>
         </template>
@@ -64,6 +66,7 @@ export default {
       search: { // 查询条件
         keyword: '', // 关键字
       },
+      createVisable: false, // 新增显示控制
       dialogFormVisible: false,
       isIndeterminate: false
     }
@@ -121,17 +124,28 @@ export default {
       });
     },
     
+    // 路由到编辑页
+    routerUpdate (item) {
+      let query = "";
+      item && item.id ? query.userId = item.id : '';
+      this.$router.push({ path: '/sysManager/user/userUpdate', query: query });
+    },
+
     // 权限btns 子组件触发
     handlerAllot (type, item) {
       switch (type) {
-        case 'create': this.$router.push({ path: '/sysManager/user/userUpdate' });
+        case 'create': this.routerUpdate();
         break;
-        case 'update': this.$router.push({ path: '/sysManager/user/userUpdate', query: { userId: item.id }});
+        case 'update': this.routerUpdate(item);
         break;
         case 'delete': this.handleDelete(item);
         break;
         default:;
       }
+    },
+
+    btnTempComplete (showBtns) {
+      this.createVisable = showBtns.create;
     }
 
   }

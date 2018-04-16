@@ -1,6 +1,8 @@
 <template>
   <div id="btnTempBox">
+    <!-- 新增 按钮不显示在table
     <el-button type="success" size="mini" v-if="showBtns.create" @click="handlerEmit('create')">新增</el-button>
+    -->
     <el-button type="warning" size="mini" v-if="showBtns.update" @click="handlerEmit('update')">修改</el-button>
     <el-button type="default" size="mini" v-if="showBtns.delete" @click="handlerEmit('delete')">删除</el-button>
     <el-button type="default" size="mini" v-if="showBtns.batchDelete" @click="handlerEmit('batchDelete')">批量删除</el-button>
@@ -46,6 +48,7 @@ export default {
         const code = this.subLastCode(b_cs[i].code);
         this.showBtns[code] = true;
       }
+      this.$emit('btnTempComplete', this.showBtns);
     },
 
     // 截取字符串

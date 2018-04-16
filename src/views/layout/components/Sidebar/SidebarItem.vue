@@ -2,8 +2,8 @@
   <div class="menu-wrapper">
     <template v-for="item in routes" v-if="!item.hidden&&item.children&&item.type!='button'">
       <router-link 
-       v-if="item.codeType=='button'"
-       :to="parentPath+'/'+item.code" :key="item.name">
+       v-if="item.codeType=='PAGE'&&(!item.children||item.children.length===0)"
+       :to="parentPath?parentPath:''+'/'+item.code" :key="item.name">
         <el-menu-item index="parentPath+'/'+child.code">
           <i v-if="item.icon" class="iconfont " :class="item.icon"></i>
           <span v-if="item.name">{{generateTitle(item.name)}}</span>
@@ -17,7 +17,7 @@
         </template>
 
         <template v-for="child in item.children" v-if="!child.hidden">
-          <sidebar-item class="nest-menu" v-if="child.children&&child.children.length>0&&child.children[0].codeType!=='BUTTON'" :routes="[child]" :parentPath="'/'+item.code+'/'+child.code" :key="child.code"></sidebar-item>
+          <sidebar-item class="nest-menu" v-if="child.children&&child.children.length>0&&(child.children[0].codeType==='PAGE'||child.children[0].codeType==='MODULE')" :routes="[child]" :parentPath="'/'+item.code+'/'+child.code" :key="child.code"></sidebar-item>
 
           <router-link v-else :to="'/'+item.code+'/'+child.code" :key="child.name">
             <el-menu-item :index="'/'+item.code+'/'+child.code">
