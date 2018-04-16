@@ -1,7 +1,7 @@
 <template>
  <!-- $t is vue-i18n global function to translate lang -->
   <div class="app-container">
-    <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="filename"></el-input>
+    <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keyword"></el-input>
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
     
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
@@ -30,6 +30,12 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div class="pagination-container">
+      <page-pagination :api="'getSysLogs'" :search="search" @complete="complete">
+      </page-pagination>
+    </div>
+
   </div>
 </template>
 
@@ -37,6 +43,8 @@
 import api from '@/api'
 import { mapState } from 'vuex';
 import { parseTime } from '@/utils'
+import permBtn from '@/components/BtnTemp'
+import pagePagination from '@/components/Pagination'
 
 export default {
   name: 'sysLogPage',
@@ -44,21 +52,9 @@ export default {
     return {
       list: null,
       listLoading: true,
-      page: { // 分页信息
-        current: 1,
-        size: 10
-      },
       search: { // 查询条件
-
+        keyword: '', // 关键字
       },
-
-      downloadLoading: false,
-      filename: '',
-
-      checkedRoles: [], // 选中的角色
-      checkAll: false,
-      roles: [],
-      ids: [], // 所有的id
       dialogFormVisible: false,
       isIndeterminate: false
     }
@@ -68,6 +64,7 @@ export default {
 
     })
   },
+  components: { permBtn, pagePagination },
   created() {
     this.initDate()
   },
@@ -75,32 +72,13 @@ export default {
     initDate () {
       this.sysLogList();
     },
-    sysLogList(success) {
-      let params = {
-        "page": this.page,
-        "search": this.search
-      }
-      let _this = this;
-      api.getSysLogs(params).then((res) => {
-        _this.listLoading = false;
-        if (res.data.code == 1) {
-          let json = res.data.data;
-          let records = json.records;
-          if (success) {
-            success(records);
-          } else {
-            _this.list = records;
-          }
-        } else {
-        }
-      }).catch( (error) => {
-        this.listLoading = false;
-      });
+    complete (res) {
+      this.listLoading = false;
+      this.list = res.data.data.records;
     },
-
     // 搜索
     handleSearch () {
-
+      this.$refs.pagination.search(this.search);
     }
   }
 }
