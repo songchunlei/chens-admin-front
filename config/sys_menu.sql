@@ -46,7 +46,9 @@ CREATE TABLE `sys_menu` (
 --  Records of `sys_menu`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES ('1', '-1', 'DASHBOARD', '统计', '', '统计', null, null, null, null, '1', null, 'icon-home', null, 'dashboard', null, null);
+delete from sys_menu;
+
+INSERT INTO `sys_menu` VALUES ('1', '-1', 'PAGE', '统计', '', '统计', null, null, null, null, '1', null, 'icon-home', null, 'dashboard', null, null);
 
 INSERT INTO `sys_menu` VALUES 
 ('1000', '-1', 'MODULE', '系统管理', '/**', '系统管理', null, null, null, null, '6', null, 'icon-system', null, 'sysManager', null, null), 
@@ -56,9 +58,6 @@ INSERT INTO `sys_menu` VALUES
 ('100103', '1001', 'BUTTON', '删除', '/userController/delete', '删除用户', null, null, null, null, null, null, null, null, 'user-delete', null, null), 
 ('100104', '1001', 'BUTTON', '重置密码', '/userController/restPwd', null, null, null, null, null, null, null, null, null, 'user-restPwd', null, null), 
 ('100105', '1001', 'BUTTON', '保存用户角色关系', '/roleController/saveUserRole', '保存用户角色关系', null, null, null, null, null, null, null, null, 'role-saveUserRole', null, null);
- 
-
-
  
  INSERT INTO `sys_menu` VALUES 
  ('1002', '1000', 'PAGE', '角色管理', '/roleController/pageList', '角色管理', null, null, null, null, '2', null, null, null, 'role/rolePage', null, null), 
@@ -75,20 +74,27 @@ INSERT INTO `sys_menu` VALUES
  ('100302', '1003', 'BUTTON', '编辑', '/menuController/update', '编辑菜单', null, null, null, null, '1', null, null, null, 'menu-update', null, null), 
  ('100303', '1003', 'BUTTON', '删除', '/menuController/delete', '删除菜单', null, null, null, null, null, null, null, null, 'menu-delete', null, null);
 
- INSERT INTO `sys_menu` VALUES 
- ('1005', '1000', 'PAGE', '租户管理', '/tenantController/**', '租户管理', null, null, null, null, '5', null, null, null, 'tenantList', null, null);
- ('100302', '1005', 'BUTTON', '编辑', '/tenantController/update', '编辑菜单', null, null, null, null, '1', null, null, null, 'menu-update', null, null), 
- ('100303', '1005', 'BUTTON', '删除', '/menuController/delete', '删除菜单', null, null, null, null, null, null, null, null, 'menu-delete', null, null);
-
 
  INSERT INTO `sys_menu` VALUES 
  ('1006', '1000', 'PAGE', '系统日志', '/sysLog/page', '系统日志', null, null, null, null, '6', null, null, null, 'sysLogList', null, null);
 
   INSERT INTO `sys_menu` VALUES
- ('1100', '-1', 'MODULE', '个人中心', '/bpmController/**', '个人中心', null, null, null, null, '1', null, null, null, 'myCenter', null, null), 
- ('1101', '1100', 'PAGE', '我的待办', '/resource/page', '我的待办', null, null, null, null, '1', null, null, null, 'myUndoPage', null, null), 
- ('1102', '1100', 'PAGE', '我的已办', '/resource/page', '我的已办', null, null, null, null, '2', null, null, null, 'myDonePage', null, null);
- 
+ ('1100', '-1', 'MODULE', '个人中心', '/bpmController/**', '个人中心', null, null, null, null, '2', null, null, null, 'myCenter', null, null), 
+ ('1101', '1100', 'PAGE', '我的待办', '/bpmController/getMyTodoTaskPage', '我的待办', null, null, null, null, '1', null, null, null, 'myUndoPage', null, null), 
+ ('1102', '1100', 'PAGE', '我的已办', '/bpmController/getMyDoneTaskPage', '我的已办', null, null, null, null, '2', null, null, null, 'myDonePage', null, null);
+ ('1103', '1100', 'PAGE', '我发起的审批', '/bpmController/getMyStartProcessInstancePage', '我发起的审批', null, null, null, null, '2', null, null, null, 'myStartPage', null, null);
+
+
+ INSERT INTO `sys_menu` VALUES 
+ ('1004', '1000', 'PAGE', '标签管理', '/tagController/pageList', '标签管理', null, null, null, null, '3', null, null, null, 'menuList', null, null), 
+ ('100401', '1004', 'BUTTON', '新增', '/tagController/create', '创建菜单', null, null, null, null, null, null, null, null, 'tag-create', null, null), 
+ ('100402', '1004', 'BUTTON', '编辑', '/tagController/update', '编辑菜单', null, null, null, null, '1', null, null, null, 'tag-update', null, null), 
+ ('100403', '1004', 'BUTTON', '删除', '/tagController/delete', '删除菜单', null, null, null, null, null, null, null, null, 'tag-delete', null, null);
+ ('100404', '1004', 'BUTTON', '新增标签分类', '/tagClassController/create', '新增标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null);
+
+
+
+
 
   INSERT INTO `sys_menu` VALUES
  ('2000', '-1', 'MODULE', '素材管理', '', '素材管理', null, null, null, null, '2', null, 'icon-sucai', null, 'sourceManager', null, null), 
@@ -140,13 +146,19 @@ INSERT INTO `sys_menu` VALUES
  ('6001', '6000', 'PAGE', '课程列表', '/resource/page', '课程列表', null, null, null, null, '1', null, null, null, 'coursePage', null, null), 
  ('600101', '6001', 'BUTTON', '新增', '/userController/createUser', '新增课程', null, null, null, '1', null, null, null, null, 'course-create', null, null), 
  ('600102', '6001', 'BUTTON', '编辑', '/userController/update', '编辑课程', null, null, null, null, '2', null, null, null, 'course-update', null, null), 
- ('600103', '6001', 'BUTTON', '删除', '/userController/delete', '删除课程', null, null, null, null, '3', null, null, null, 'course-delete', null, null);
- 
-  INSERT INTO `sys_menu` VALUES
+ ('600103', '6001', 'BUTTON', '删除', '/userController/delete', '删除课程', null, null, null, null, '3', null, null, null, 'course-delete', null, null),
  ('6002', '6000', 'PAGE', '课程回收站', '/resource/page', '课程回收站', null, null, null, null, '2', null, null, null, 'reCoursePage', null, null), 
  ('600201', '6002', 'BUTTON', '编辑', '/userController/update', '编辑课程', null, null, null, null, '2', null, null, null, 'reCoursePage-update', null, null), 
  ('600202', '6002', 'BUTTON', '撤回', '/userController/reback', '撤回课程', null, null, null, null, '3', null, null, null, 'reCoursePage-reback', null, null), 
  ('600203', '6002', 'BUTTON', '彻底删除', '/userController/delete', '彻底删除课程', null, null, null, null, '3', null, null, null, 'reCoursePage-delete', null, null);
+
+ 
+ INSERT INTO `sys_menu` VALUES 
+('7000', '-1', 'MODULE', '标签管理', '/**', '系统管理', null, null, null, null, '6', null, 'icon-system', null, 'sysManager', null, null), 
+ INSERT INTO `sys_menu` VALUES 
+ ('1005', '1000', 'PAGE', '租户管理', '/tenantController/**', '租户管理', null, null, null, null, '5', null, null, null, 'tenantList', null, null),
+ ('100501', '1005', 'BUTTON', '编辑', '/tenantController/update', '编辑', null, null, null, null, '1', null, null, null, 'tenant-update', null, null), 
+ ('100502', '1005', 'BUTTON', '失效', '/menuController/delete', '失效', null, null, null, null, null, null, null, null, 'tenant-delete', null, null);
 
 
 
