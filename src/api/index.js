@@ -28,7 +28,8 @@ import {
     updateRoleApi,
     deleteRoleApi,
     sysLogsApi,
-    sourceFolderApi
+    sourceFolderApi,
+    tenantsApi
 } from './resource';
 
 export default {
@@ -135,6 +136,16 @@ export default {
     // 角色下面的用户
     userListByRoleId (params) {
         return ajax({ url: userListByRoleIdApi, params: params, type: 'POST' });
+    },
+
+    // 租户列表
+    getTanants (params) {
+        return ajax({ url: tenantsApi, params: params, type: 'POST' });
+    },
+
+    // 租户下用户列表
+    getUsersByTanantId (params) {
+        return ajax({ url: userListByTenantIdApi, params: params, type: 'POST' });
     },
     
     // 日志列表

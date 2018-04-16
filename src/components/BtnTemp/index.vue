@@ -4,6 +4,7 @@
     <el-button type="warning" size="mini" v-if="showBtns.update" @click="handlerEmit('update')">修改</el-button>
     <el-button type="default" size="mini" v-if="showBtns.delete" @click="handlerEmit('delete')">删除</el-button>
     <el-button type="default" size="mini" v-if="showBtns.batchDelete" @click="handlerEmit('batchDelete')">批量删除</el-button>
+    <el-button type="info" size="mini" v-if="showBtns.update" @click="handlerEmit('info')">查看</el-button>
     <slot name="resetPwd"></slot>
   </div>
 </template>

@@ -161,7 +161,17 @@ export const asyncRouterMap = [
           title: 'sysLogList',
           icon: 'form'
         }
+      },
+      {
+        path: 'tenantList',
+        component: _import('sys-manager/tenant-manager/list'),
+        name: 'tenantList',
+        meta: {
+          title: 'tenantList',
+          icon: 'form'
+        }
       }
+      
 
     ]
   },
