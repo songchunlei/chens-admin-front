@@ -16,12 +16,12 @@
     
     <div>
       <el-dialog :visible.sync="upload.dialogTableVisible">
-        <upload-table :files="upload.files"></upload-table>
+        <upload-table :files="upload.files" @completeUpload="completeUpload"></upload-table>
       </el-dialog>
     </div>
 
     <div class="m-t-md">
-      <resource-table></resource-table>
+      <resource-table ref="resourceTable"></resource-table>
     </div>
 
   </div>
@@ -74,6 +74,18 @@ export default {
     choiseUp () {
       this.uploadSource();
     },
+
+    // 上传完成的回调
+    completeUpload (newFile, oldFile) {
+      this.upload.dialogTableVisible = false;
+      this.refrashTable();
+    },
+
+    // 刷新列表
+    refrashTable () {
+      this.$refs.resourceTable.handleReset();
+    },
+
     // 选择添加途径
     chioseFunAdd (item) {
       switch (item.value) {

@@ -59,6 +59,7 @@ const apiChens = {
 
     /**资源管理 */
     sourceFolderRes: proxyUrl + examWms + 'sourceFolderController/info', // 资源管理，根据id获取子目录
+    createDraftRes: proxyUrl + examWms + 'sourceController/createDraft', // 资源列表页面--新建资源
 
     /**题目管理*/
     questionRes: proxyUrl + examWms + 'questionsController/pagelist', // 题目资源
@@ -108,6 +109,7 @@ export const createTagApi = API_ROOT.concat(apiChens.createTagRes);
 export const updateTagApi = API_ROOT.concat(apiChens.updateTagRes);
 export const deleteTagApi = API_ROOT.concat(apiChens.deleteTagRes);
 export const sourceFolderApi = API_ROOT.concat(apiChens.sourceFolderRes);
+export const createDraftApi = API_ROOT.concat(apiChens.createDraftRes);
 export const questionApi = API_ROOT.concat(apiChens.questionRes);
 export const saveQuestionApi = API_ROOT.concat(apiChens.saveQuestionRes);
 export const selectQuestionDetailApi = API_ROOT.concat(apiChens.selectQuestionDetailRes);
