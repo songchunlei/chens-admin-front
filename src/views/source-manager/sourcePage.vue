@@ -77,7 +77,6 @@ export default {
 
     // 上传完成的回调
     completeUpload (newFile, oldFile) {
-      alert(3);
       this.upload.dialogTableVisible = false;
       this.refrashTable();
     },
