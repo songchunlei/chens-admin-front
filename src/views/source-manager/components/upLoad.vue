@@ -335,8 +335,8 @@ export default {
       addIndex: false,
       thread: 3,
       name: 'file',
-      postAction: '/chens-api/exam-wms/fileController/upload',
-      putAction: '/chens-api/exam-wms/fileController/upload',
+      postAction: '/chens-api/exam-wms/sourceController/uploadFile',
+      putAction: '/chens-api/exam-wms/sourceController/uploadFile',
       headers: {
         'Authorization': getToken()
       },
