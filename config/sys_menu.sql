@@ -155,15 +155,15 @@ INSERT INTO `sys_menu` VALUES
 ('7000', '-1', 'MODULE', '通用数据管理', '/**', '通用数据管理', null, null, null, null, '6', null, 'icon-system', null, 'commonDataManager', null, null);
  INSERT INTO `sys_menu` VALUES 
  ('7001', '7000', 'PAGE', '标签分类管理', '/tagClassController/**', '标签分类管理', null, null, null, null, '5', null, null, null, 'tagClassList', null, null),
- ('700101', '7000', 'BUTTON', '新增', '/tagController/create', '创建标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null), 
- ('700102', '7000', 'BUTTON', '编辑', '/tagController/update', '编辑标签分类', null, null, null, null, '1', null, null, null, 'tagClass-update', null, null), 
- ('700103', '7000', 'BUTTON', '删除', '/tagController/delete', '删除标签分类', null, null, null, null, null, null, null, null, 'tagClass-delete', null, null);
+ ('700101', '7001', 'BUTTON', '新增', '/tagController/create', '创建标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null), 
+ ('700102', '7001', 'BUTTON', '编辑', '/tagController/update', '编辑标签分类', null, null, null, null, '1', null, null, null, 'tagClass-update', null, null), 
+ ('700103', '7001', 'BUTTON', '删除', '/tagController/delete', '删除标签分类', null, null, null, null, null, null, null, null, 'tagClass-delete', null, null);
  INSERT INTO `sys_menu` VALUES 
  ('7002', '7000', 'PAGE', '标签管理', '/tagController/pageList', '标签管理', null, null, null, null, '3', null, null, null, 'menuList', null, null), 
- ('700201', '7000', 'BUTTON', '新增', '/tagController/create', '创建标签', null, null, null, null, null, null, null, null, 'tag-create', null, null), 
- ('700202', '7000', 'BUTTON', '编辑', '/tagController/update', '编辑标签', null, null, null, null, '1', null, null, null, 'tag-update', null, null), 
- ('700203', '7000', 'BUTTON', '删除', '/tagController/delete', '删除标签', null, null, null, null, null, null, null, null, 'tag-delete', null, null),
- ('700204', '7000', 'BUTTON', '新增标签分类', '/tagClassController/create', '新增标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null);
+ ('700201', '7002', 'BUTTON', '新增', '/tagController/create', '创建标签', null, null, null, null, null, null, null, null, 'tag-create', null, null), 
+ ('700202', '7002', 'BUTTON', '编辑', '/tagController/update', '编辑标签', null, null, null, null, '1', null, null, null, 'tag-update', null, null), 
+ ('700203', '7002', 'BUTTON', '删除', '/tagController/delete', '删除标签', null, null, null, null, null, null, null, null, 'tag-delete', null, null),
+ ('700204', '7002', 'BUTTON', '新增标签分类', '/tagClassController/create', '新增标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null);
 
 
 
