@@ -341,7 +341,7 @@ export default {
         'Authorization': getToken()
       },
       data: {
-        'groupId': '1-xxxxxx业务id'
+        'folderId': '-1'
       },
 
       autoCompress: 1024 * 1024,
