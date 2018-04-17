@@ -29,7 +29,8 @@ import {
     deleteRoleApi,
     sysLogsApi,
     sourceFolderApi,
-    tenantsApi
+    tenantsApi,
+    createDraftApi
 } from './resource';
 
 export default {
@@ -155,6 +156,11 @@ export default {
 
     // 资源子目录
     getSourceFolder (id) {
-        return ajax({ url: sourceFolderApi + '/' + id, });
+        return ajax({ url: sourceFolderApi + '/' + id })
+    },
+
+    // 创建资源
+    createDraft (params) {
+        return ajax({ url: createDraftApi, params: params, type: 'POST' })
     }
 }

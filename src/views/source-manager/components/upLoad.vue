@@ -475,7 +475,8 @@ export default {
         }
 
         if (newFile.success && !oldFile.success) {
-          // success
+          this.$emit('completeUpload', newFile, oldFile);
+          // TODO 上传成功 刷新当前列表
         }
       }
 
