@@ -335,14 +335,13 @@ export default {
       addIndex: false,
       thread: 3,
       name: 'file',
-      postAction: '/chens-api/exam-wms/sourceController/createDraft',
-      putAction: '/chens-api/exam-wms/sourceController/createDraft',
+      postAction: '/chens-api/exam-wms/fileController/upload',
+      putAction: '/chens-api/exam-wms/fileController/upload',
       headers: {
-        'Authorization': getToken(),
-        "Content-Type": "application/json"
+        'Authorization': getToken()
       },
       data: {
-        '_csrf_token': 'xxxxxx',
+        'groupId': '1-xxxxxx业务id'
       },
 
       autoCompress: 1024 * 1024,
