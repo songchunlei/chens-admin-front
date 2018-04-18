@@ -23,10 +23,10 @@
         </template>
       </el-table-column>
       <el-table-column label="姓名" width="180" align="center">
-        
+
         <template slot-scope="scope">{{scope.row.name}}</template>
       </el-table-column>
-      
+
       <el-table-column align="center" label="创建日期" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -54,6 +54,7 @@ import { fetchList } from '@/api/article'
 import api from '@/api'
 import { mapState } from 'vuex';
 import { parseTime } from '@/utils'
+import { confirm } from '@/utils'
 import permBtn from '@/components/BtnTemp'
 import pagePagination from '@/components/Pagination'
 
@@ -107,6 +108,22 @@ export default {
       if (!user || !user.id) {
         return;
       }
+      this.$confirm('此操作将删除该用户, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });          
+        });
+        
       api.deleteUserById(user.id).then((res) => {
         const json = res.data;
         if (json.code ===1) {
@@ -117,25 +134,51 @@ export default {
         this.$message.error(error);
       });
     },
-
+    //执行密码重置
+    doRestPwd(params){
+        api.restPwd(params).then((res) => {
+          const json = res.data;
+          if (json.code != 1) {
+            this.$message.error(json.msg || '重置密码失败!');
+            return;
+          }
+          this.$message.success(json.msg || '重置密码成功。');
+        }).catch((error) => {
+          this.$message.error(error || '系统错误!');
+        });
+    },
     // 密码重置
     restPwd (item) {
       const params = {
         userId: item.id,
-        isRandom: false
+        random: false
       }
-      api.restPwd(params).then((res) => {
-        const json = res.data;
-        if (json.code != 1) {
-          this.$message.error(json.msg || '重置密码失败!');
-          return;
-        }
-        this.$message.success(json.msg || '重置密码成功。');
-      }).catch((error) => {
-        this.$message.error(error || '系统错误!');
-      });
+      confirm(doRestPwd);
+      // this.$confirm('此操作将重置该用户密码, 是否继续?', '提示', {
+      //     confirmButtonText: '确定',
+      //     cancelButtonText: '取消',
+      //     type: 'warning'
+      //   }).then(() => {
+      //     //需要调用的方法
+      //     api.restPwd(params).then((res) => {
+      //       const json = res.data;
+      //       if (json.code != 1) {
+      //         this.$message.error(json.msg || '重置密码失败!');
+      //         return;
+      //       }
+      //       this.$message.success(json.msg || '重置密码成功。');
+      //     }).catch((error) => {
+      //       this.$message.error(error || '系统错误!');
+      //     });
+      //     //需要调用的方法end
+      //   }).catch(() => {
+      //     this.$message({
+      //       type: 'info',
+      //       message: '已取消'
+      //     });          
+      //   });
     },
-    
+
     // 路由到编辑页
     routerUpdate (item) {
       let query = {};
@@ -168,5 +211,5 @@ export default {
 .el-checkbox-group .el-checkbox {
   margin-left: 0px;
   margin-right: 30px;
-} 
+}
 </style>

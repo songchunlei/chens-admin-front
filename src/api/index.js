@@ -74,7 +74,8 @@ export default {
     getUsers (params) {
         return ajax({ url: usersApi, params: params, type: 'POST' });
     },
-
+    
+    //重置密码
     restPwd(params){
         return ajax({ url: restUserPwdApi, params: params, type: 'PUT' });
     },
