@@ -107,22 +107,7 @@ export default {
       if (!user || !user.id) {
         return;
       }
-      this.$confirm('此操作将删除该用户, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });          
-        });
-        
+
       api.deleteUserById(user.id).then((res) => {
         const json = res.data;
         if (json.code ===1) {
@@ -133,6 +118,7 @@ export default {
         this.$message.error(error);
       });
     },
+<<<<<<< HEAD
     //执行密码重置
     doRestPwd(){
       const params = {
@@ -152,31 +138,29 @@ export default {
     },
     // 密码重置
     restPwd (item) {
+=======
+    // 密码重置
+    restPwd (item) {
+      let $this = this;
+      let func =  function(){
+          const params = {
+            userId: item.id,
+            random: false
+          };
+          api.restPwd(params).then((res) => {
+          const json = res.data;
+          if (json.code != 1) {
+            this.$message.error(json.msg || '重置密码失败!');
+            return;
+          }
+          this.$message.success(json.msg || '重置密码成功。');
+          }).catch((error) => {
+          this.$message.error(error || '系统错误!');
+          });
+      }
+      confirm("此操作将重置该用户密码, 是否继续?",func);
+>>>>>>> bc2ff3edc3f114f4e7683ff45d6da99d913276b6
       
-      confirm(this.doRestPwd);
-      // this.$confirm('此操作将重置该用户密码, 是否继续?', '提示', {
-      //     confirmButtonText: '确定',
-      //     cancelButtonText: '取消',
-      //     type: 'warning'
-      //   }).then(() => {
-      //     //需要调用的方法
-      //     api.restPwd(params).then((res) => {
-      //       const json = res.data;
-      //       if (json.code != 1) {
-      //         this.$message.error(json.msg || '重置密码失败!');
-      //         return;
-      //       }
-      //       this.$message.success(json.msg || '重置密码成功。');
-      //     }).catch((error) => {
-      //       this.$message.error(error || '系统错误!');
-      //     });
-      //     //需要调用的方法end
-      //   }).catch(() => {
-      //     this.$message({
-      //       type: 'info',
-      //       message: '已取消'
-      //     });          
-      //   });
     },
 
     // 路由到编辑页
@@ -189,12 +173,15 @@ export default {
     // 权限btns 子组件触发
     handlerAllot (type, item) {
       switch (type) {
-        case 'create': this.routerUpdate();
-        break;
-        case 'update': this.routerUpdate(item);
-        break;
-        case 'delete': this.handleDelete(item);
-        break;
+        case 'create':
+          this.routerUpdate();
+          break;
+        case 'update':
+          this.routerUpdate(item);
+          break;
+        case 'delete':
+          this.handleDelete(item);
+          break;
         default:;
       }
     },

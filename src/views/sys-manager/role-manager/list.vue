@@ -3,14 +3,14 @@
   <div class="app-container">
     <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.name"></el-input>
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
-    
+
     <el-table :data="list" ref="roleTable" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label="选择框" width="65">
         <template slot-scope="scope">
           <el-radio class="radio" :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.row)"></el-radio>
         </template>
       </el-table-column>
-      
+
       <el-table-column align="center" label='Id' width="95">
         <template slot-scope="scope">
           {{scope.$index}}
@@ -26,7 +26,7 @@
           {{scope.row.code}}
         </template>
       </el-table-column>
-      
+
       <el-table-column align="center" label="创建日期" width="220">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -87,15 +87,31 @@ export default {
     handleSearch () {
       this.$refs.pagination.search(this.search);
     },
-    
+
     // 选中
     getCurrentRow (item) {
       console.log(item.id);
       this.currentItem = item;
     },
 
+    // 角色修改
+    handleUpdate (item) {
+      let itemId = item ? item.id : '';
+      this.$router.push({ path: '/sysManager/user/userUpdate/', query: { 'userId': itemId }});
+    },
+
+
     // 权限btns 子组件触发
     handlerAllot (type, item) {
+      switch (type) {
+        case 'create': this.routerUpdate();
+          break;
+        case 'update': this.routerUpdate(item);
+          break;
+        case 'delete': this.handleDelete(item);
+          break;
+        default:;
+      }
     },
   }
 }
@@ -105,5 +121,5 @@ export default {
 .el-checkbox-group .el-checkbox {
   margin-left: 0px;
   margin-right: 30px;
-} 
+}
 </style>
