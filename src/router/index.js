@@ -206,6 +206,23 @@ export const asyncRouterMap = [
       { path: 'dictTypeList', component: _import('dict-type-manager/list'), name: 'listDictType', meta: { title: 'listDictType', icon: 'table' }}
     ]
   },
+
+  {
+    path: '/myCenter',
+    component: Layout,
+    redirct: '/myCenter/myUndoPage',
+    name: 'myCenter',
+    meta: {
+      title: 'myCenter',
+      icon: 'form'
+    },
+    children: [
+      { path: 'myUndoPage', component: _import('review-manager/undo'), name: 'undoList', meta: { title: 'undoReview', icon: 'form', code: 'myUndoPage' }},
+      { path: 'myDonePage', component: _import('review-manager/done'), name: 'doneList', meta: { title: 'doneReview', icon: 'form', code: 'myDonePage' }},
+      { path: 'actionCreate', component: _import('review-manager/actionCreate'), name: 'actionForm', meta: { title: 'actionForm', icon: 'form' }}
+    ]
+  },
+
   {
     path: '/excel',
     component: Layout,

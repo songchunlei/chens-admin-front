@@ -31,7 +31,9 @@ import {
     sysLogsApi,
     sourceFolderApi,
     tenantsApi,
-    createDraftApi
+    createDraftApi,
+    undoApi,
+    doneApi
 } from './resource';
 
 export default {
@@ -168,5 +170,16 @@ export default {
     // 创建资源
     createDraft (params) {
         return ajax({ url: createDraftApi, params: params, type: 'POST' })
+    },
+
+    // 创建资源
+    getUndoPage (params) {
+        return ajax({ url: undoApi, params: params, type: 'POST' })
+    },
+
+    // 创建资源
+    getDonePage (params) {
+        return ajax({ url: doneApi, params: params, type: 'POST' })
     }
+    
 }

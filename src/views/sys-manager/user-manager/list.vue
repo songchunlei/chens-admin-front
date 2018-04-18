@@ -134,21 +134,21 @@ export default {
       });
     },
     //执行密码重置
-    doRestPwd(params){
+    doRestPwd(){
       const params = {
         userId: item.id,
         random: false
       }
-        api.restPwd(params).then((res) => {
-          const json = res.data;
-          if (json.code != 1) {
-            this.$message.error(json.msg || '重置密码失败!');
-            return;
-          }
-          this.$message.success(json.msg || '重置密码成功。');
-        }).catch((error) => {
-          this.$message.error(error || '系统错误!');
-        });
+      api.restPwd(params).then((res) => {
+        const json = res.data;
+        if (json.code != 1) {
+          this.$message.error(json.msg || '重置密码失败!');
+          return;
+        }
+        this.$message.success(json.msg || '重置密码成功。');
+      }).catch((error) => {
+        this.$message.error(error || '系统错误!');
+      });
     },
     // 密码重置
     restPwd (item) {

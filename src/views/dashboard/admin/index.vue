@@ -2,11 +2,7 @@
   <div class="dashboard-editor-container">
     <github-corner></github-corner>
 
-    <panel-group @handleSetLineChartData="handleSetLineChartData"></panel-group>
-
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
-      <line-chart :chart-data="lineChartData"></line-chart>
-    </el-row>
+    <panel-group @handleCreate="handleCreate"></panel-group>
 
     <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
@@ -90,8 +86,8 @@ export default {
     }
   },
   methods: {
-    handleSetLineChartData(type) {
-      this.lineChartData = lineChartData[type]
+    handleCreate (type) {
+      this.$router.push({ path: '/myCenter/actionCreate', query: { flowkey: type }});
     }
   }
 }

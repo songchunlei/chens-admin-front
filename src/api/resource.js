@@ -6,6 +6,7 @@ const proxyUrl = '/chens-api/'; // 服务器资源路径代理抬头
 const examWms = 'exam-wms/'; // 服务器资源模块
 const examBook = 'exam-book/'; // 服务器应用模块
 const csweb = 'chens-admin-web/';
+const bpmweb = 'chens-bpm-web/'; // 流程应用
 const apiChens = {
     /** 无拦截请求 **/
     loginRes: proxyUrl + 'authController/login', // 登录请求路径
@@ -75,6 +76,11 @@ const apiChens = {
     addQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/addQuestions', // 试卷增加题目
     deleteQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/deleteQuestions', // 试卷删除题目
 
+    /**审批管理*/
+    undoRes: proxyUrl + bpmweb + 'bpmController/getMyTodoTaskPage', // 我的代办
+    doneRes: proxyUrl + bpmweb + 'bpmController/getMyDoneTaskPage', // 我的已办
+
+
 }
 
 export const loginApi = API_ROOT.concat(apiChens.loginRes);
@@ -121,6 +127,10 @@ export const updateExamPapperApi = API_ROOT.concat(apiChens.updateExamPapperRes)
 export const deleteExamPapperApi = API_ROOT.concat(apiChens.deleteExamPapperRes);
 export const addQuestionsInExamPapperApi = API_ROOT.concat(apiChens.addQuestionsInExamPapperRes);
 export const deleteQuestionsInPapperApi = API_ROOT.concat(apiChens.deleteQuestionsInExamPapperRes);
+export const undoApi = API_ROOT.concat(apiChens.undoRes);
+export const doneApi = API_ROOT.concat(apiChens.doneRes);
+
+
 
 
 
