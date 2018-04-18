@@ -98,12 +98,22 @@ export default {
     },
 
     // 删除用户
-    handleDelete (user, type) {
-      if (type == 'deleted') {
-        api.deleteUserById(user.id).then((res) => {
-          console.log(res);
-        });
+    handleDelete (item) {
+      let userId = item && item.id ? item.id : '';
+      if(userId=='' || userId == null)
+      {
+          this.$message.error('系统错误!');
       }
+      api.deleteUserById(userId).then((res) => {
+        const json = res.data;
+        if (json.code != 1) {
+          this.$message.error(json.msg || '删除失败!');
+          return;
+        }
+        this.$message.success(json.msg || '删除成功。');
+      }).catch((error) => {
+        this.$message.error(error || '系统错误!');
+      });
     },
 
     // 密码重置
