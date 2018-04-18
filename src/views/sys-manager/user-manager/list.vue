@@ -118,27 +118,6 @@ export default {
         this.$message.error(error);
       });
     },
-<<<<<<< HEAD
-    //执行密码重置
-    doRestPwd(){
-      const params = {
-        userId: item.id,
-        random: false
-      }
-      api.restPwd(params).then((res) => {
-        const json = res.data;
-        if (json.code != 1) {
-          this.$message.error(json.msg || '重置密码失败!');
-          return;
-        }
-        this.$message.success(json.msg || '重置密码成功。');
-      }).catch((error) => {
-        this.$message.error(error || '系统错误!');
-      });
-    },
-    // 密码重置
-    restPwd (item) {
-=======
     // 密码重置
     restPwd (item) {
       let $this = this;
@@ -159,7 +138,6 @@ export default {
           });
       }
       confirm("此操作将重置该用户密码, 是否继续?",func);
->>>>>>> bc2ff3edc3f114f4e7683ff45d6da99d913276b6
       
     },
 
