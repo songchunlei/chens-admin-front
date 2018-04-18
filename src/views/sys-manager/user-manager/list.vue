@@ -94,7 +94,7 @@ export default {
     // 用户修改
     handleUpdate (user) {
       let userId = user ? user.id : '';
-      this.$router.push({ path: '/sysManager/user/userUpdate/', query: { userId: userId }});
+      this.$router.push({ path: '/sysManager/user/userUpdate/', query: { 'userId': userId }});
     },
 
     // 删除用户
@@ -126,7 +126,7 @@ export default {
     
     // 路由到编辑页
     routerUpdate (item) {
-      let query = "";
+      let query = {};
       item && item.id ? query.userId = item.id : '';
       this.$router.push({ path: '/sysManager/user/userUpdate', query: query });
     },
