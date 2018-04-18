@@ -29,7 +29,10 @@ export default {
      *          title_icon: '[自定义标题图标]',
      *          title_right_key: '[自定义标题显示值]',
      *
-     *          [自定义字段key]:  { name: "[自定义字段显示值]", type: "[自定义字段类型 text文本,date时间，字段 dict,链接 url ,file 附件]" },
+     *          [自定义字段key]:  { name: "[自定义字段显示值]", 
+     *                            type: "[自定义字段类型 text文本,date时间，字段 dict,单个附件 file , files 多个附件
+     *                                                 链接 url ,多选 checkbox ,单选 radio]" }
+     *                                                  
      *      }
      *  }
      *
@@ -71,34 +74,21 @@ export default {
             name: { name: "题目名称", type: "text" },
             type: { name: "题目类型", type: "dict" },
             difficulty: { name: "难度", type: "dict" },
-            content: { name: "题目内容", type: "text" }
-        },
-        //题目对应资源
-        source_List: {
-            json_from_key: 'list',
-            json_title_name: '资源文件',
-            title_right_key: 'budAmount',
-            path: { name: "文件", type: "url" }
+            content: { name: "题目内容", type: "text" },
+            questionsQuoteList:{name: "资源", type: "files"}
         },
         // 题目选项
-        optio_list: {
+        option_list: {
             json_type: 'list',
-            json_from_key: 'list',
+            json_from_key: 'questionsOptionList',
             json_title_name: '题目选项',
             title_right_key: 'budAmount',
 
-            projCustomCode: { name: "用户定义项目编号", type: "text" },
-            projShortname: { name: "项目简称", type: "text" },
-            customerName: { name: "客户名称", type: "text" },
-            chargeOrgName: { name: "部门", type: "text" },
-            provinceMajorTypeName: { name: "专业类型", type: "text" },
-            budRemark: { name: "摘要", type: "text" },
-            budgetIncome: { name: "计划收入(不含税)", type: "text" },
-            confirmedIncome: { name: "已确认收入(不含税)", type: "text" },
-            budTaxName: { name: "税码", type: "text" },
-            approvalIncome: { name: "档期确认收入(不含税)", type: "text" }, // TODO 待确认业务字段 inTax(obj)
-            budAmount: { name: "档期确认收入(含税)", type: "text" },
-            budYwflName: { name: "业务类别", type: "text" }
+            optionSeq: { name: "选项顺序", type: "text" },
+            optionContent: { name: "选项内容", type: "text" },
+            isRight: { name: "正确答案", type: "radio" },
+            remark: { name: "备注", type: "text" },
+            optionQuoteList:{name: "资源", type: "files"}
         }
     }
 }

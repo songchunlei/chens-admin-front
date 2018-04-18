@@ -6,12 +6,13 @@
     <el-button type="warning" size="mini" v-if="showBtns.update" @click="handlerEmit('update')">修改</el-button>
     <el-button type="default" size="mini" v-if="showBtns.delete" @click="handlerEmit('delete')">删除</el-button>
     <el-button type="default" size="mini" v-if="showBtns.batchDelete" @click="handlerEmit('batchDelete')">批量删除</el-button>
-    <el-button type="info" size="mini" v-if="showBtns.update" @click="handlerEmit('info')">查看</el-button>
+    <el-button type="info" size="mini" v-if="showBtns.info" @click="handlerEmit('info')">查看</el-button>
     <slot name="resetPwd"></slot>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { confirm } from '@/utils'
 
 export default {
   name: 'list-btn',
@@ -62,7 +63,19 @@ export default {
 
     // 触发父组件的方法
     handlerEmit (type) {
-      this.$emit('handlerAllot', type, this.item);
+        var $this = this;
+        let func = function(){
+          $this.$emit('handlerAllot', type, $this.item);
+        };
+
+        if(type === "delete" || type === "batchDelete")
+        {
+           confirm('此操作将删除当前选中的记录, 是否继续?',func);
+        }
+        else{
+            func();
+        }
+
     }
   }
 }

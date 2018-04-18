@@ -1,6 +1,7 @@
 /**
  * Created by jiachenpan on 16/11/18.
  */
+import Vue from 'vue'
 
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
@@ -266,19 +267,19 @@ export function deepClone(source, arrive) {
   return targetObj
 }
 
-export function confirm(func) {
-  Vue.$confirm('此操作将重置该用户密码, 是否继续?', '提示', {
+export function confirm(title,func) {
+  Vue.prototype.$confirm(title, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
   }).then(() => {
-    //需要调用的方法
+    /*需要调用的方法*/
     func();
-    //需要调用的方法end
+    /*需要调用的方法end*/
   }).catch(() => {
-    Vue.$message({
+    Vue.prototype.$message({
       type: 'info',
       message: '已取消'
-    });          
+    });
   });
 }
