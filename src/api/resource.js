@@ -19,6 +19,7 @@ const apiChens = {
     /**用户管理 */
     usersRes: proxyUrl + csweb + 'userController/pagelist', // 获取当前登录用户下面的用户路径
     userByIdRes: proxyUrl + csweb + 'userController/info', // 根据ID查用户
+    restUserPwdRes: proxyUrl + csweb + 'userController/restPwd', // 重置密码
     createUserRes: proxyUrl + csweb + 'userController/create', // 创建用户
     updateUserRes: proxyUrl + csweb + 'userController/update', // 修改用户
     deleteUserRes: proxyUrl + csweb + 'userController/delete', // 删除用户
@@ -83,6 +84,7 @@ export const menusApi = API_ROOT.concat(apiChens.menusRes);
 export const userInfoApi = API_ROOT.concat(apiChens.userInfoRes);
 export const usersApi = API_ROOT.concat(apiChens.usersRes);
 export const userByIdApi = API_ROOT.concat(apiChens.userByIdRes);
+export const restUserPwdApi = API_ROOT.concat(apiChens.restUserPwdRes);
 export const createUserApi = API_ROOT.concat(apiChens.createUserRes);
 export const updateUserApi = API_ROOT.concat(apiChens.updateUserRes);
 export const deleteUserApi = API_ROOT.concat(apiChens.deleteUserRes);

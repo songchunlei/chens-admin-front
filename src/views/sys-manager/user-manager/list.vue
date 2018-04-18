@@ -104,7 +104,9 @@ export default {
 
     // 删除用户
     handleDelete (user) {
-      debugger;
+      if (!user || !user.id) {
+        return;
+      }
       api.deleteUserById(user.id).then((res) => {
         const json = res.data;
         if (json.code ===1) {
@@ -117,12 +119,12 @@ export default {
     },
 
     // 密码重置
-    restPwd (user, type) {
+    restPwd (item) {
       const params = {
-        userId: user.id,
+        userId: item.id,
         isRandom: false
       }
-      api.restPwdUserApi(params).then((res) => {
+      api.restPwd(params).then((res) => {
         const json = res.data;
         if (json.code != 1) {
           this.$message.error(json.msg || '重置密码失败!');
