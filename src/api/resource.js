@@ -61,7 +61,7 @@ const apiChens = {
 
     /**资源管理 */
     sourceFolderRes: proxyUrl + examWms + 'sourceFolderController/info', // 资源管理，根据id获取子目录
-    createDraftRes: proxyUrl + examWms + 'sourceController/createDraft', // 资源列表页面--新建资源
+    createDraftRes: proxyUrl + examWms + 'sourceController/save', // 资源列表页面--新建资源
 
     /**题目管理*/
     questionRes: proxyUrl + examWms + 'questionsController/pagelist', // 题目资源
