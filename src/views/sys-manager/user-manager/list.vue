@@ -53,8 +53,7 @@
 import { fetchList } from '@/api/article'
 import api from '@/api'
 import { mapState } from 'vuex';
-import { parseTime } from '@/utils'
-import { confirm } from '@/utils'
+import { parseTime, confirm } from '@/utils'
 import permBtn from '@/components/BtnTemp'
 import pagePagination from '@/components/Pagination'
 
@@ -136,6 +135,10 @@ export default {
     },
     //执行密码重置
     doRestPwd(params){
+      const params = {
+        userId: item.id,
+        random: false
+      }
         api.restPwd(params).then((res) => {
           const json = res.data;
           if (json.code != 1) {
@@ -149,11 +152,8 @@ export default {
     },
     // 密码重置
     restPwd (item) {
-      const params = {
-        userId: item.id,
-        random: false
-      }
-      confirm(doRestPwd);
+      
+      confirm(this.doRestPwd);
       // this.$confirm('此操作将重置该用户密码, 是否继续?', '提示', {
       //     confirmButtonText: '确定',
       //     cancelButtonText: '取消',

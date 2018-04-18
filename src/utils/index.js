@@ -267,7 +267,7 @@ export function deepClone(source, arrive) {
 }
 
 export function confirm(func) {
-  this.$confirm('此操作将重置该用户密码, 是否继续?', '提示', {
+  Vue.$confirm('此操作将重置该用户密码, 是否继续?', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
@@ -276,7 +276,7 @@ export function confirm(func) {
     func();
     //需要调用的方法end
   }).catch(() => {
-    this.$message({
+    Vue.$message({
       type: 'info',
       message: '已取消'
     });          
