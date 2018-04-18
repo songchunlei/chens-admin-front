@@ -2,7 +2,7 @@
  <!-- $t is vue-i18n global function to translate lang -->
   <div class="app-container">
     <div class="clearBoth">
-      <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keyword"></el-input>
+      <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keywords"></el-input>
       <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
       <el-button v-if="createVisable" style='float:right' type="success" icon="document" @click="routerUpdate">新增</el-button>
     </div>
@@ -43,7 +43,7 @@
     </el-table>
 
     <div class="pagination-container">
-      <page-pagination :api="'getUsers'" :search="search" @complete="complete">
+      <page-pagination :api="'getUsers'" ref="pagination" :search="search" @complete="complete">
       </page-pagination>
     </div>
   </div>
@@ -64,7 +64,7 @@ export default {
       list: null,
       listLoading: true,
       search: { // 查询条件
-        keyword: '', // 关键字
+        keywords: '', // 关键字
       },
       createVisable: false, // 新增显示控制
       dialogFormVisible: false,
@@ -83,12 +83,17 @@ export default {
   },
   methods: {
     complete (res) {
+      debugger;
       this.listLoading = false;
       this.list = res.data.data.records;
     },
     // 搜索
     handleSearch () {
-      this.$refs.pagination.search(this.search);
+      let searchParams = {};
+      searchParams.name = this.search.keywords;
+      searchParams.username = this.search.keywords;
+      searchParams.isAnd = false;
+      this.$refs.pagination.search(searchParams);
     },
 
     // 用户修改
@@ -98,12 +103,17 @@ export default {
     },
 
     // 删除用户
-    handleDelete (user, type) {
-      if (type == 'deleted') {
-        api.deleteUserById(user.id).then((res) => {
-          console.log(res);
-        });
-      }
+    handleDelete (user) {
+      debugger;
+      api.deleteUserById(user.id).then((res) => {
+        const json = res.data;
+        if (json.code ===1) {
+          this.$message.success(json.msg);
+          this.$refs.pagination.refresh();
+        }
+      }).catch((error) => {
+        this.$message.error(error);
+      });
     },
 
     // 密码重置

@@ -70,6 +70,9 @@ export default {
   methods: {
     initData () {
       this.totalSize = this.total;
+      this.params.page.current = this.current;
+      this.params.page.size = this.size;
+
       if (this.mustParams && Object.keys(this.mustParams).length > 0) {
         this.params.search = deepClone(this.mustParams);
       }
@@ -78,18 +81,25 @@ export default {
       }
     },
     search (search) {
+      this.params.page.isAnd = search.isAnd;
+      this.params.page.current = 1;
+      this.params.page.size = this.size;
       this.params.search = deepClone(search);
       this.pageList();
     },
     pageList () {
       api[this.api](this.params).then((res) => {
+        this.params.page.isAnd = true; // 重置默认
         this.totalSize = res.data.data.total;
         this.$emit('complete', res)
       }).catch((error) => {
         this.$message.error(error || '系统异常。');
       });
     },
-
+    // 刷新当前页
+    refresh () {
+      this.pageList();
+    },
     // 条数显示条数
     handleSizeChange(val) {
       this.params.page.size = val;
