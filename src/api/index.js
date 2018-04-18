@@ -16,6 +16,7 @@ import {
     usersApi,
     userByIdApi,
     userInfoApi,
+    restUserPwdApi,
     updateUserApi,
     createUserApi,
     deleteUserApi,
@@ -72,6 +73,10 @@ export default {
     // 用户列表
     getUsers (params) {
         return ajax({ url: usersApi, params: params, type: 'POST' });
+    },
+
+    restPwd(params){
+        return ajax({ url: restUserPwdApi, params: params, type: 'PUT' });
     },
     
     // 根据ID获取用户
