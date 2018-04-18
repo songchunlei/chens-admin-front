@@ -3,8 +3,8 @@
         <div>
             <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
             <div style="margin: 15px 0;"></div>
-            <el-checkbox-group v-model="userRoles" @change="handleCheckedAllRolesChange">
-                <el-checkbox v-for="item in allRoles" :label="item" :key="item.id">{{item.roleName}}</el-checkbox>
+            <el-checkbox-group v-model="userRoleIds" @change="handleCheckedAllRolesChange">
+                <el-checkbox v-for="item in allRoles" :label="item.id" :key="item.id">{{item.roleName}}</el-checkbox>
             </el-checkbox-group>
         </div>
         <div class="line_dashed"></div>
@@ -21,6 +21,7 @@ export default {
       isIndeterminate: true,
       allRoles: [], // 全部角色
       userRoles: [], // 用户角色
+      userRoleIds: [], // 用户角色 ids
       checkAll: '', // 全选
     }
   },
@@ -36,6 +37,17 @@ export default {
   mounted () {
 
   },
+  watch: {
+    userRoles () {
+      if (this.userRoles && this.userRoles.length > 0) {
+        for (var i = 0; i < this.userRoles.length; i++) {
+          this.userRoleIds.push(this.userRoles[i].id);
+        }
+      } else {
+        this.userRoleIds = [];
+      }
+    }
+  },
   methods: {
     initData () {
       if (this.userId) { // 修改
@@ -49,6 +61,7 @@ export default {
       api.getRolesByUserId(this.userId).then((res) => {debugger;
         const json = res.data;
         this.userRoles = json.data || [];
+        
       }).catch((error) => {
         this.$message.error(error || '系统异常。')
       });
@@ -59,7 +72,8 @@ export default {
       if (this.sysRoles && this.sysRoles.length > 0) {
         this.allRoles = this.sysRoles;
       } else {
-        this.$store.dispatch('GetSysRoles').then((res) => {debugger;
+        this.$store.dispatch('GetSysRoles').then((res) => {
+          debugger;
           const json = res.data;
           if (json.code != 1) {
             this.$message.error(json.msg || '获取该角色信息失败。');
@@ -74,13 +88,14 @@ export default {
 
     // 全选改变
     handleCheckAllChange (val) {debugger;
-      console.log(val);
+      console.log('handleCheckAllChange', val);
       this.userRoles = val ? this.allRoles : [];
       this.isIndeterminate = false;
     },
 
     // 全部角色里 已选 改变
     handleCheckedAllRolesChange (value) {
+      console.log('handleCheckedAllRolesChange', value);
       let checkedCount = value.length;
       this.checkAll = checkedCount === this.allRoles.length;
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.allRoles.length;

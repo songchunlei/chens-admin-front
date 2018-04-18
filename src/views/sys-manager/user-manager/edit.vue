@@ -22,7 +22,7 @@
           <el-col :span="12">
             <h4><i class="iconFont icon-jiaoseguanli"></i>角色信息</h4>
             <div v-show="rolesShow">
-              <role-allot :userId="id"></role-allot>
+              <role-allot :userId="id" ref="roleAllot"></role-allot>
             </div>
           </el-col>
         </el-row>
@@ -93,6 +93,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.listLoading = true;
+          const userRoleIds = this.$refs.roleAllot.userRoleIds;
+          console.log(userRoleIds);
           if (!this.id) { // 新增
             api.createUser(this.userForm).then((res) => {
               this.listLoading = false;
