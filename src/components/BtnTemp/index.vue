@@ -8,6 +8,7 @@
     <el-button type="default" size="mini" v-if="showBtns.batchDelete" @click="handlerEmit('batchDelete')">批量删除</el-button>
     <el-button type="info" size="mini" v-if="showBtns.info" @click="handlerEmit('info')">查看</el-button>
     <slot name="resetPwd"></slot>
+    <slot></slot>
   </div>
 </template>
 <script>
