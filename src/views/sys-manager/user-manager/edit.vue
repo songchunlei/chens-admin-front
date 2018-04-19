@@ -5,7 +5,7 @@
         <el-row :gutter="50">
           <el-col :span="10">
             <h4><i class="iconFont icon-jibenziliao"></i>用户基本信息</h4>
-            
+
               <el-form-item label="用户名" prop="username">
                 <el-input v-model="userForm.username" placeholder="登录名"></el-input>
               </el-form-item>
@@ -53,7 +53,8 @@ export default {
         password: '',
         name: '',
         phone: '',
-        email: ''
+        email: '',
+        roles:{}
       },
       rolesShow: false
     }
@@ -94,7 +95,7 @@ export default {
         if (valid) {
           this.listLoading = true;
           const userRoleIds = this.$refs.roleAllot.userRoleIds;
-          console.log(userRoleIds);
+          this.userForm.roles = userRoleIds;
           if (!this.id) { // 新增
             api.createUser(this.userForm).then((res) => {
               this.listLoading = false;
