@@ -39,6 +39,7 @@ CREATE TABLE `sys_menu` (
   `code` varchar(32) DEFAULT NULL COMMENT '菜单编码',
   `create_by_name` varchar(255) DEFAULT NULL,
   `update_by_name` varchar(255) DEFAULT NULL,
+  `is_delete` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,7 +48,8 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 BEGIN;
 
-INSERT INTO `sys_menu` VALUES ('1', '-1', 'PAGE', '统计', '', '统计', null, null, null, null, '1', null, 'icon-home', null, 'dashboard', null, null);
+INSERT INTO `sys_menu`
+VALUES ('1', '-1', 'PAGE', '统计', '', '统计', null, null, null, null, '1', null, 'icon-home', null, 'dashboard', null, null);
 
 INSERT INTO `sys_menu` VALUES 
 ('1000', '-1', 'MODULE', '系统管理', '/**', '系统管理', null, null, null, null, '6', null, 'icon-system', null, 'sysManager', null, null), 
@@ -155,15 +157,15 @@ INSERT INTO `sys_menu` VALUES
 ('7000', '-1', 'MODULE', '通用数据管理', '/**', '通用数据管理', null, null, null, null, '6', null, 'icon-system', null, 'commonDataManager', null, null);
  INSERT INTO `sys_menu` VALUES 
  ('7001', '7000', 'PAGE', '标签分类管理', '/tagClassController/**', '标签分类管理', null, null, null, null, '5', null, null, null, 'tagClassList', null, null),
- ('700101', '7001', 'BUTTON', '新增', '/tagController/create', '创建标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null), 
- ('700102', '7001', 'BUTTON', '编辑', '/tagController/update', '编辑标签分类', null, null, null, null, '1', null, null, null, 'tagClass-update', null, null), 
- ('700103', '7001', 'BUTTON', '删除', '/tagController/delete', '删除标签分类', null, null, null, null, null, null, null, null, 'tagClass-delete', null, null);
+ ('700101', '7001', 'BUTTON', '新增', '/tagClassController/create', '创建标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null), 
+ ('700102', '7001', 'BUTTON', '编辑', '/tagClassController/update', '编辑标签分类', null, null, null, null, '1', null, null, null, 'tagClass-update', null, null), 
+ ('700103', '7001', 'BUTTON', '删除', '/tagClassController/delete', '删除标签分类', null, null, null, null, null, null, null, null, 'tagClass-delete', null, null);
  INSERT INTO `sys_menu` VALUES 
  ('7002', '7000', 'PAGE', '标签管理', '/tagController/pageList', '标签管理', null, null, null, null, '3', null, null, null, 'menuList', null, null), 
  ('700201', '7002', 'BUTTON', '新增', '/tagController/create', '创建标签', null, null, null, null, null, null, null, null, 'tag-create', null, null), 
  ('700202', '7002', 'BUTTON', '编辑', '/tagController/update', '编辑标签', null, null, null, null, '1', null, null, null, 'tag-update', null, null), 
  ('700203', '7002', 'BUTTON', '删除', '/tagController/delete', '删除标签', null, null, null, null, null, null, null, null, 'tag-delete', null, null),
- ('700204', '7002', 'BUTTON', '新增标签分类', '/tagClassController/create', '新增标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null);
+ ('700204', '7002', 'BUTTON', '新增标签分类', '/tagClassController/create', '新增标签分类', null, null, null, null, null, null, null, null, 'tag-tagClassCreate', null, null);
 
 
 

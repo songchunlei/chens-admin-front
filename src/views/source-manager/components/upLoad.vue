@@ -335,13 +335,13 @@ export default {
       addIndex: false,
       thread: 3,
       name: 'file',
-      postAction: '/chens-api/exam-wms/sourceController/uploadFile',
-      putAction: '/chens-api/exam-wms/sourceController/uploadFile',
+      postAction: '/chens-api/exam-wms/sourceController/uploadFile'+'?folderId='+this.folderId,
+      putAction: '/chens-api/exam-wms/sourceController/uploadFile'+'?folderId='+this.folderId,
       headers: {
         'Authorization': getToken()
       },
       data: {
-        'folderId': '-1'
+        
       },
 
       autoCompress: 1024 * 1024,
@@ -362,6 +362,8 @@ export default {
       }
     }
   },
+
+  props: ['folderId'],
 
   watch: {
     'editFile.show'(newValue, oldValue) {

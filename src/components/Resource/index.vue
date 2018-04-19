@@ -69,6 +69,7 @@ export default {
       debugger;
       this.getSourceFolder(this.sourceId);
     },
+    //资源文件/文件夹
     getSourceFolder (id) {
       api.getSourceFolder(id).then((res) => {
         const json = res.data;
@@ -80,7 +81,25 @@ export default {
         this.$message.error(error);  
       })
     },
-    
+    //根据类型查询文件/文件夹
+    getFolderAndFile (type,id) {
+      /**
+       * getSourceFolder
+       * getQuestionsFolder
+       * getExamPaperFolder
+       * getBookFolder
+       * getCourseFolder
+       */
+      api.getSourceFolder(id).then((res) => {
+        const json = res.data;
+        if (json.code === 1) {
+          this.currentFold = json.data;
+          this.resourceData = json.data.children || [];
+        }
+      }).catch((error) => {
+        this.$message.error(error);  
+      })
+    },
     // 重新加载此页， 用于外部调用
     handleReset () {
       this.getSourceFolder(this.currentFold.id);

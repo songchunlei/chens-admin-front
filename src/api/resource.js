@@ -60,21 +60,76 @@ const apiChens = {
     deleteTagRes: proxyUrl + examWms + 'tagController/delete', // 删除标签
 
     /**资源管理 */
-    sourceFolderRes: proxyUrl + examWms + 'sourceFolderController/info', // 资源管理，根据id获取子目录
-    createDraftRes: proxyUrl + examWms + 'sourceController/save', // 资源列表页面--新建资源
+    sourceFolderRes: proxyUrl + examWms + 'sourceFolderController/info', // 资源-查询文件/文件夹
+    createSourceFolderRes: proxyUrl + examWms + 'sourceFolderController/create', // 资源-创建文件夹
+    updateSourceFolderRes: proxyUrl + examWms + 'sourceFolderController/update', // 资源-更新文件夹
+    deleteSourceFolderRes: proxyUrl + examWms + 'sourceFolderController/delete', // 资源-删除文件夹
+    saveSourceRes: proxyUrl + examWms + 'sourceController/save', // 资源-保存草稿
+    submitSourceRes: proxyUrl + examWms + 'sourceController/submitDraft', // 资源-提交草稿
+    passSourceRes: proxyUrl + examWms + 'sourceController/pass', // 资源-审批通过（只读审批）
+    passWithEditSourceRes: proxyUrl + examWms + 'sourceController/passWithEdit', // 资源-审批通过（可编辑审批）
+    noPassSourceRes: proxyUrl + examWms + 'sourceController/noPass', // 资源-审批不通过
+    publishSourceRes: proxyUrl + examWms + 'sourceController/publish', // 资源-发布
+    unPublishSourceRes: proxyUrl + examWms + 'sourceController/unPublish', // 资源-取消发布
+    getSourceRes: proxyUrl + examWms + 'sourceController/getApproveFormData', // 资源-获取表单信息
 
     /**题目管理*/
-    questionRes: proxyUrl + examWms + 'questionsController/pagelist', // 题目资源
-    saveQuestionRes: proxyUrl + examWms + 'questionsController/saveQuestions', // 保存题目
-    selectQuestionDetailRes : proxyUrl + examWms + 'questionsController/selectQuestionDetail', // 题目详情
+    questionsFolderRes: proxyUrl + examWms + 'questionsFolderController/info', // 题目-文件/文件夹
+    createQuestionsFolderRes: proxyUrl + examWms + 'questionsFolderController/create', // 题目-创建文件夹
+    updateQuestionsFolderRes: proxyUrl + examWms + 'questionsFolderController/update', // 题目-更新文件夹
+    deleteQuestionsFolderRes: proxyUrl + examWms + 'questionsFolderController/delete', // 题目-删除文件夹
+    saveQuestionsRes: proxyUrl + examWms + 'questionsController/save', // 题目-保存草稿
+    submitQuestionsRes: proxyUrl + examWms + 'questionsController/submitDraft', // 题目-提交草稿
+    passQuestionsRes: proxyUrl + examWms + 'questionsController/pass', // 题目-审批通过（只读审批）
+    passWithEditQuestionsRes: proxyUrl + examWms + 'questionsController/passWithEdit', // 题目-审批通过（可编辑审批）
+    noPassQuestionsRes: proxyUrl + examWms + 'questionsController/noPass', // 题目-审批不通过
+    publishQuestionsRes: proxyUrl + examWms + 'questionsController/publish', // 题目-发布
+    unPublishQuestionsRes: proxyUrl + examWms + 'questionsController/unPublish', // 题目-取消发布
+    getQuestionsRes: proxyUrl + examWms + 'questionsController/getApproveFormData', // 题目-获取表单信息
 
     /**试卷管理*/
-    examPapperRes: proxyUrl + examBook + 'examPaperController/pagelist', // 获取试卷数据
-    createExamPapperRes: proxyUrl + examBook + 'examPaperController/create', // 创建试卷
-    updateExamPapperRes: proxyUrl + examBook + 'examPaperController/update', // 修改试卷
-    deleteExamPapperRes: proxyUrl + examBook + 'examPaperController/delete', // 删除试卷
-    addQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/addQuestions', // 试卷增加题目
-    deleteQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/deleteQuestions', // 试卷删除题目
+    examPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/info', // 试卷-文件/文件夹
+    createExamPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/create', // 试卷-创建文件夹
+    updateExamPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/update', // 试卷-更新文件夹
+    deleteExamPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/delete', // 试卷-删除文件夹
+    saveExamPaperRes: proxyUrl + examWms + 'examPaperController/save', // 试卷-保存草稿
+    submitExamPaperRes: proxyUrl + examWms + 'examPaperController/submitDraft', // 试卷-提交草稿
+    passExamPaperRes: proxyUrl + examWms + 'examPaperController/pass', // 试卷-审批通过（只读审批）
+    passWithEditExamPaperRes: proxyUrl + examWms + 'examPaperController/passWithEdit', // 试卷-审批通过（可编辑审批）
+    noPassExamPaperRes: proxyUrl + examWms + 'examPaperController/noPass', // 试卷-审批不通过
+    publishExamPaperRes: proxyUrl + examWms + 'examPaperController/publish', // 试卷-发布
+    unPublishExamPaperRes: proxyUrl + examWms + 'examPaperController/unPublish', // 试卷-取消发布
+    getExamPaperRes: proxyUrl + examWms + 'examPaperController/getApproveFormData', // 试卷-获取表单信息
+    addQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/addQuestions', // 试卷-增加题目
+    deleteQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/deleteQuestions', // 试卷-删除题目
+
+    /**书本管理*/
+    bookFolderRes: proxyUrl + examWms + 'bookFolderController/info', // 书本-文件/文件夹
+    createBookFolderRes: proxyUrl + examWms + 'bookFolderController/create', // 书本-创建文件夹
+    updateBookFolderRes: proxyUrl + examWms + 'bookFolderController/update', // 书本-更新文件夹
+    deleteBookFolderRes: proxyUrl + examWms + 'bookFolderController/delete', // 书本-删除文件夹
+    saveBookRes: proxyUrl + examWms + 'bookController/save', // 书本-保存草稿
+    submitBookRes: proxyUrl + examWms + 'bookController/submitDraft', // 书本-提交草稿
+    passBookRes: proxyUrl + examWms + 'bookController/pass', // 书本-审批通过（只读审批）
+    passWithEditBookRes: proxyUrl + examWms + 'bookController/passWithEdit', // 书本-审批通过（可编辑审批）
+    noPassBookRes: proxyUrl + examWms + 'bookController/noPass', // 书本-审批不通过
+    publishBookRes: proxyUrl + examWms + 'bookController/publish', // 书本-发布
+    unPublishBookRes: proxyUrl + examWms + 'bookController/unPublish', // 书本-取消发布
+    getBookRes: proxyUrl + examWms + 'bookController/getApproveFormData', // 书本-获取表单信息
+
+    /**课程管理*/
+    courseFolderRes: proxyUrl + examWms + 'courseFolderController/info', //课程-文件/文件夹
+    createCourseFolderRes: proxyUrl + examWms + 'courseFolderController/create', // 课程-创建文件夹
+    updateCourseFolderRes: proxyUrl + examWms + 'courseFolderController/update', // 课程-更新文件夹
+    deleteCourseFolderRes: proxyUrl + examWms + 'courseFolderController/delete', // 课程-删除文件夹
+    saveCourseRes: proxyUrl + examWms + 'courseController/save', // 课程-保存草稿
+    submitCourseRes: proxyUrl + examWms + 'courseController/submitDraft', // 课程-提交草稿
+    passCourseRes: proxyUrl + examWms + 'courseController/pass', // 课程-审批通过（只读审批）
+    passWithEditCourseRes: proxyUrl + examWms + 'courseController/passWithEdit', // 课程-审批通过（可编辑审批）
+    noPassCourseRes: proxyUrl + examWms + 'courseController/noPass', // 课程-审批不通过
+    publishCourseRes: proxyUrl + examWms + 'courseController/publish', // 课程-发布
+    unPublishCourseRes: proxyUrl + examWms + 'courseController/unPublish', // 课程-取消发布
+    getCourseRes: proxyUrl + examWms + 'courseController/getApproveFormData', // 课程-获取表单信息
 
     /**审批管理*/
     undoRes: proxyUrl + bpmweb + 'bpmController/getMyTodoTaskPage', // 我的代办
@@ -116,17 +171,74 @@ export const tagsApi = API_ROOT.concat(apiChens.tagRes);
 export const createTagApi = API_ROOT.concat(apiChens.createTagRes);
 export const updateTagApi = API_ROOT.concat(apiChens.updateTagRes);
 export const deleteTagApi = API_ROOT.concat(apiChens.deleteTagRes);
+
 export const sourceFolderApi = API_ROOT.concat(apiChens.sourceFolderRes);
-export const createDraftApi = API_ROOT.concat(apiChens.createDraftRes);
-export const questionApi = API_ROOT.concat(apiChens.questionRes);
-export const saveQuestionApi = API_ROOT.concat(apiChens.saveQuestionRes);
-export const selectQuestionDetailApi = API_ROOT.concat(apiChens.selectQuestionDetailRes);
-export const examPappersApi = API_ROOT.concat(apiChens.examPapperRes);
-export const createExamPapperApi = API_ROOT.concat(apiChens.createExamPapperRes);
-export const updateExamPapperApi = API_ROOT.concat(apiChens.updateExamPapperRes);
-export const deleteExamPapperApi = API_ROOT.concat(apiChens.deleteExamPapperRes);
+export const createSourceFolderApi = API_ROOT.concat(apiChens.createSourceFolderRes);
+export const updateSourceFolderApi = API_ROOT.concat(apiChens.updateSourceFolderRes);
+export const deleteSourceFolderApi = API_ROOT.concat(apiChens.deleteSourceFolderRes);
+export const saveSourceApi = API_ROOT.concat(apiChens.saveSourceRes);
+export const submitSourceApi = API_ROOT.concat(apiChens.submitSourceRes);
+export const passSourceApi = API_ROOT.concat(apiChens.passSourceRes);
+export const passWithEditSourceApi = API_ROOT.concat(apiChens.passWithEditSourceRes);
+export const noPassSourceApi = API_ROOT.concat(apiChens.noPassSourceRes);
+export const publishSourceApi = API_ROOT.concat(apiChens.publishSourceRes);
+export const unPublishSourceApi = API_ROOT.concat(apiChens.unPublishSourceRes);
+export const getSourceApi = API_ROOT.concat(apiChens.getSourceRes);
+
+export const questionsFolderApi = API_ROOT.concat(apiChens.questionsFolderRes);
+export const createQuestionsFolderApi = API_ROOT.concat(apiChens.createQuestionsFolderRes);
+export const updateQuestionsFolderApi = API_ROOT.concat(apiChens.updateQuestionsFolderRes);
+export const deleteQuestionsFolderApi = API_ROOT.concat(apiChens.deleteQuestionsFolderRes);
+export const saveQuestionsApi = API_ROOT.concat(apiChens.saveQuestionsRes);
+export const submitQuestionsApi = API_ROOT.concat(apiChens.submitQuestionsRes);
+export const passQuestionsApi = API_ROOT.concat(apiChens.passQuestionsRes);
+export const passWithEditQuestionsApi = API_ROOT.concat(apiChens.passWithEditQuestionsRes);
+export const noPassQuestionsApi = API_ROOT.concat(apiChens.noPassQuestionsRes);
+export const publishQuestionsApi = API_ROOT.concat(apiChens.publishQuestionsRes);
+export const unPublishQuestionsApi = API_ROOT.concat(apiChens.unPublishQuestionsRes);
+export const getQuestionsApi = API_ROOT.concat(apiChens.getQuestionsRes);
+
+export const examPaperFolderApi = API_ROOT.concat(apiChens.examPaperFolderRes);
+export const createExamPaperFolderApi = API_ROOT.concat(apiChens.createExamPaperFolderRes);
+export const updateExamPaperFolderApi = API_ROOT.concat(apiChens.updateExamPaperFolderRes);
+export const deleteExamPaperFolderApi = API_ROOT.concat(apiChens.deleteExamPaperFolderRes);
+export const saveExamPaperApi = API_ROOT.concat(apiChens.saveExamPaperRes);
+export const submitExamPaperApi = API_ROOT.concat(apiChens.submitExamPaperRes);
+export const passExamPaperApi = API_ROOT.concat(apiChens.passExamPaperRes);
+export const passWithEditExamPaperApi = API_ROOT.concat(apiChens.passWithEditExamPaperRes);
+export const noPassExamPaperApi = API_ROOT.concat(apiChens.noPassExamPaperRes);
+export const publishExamPaperApi = API_ROOT.concat(apiChens.publishExamPaperRes);
+export const unPublishExamPaperApi = API_ROOT.concat(apiChens.unPublishExamPaperRes);
+export const getExamPaperApi = API_ROOT.concat(apiChens.getExamPaperRes);
 export const addQuestionsInExamPapperApi = API_ROOT.concat(apiChens.addQuestionsInExamPapperRes);
-export const deleteQuestionsInPapperApi = API_ROOT.concat(apiChens.deleteQuestionsInExamPapperRes);
+export const deleteQuestionsInExamPapperApi = API_ROOT.concat(apiChens.deleteQuestionsInExamPapperRes);
+
+export const bookFolderApi = API_ROOT.concat(apiChens.bookFolderRes);
+export const createBookFolderApi = API_ROOT.concat(apiChens.createBookFolderRes);
+export const updateBookFolderApi = API_ROOT.concat(apiChens.updateBookFolderRes);
+export const deleteBookFolderApi = API_ROOT.concat(apiChens.deleteBookFolderRes);
+export const saveBookApi = API_ROOT.concat(apiChens.saveBookRes);
+export const submitBookApi = API_ROOT.concat(apiChens.submitBookRes);
+export const passBookApi = API_ROOT.concat(apiChens.passBookRes);
+export const passWithEditBookApi = API_ROOT.concat(apiChens.passWithEditBookRes);
+export const noPassBookApi = API_ROOT.concat(apiChens.noPassBookRes);
+export const publishBookApi = API_ROOT.concat(apiChens.publishBookRes);
+export const unPublishBookApi = API_ROOT.concat(apiChens.unPublishBookRes);
+export const getBookApi = API_ROOT.concat(apiChens.getBookRes);
+
+export const courseFolderApi = API_ROOT.concat(apiChens.courseFolderRes);
+export const createCourseFolderApi = API_ROOT.concat(apiChens.createCourseFolderRes);
+export const updateCourseFolderApi = API_ROOT.concat(apiChens.updateCourseFolderRes);
+export const deleteCourseFolderApi = API_ROOT.concat(apiChens.deleteCourseFolderRes);
+export const saveCourseApi = API_ROOT.concat(apiChens.saveCourseRes);
+export const submitCourseApi = API_ROOT.concat(apiChens.submitCourseRes);
+export const passCourseApi = API_ROOT.concat(apiChens.passCourseRes);
+export const passWithEditCourseApi = API_ROOT.concat(apiChens.passWithEditCourseRes);
+export const noPassCourseApi = API_ROOT.concat(apiChens.noPassCourseRes);
+export const publishCourseApi = API_ROOT.concat(apiChens.publishCourseRes);
+export const unPublishCourseApi = API_ROOT.concat(apiChens.unPublishCourseRes);
+export const getCourseApi = API_ROOT.concat(apiChens.getCourseRes);
+
 export const undoApi = API_ROOT.concat(apiChens.undoRes);
 export const doneApi = API_ROOT.concat(apiChens.doneRes);
 

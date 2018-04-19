@@ -30,8 +30,12 @@ import {
     deleteRoleApi,
     sysLogsApi,
     sourceFolderApi,
+    questionsFolderApi,
+    examPaperFolderApi,
+    bookFolderApi,
+    courseFolderApi,
     tenantsApi,
-    createDraftApi,
+    saveSourceApi,
     undoApi,
     doneApi
 } from './resource';
@@ -167,17 +171,37 @@ export default {
         return ajax({ url: sourceFolderApi + '/' + id })
     },
 
-    // 创建资源
-    createDraft (params) {
-        return ajax({ url: createDraftApi, params: params, type: 'POST' })
+    // 题目子目录
+    getQuestionsFolder (id) {
+        return ajax({ url: questionsFolderApi + '/' + id })
     },
 
-    // 创建资源
+    // 试卷子目录
+    getExamPaperFolder (id) {
+        return ajax({ url: examPaperFolderApi + '/' + id })
+    },
+
+    // 书本子目录
+    getBookFolder (id) {
+        return ajax({ url: bookFolderApi + '/' + id })
+    },
+
+     // 课程子目录
+     getCourseFolder (id) {
+        return ajax({ url: courseFolderApi + '/' + id })
+    },
+
+    //创建资源
+    saveSource (params) {
+        return ajax({ url: saveSourceApi, params: params, type: 'POST' });
+    },
+
+    // 待办
     getUndoPage (params) {
         return ajax({ url: undoApi, params: params, type: 'POST' })
     },
 
-    // 创建资源
+    // 已办
     getDonePage (params) {
         return ajax({ url: doneApi, params: params, type: 'POST' })
     }

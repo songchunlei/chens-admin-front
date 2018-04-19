@@ -16,7 +16,7 @@
     
     <div>
       <el-dialog :visible.sync="upload.dialogTableVisible">
-        <upload-table :files="upload.files" @completeUpload="completeUpload"></upload-table>
+        <upload-table :files="upload.files" :folderId="upload.folderId" @completeUpload="completeUpload"></upload-table>
       </el-dialog>
     </div>
 
@@ -45,6 +45,7 @@ export default {
       upload: {
         dialogTableVisible: false,
         files: [], // 文件
+        folderId:'-1',//默认文件夹位置-1
       },
     }
   },
@@ -59,7 +60,8 @@ export default {
   methods: {
     // 上传文件
     uploadSource () {
-      console.log('上传');
+      console.log('上传:'+this.$refs.resourceTable.currentFold.id);
+      this.upload.folderId = this.$refs.resourceTable.currentFold.id;
       this.upload.dialogTableVisible = true;
     },
     // 图文新建
