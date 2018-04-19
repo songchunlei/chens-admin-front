@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     handleCreate (type) {
-      this.$router.push({ path: '/myCenter/actionCreate', query: { flowkey: type }});
+      this.$router.push({ path: '/myCenter/undoReivew', query: { flowkey: type }});
     }
   }
 }

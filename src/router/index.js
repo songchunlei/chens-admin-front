@@ -217,9 +217,9 @@ export const asyncRouterMap = [
       icon: 'form'
     },
     children: [
-      { path: 'myUndoPage', component: _import('review-manager/undo'), name: 'undoList', meta: { title: 'undoReview', icon: 'form', code: 'myUndoPage' }},
-      { path: 'myDonePage', component: _import('review-manager/done'), name: 'doneList', meta: { title: 'doneReview', icon: 'form', code: 'myDonePage' }},
-      { path: 'actionCreate', component: _import('review-manager/actionCreate'), name: 'actionForm', meta: { title: 'actionForm', icon: 'form' }}
+      { path: 'myUndoPage', component: _import('review-manager/undo'), name: 'undoList', meta: { title: 'undoList', icon: 'form', code: 'myUndoPage' }},
+      { path: 'myDonePage', component: _import('review-manager/done'), name: 'doneList', meta: { title: 'doneList', icon: 'form', code: 'myDonePage' }},
+      { path: 'undoReivew', component: _import('review-manager/undoReivew'), name: 'undoReivew', meta: { title: 'undoReivew', icon: 'form' }}
     ]
   },
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="app-contanier"></div>
+  <div class="app-contanier">
+
+  </div>
 </template>
 <script>
 export default {
@@ -9,15 +11,22 @@ export default {
 
     }
   },
+  props: {
+    tmptJson: {
+      type: Object
+    }
+  },
   compotents: {},
   created () {
-
+    this.initData();
   },
   mounted () {
 
   },
   methods: {
-
+    initData () {
+      console.log(this.tmptJson);
+    }
   }
 }
 </script>
