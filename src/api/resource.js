@@ -33,7 +33,7 @@ const apiChens = {
     roleByIdRes: proxyUrl + csweb + 'roleController/info', // 获取角色信息
     createRoleRes: proxyUrl + csweb + 'roleController/create', // 新增角色信息
     updateRoleRes: proxyUrl + csweb + 'roleController/update', // 修改角色信息
-    deleteRoleRes: proxyUrl + csweb + 'roleController/deleteWithRel', // 删除角色信息
+    deleteRoleRes: proxyUrl + csweb + 'roleController/delete', // 删除角色信息
 
     /**菜单管理 */
     createMenuRes: proxyUrl + csweb + 'menuController/create', // 新增菜单

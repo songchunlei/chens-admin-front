@@ -3,6 +3,7 @@
   <div class="app-container">
     <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.name"></el-input>
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
+    <el-button v-if="createVisable" type="success" icon="document" @click="routerUpdate">新增</el-button>
 
     <el-table :data="list" ref="roleTable" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label="选择框" width="65">
@@ -23,7 +24,7 @@
       </el-table-column>
       <el-table-column label="角色CODE">
         <template slot-scope="scope">
-          {{scope.row.code}}
+          {{scope.row.roleCode}}
         </template>
       </el-table-column>
 
@@ -33,15 +34,24 @@
           <span v-if="scope.row.createTime">{{scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="235" align="center">
+
+      <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-          <perm-btn :item="scope.row" :code="$route.meta.code" @handlerAllot="handlerAllot"></perm-btn>
+          <perm-btn :item="scope.row" :code="$route.meta.code" @handlerAllot="handlerAllot" @btnTempComplete="btnTempComplete">
+          </perm-btn>
         </template>
       </el-table-column>
+
     </el-table>
     <div class="pagination-container">
       <page-pagination ref="pagination" :api="'getRoles'" :search="search" @complete="complete">
       </page-pagination>
+    </div>
+
+    <div>
+      <el-dialog title="角色信息" :visible.sync="editRoleDialog.dialogTableVisible">
+        <roleEdit-dialog :roleId="editRoleDialog.currentRoleId" @completeUpdate="completeUpdate"></roleEdit-dialog>
+      </el-dialog>
     </div>
 
     <div style="margin-top: 100px" v-if="currentItem">
@@ -59,6 +69,7 @@ import { parseTime } from '@/utils'
 import permBtn from '@/components/BtnTemp'
 import pagePagination from '@/components/Pagination'
 import roleUsers from './components/role.users'
+import roleEditDialog from './components/role.edit'
 
 export default {
   name: 'roleManager',
@@ -70,10 +81,15 @@ export default {
       currentItem: '',
       search: {
 
+      },
+      createVisable: false, // 新增显示控制
+      editRoleDialog: {
+        dialogTableVisible: false,
+        currentRoleId:''
       }
     }
   },
-  components: { permBtn, pagePagination, roleUsers },
+  components: { permBtn, pagePagination, roleUsers,roleEditDialog },
   computed: {
   },
   created () {
@@ -85,7 +101,11 @@ export default {
     },
 
     handleSearch () {
-      this.$refs.pagination.search(this.search);
+      let searchParams = {};
+      searchParams.roleName = this.search.keywords;
+      searchParams.roleCode= this.search.keywords;
+      searchParams.isAnd = false;
+      this.$refs.pagination.search(searchParams);
     },
 
     // 选中
@@ -95,11 +115,35 @@ export default {
     },
 
     // 角色修改
-    handleUpdate (item) {
+    routerUpdate (item) {
+      console.log("current role id:"+ item);
       let itemId = item ? item.id : '';
-      this.$router.push({ path: '/sysManager/user/userUpdate/', query: { 'userId': itemId }});
+      // this.$router.push({ path: '/sysManager/role/roleUpdate/', query: { 'userId': itemId }});
+      this.editRoleDialog.currentRoleId = itemId;
+      this.editRoleDialog.dialogTableVisible = true;
     },
 
+    //更新完成后事件
+    completeUpdate () {
+      this.handleSearch();
+    },
+
+    // 删除
+    handleDelete (item) {
+      if (!item || !item.id) {
+        return;
+      }
+
+      api.deleteRole(item.id).then((res) => {
+        const json = res.data;
+        if (json.code ===1) {
+          this.$message.success(json.msg);
+          this.$refs.pagination.refresh();
+        }
+      }).catch((error) => {
+        this.$message.error(error);
+      });
+    },
 
     // 权限btns 子组件触发
     handlerAllot (type, item) {
@@ -113,6 +157,11 @@ export default {
         default:;
       }
     },
+
+    btnTempComplete (showBtns) {
+      this.createVisable = showBtns.create;
+    }
+    
   }
 }
 </script>

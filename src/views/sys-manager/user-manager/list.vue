@@ -4,7 +4,8 @@
     <div class="clearBoth">
       <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keywords"></el-input>
       <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
-      <el-button v-if="createVisable" style='float:right' type="success" icon="document" @click="routerUpdate">新增</el-button>
+      <!-- style='float:right'  -->
+      <el-button v-if="createVisable" type="success" icon="document" @click="routerUpdate">新增</el-button>
     </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label="选择框" width="65">
@@ -129,12 +130,12 @@ export default {
           api.restPwd(params).then((res) => {
           const json = res.data;
           if (json.code != 1) {
-            this.$message.error(json.msg || '重置密码失败!');
+            $this.$message.error(json.msg || '重置密码失败!');
             return;
           }
-          this.$message.success(json.msg || '重置密码成功。');
+            $this.$message.success(json.msg || '重置密码成功。');
           }).catch((error) => {
-          this.$message.error(error || '系统错误!');
+            $this.$message.error(error || '系统错误!');
           });
       }
       confirm("此操作将重置该用户密码, 是否继续?",func);
