@@ -1,7 +1,7 @@
 <template>
  <!-- $t is vue-i18n global function to translate lang -->
   <div class="app-container">
-    <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.name"></el-input>
+    <el-input style='width:340px;' placeholder="请输入关键字" prefix-icon="el-icon-document" v-model="search.keywords"></el-input>
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
     <el-button v-if="createVisable" type="success" icon="document" @click="routerUpdate">新增</el-button>
 
@@ -9,12 +9,6 @@
       <el-table-column align="center" label="选择框" width="65">
         <template slot-scope="scope">
           <el-radio class="radio" :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.row)"></el-radio>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label='Id' width="95">
-        <template slot-scope="scope">
-          {{scope.$index}}
         </template>
       </el-table-column>
       <el-table-column label="角色名">
@@ -50,11 +44,11 @@
 
     <div>
       <el-dialog title="角色信息" :visible.sync="editRoleDialog.dialogTableVisible">
-        <roleEdit-dialog v-if="editRoleDialog.dialogTableVisible" :roleId="currentItem.id" @completeUpdate="completeUpdate"></roleEdit-dialog>
+        <roleEdit-dialog v-if="editRoleDialog.dialogTableVisible" :roleId="editRoleDialog.currentRoleId" @completeUpdate="completeUpdate"></roleEdit-dialog>
       </el-dialog>
     </div>
 
-    <div style="margin-top: 100px" v-if="currentItem">
+    <div style="margin-top: 100px" v-if="currentItem.id">
       <h4 class="m-b-md">角色<span class="font-mark">{{currentItem.roleName}}</span>下的用户</h4>
       <role-users :roleId="currentItem.id"></role-users>
     </div>
@@ -78,9 +72,9 @@ export default {
       list: null,
       listLoading: true,
       radio: '',
-      currentItem: '',
+      currentItem: {},
       search: {
-
+        keywords: '' // 关键字
       },
       createVisable: false, // 新增显示控制
       editRoleDialog: {
@@ -111,14 +105,17 @@ export default {
     // 选中
     getCurrentRow (item) {
       // console.log(item.id);
-      // this.currentItem = item;
+      if (!item || !item.id) {
+        return;
+      }
+      this.currentItem = item;
     },
 
     // 角色修改
     routerUpdate (item) {
       // this.$router.push({ path: '/sysManager/role/roleUpdate/', query: { 'userId': itemId }});
 
-      this.currentItem = item;
+      this.editRoleDialog.currentRoleId = item.id!=''?item.id:'';
       this.editRoleDialog.dialogTableVisible = true;
 
 
