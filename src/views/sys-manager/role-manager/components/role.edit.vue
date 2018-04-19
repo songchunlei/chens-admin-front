@@ -10,7 +10,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                  <el-button @click="dialogFormVisible = false">取消</el-button>
+                  <el-button @click="handleCancel">取消</el-button>
                   <el-button type="primary" @click="submitForm('roleForm')">确认</el-button>
                 </el-form-item>
             </el-form>
@@ -39,12 +39,15 @@ export default {
       type: String
     }
   },
+  watch: {
+  },
   computed: {
   },
   components: {
     
   },
   created () {
+    console.log('roleEdit');
     this.initData();
   },
   mounted () {
@@ -53,13 +56,9 @@ export default {
   methods: {
     // 初始化数据
     initData () {
-
-      console.log("roleId:"+this.roleId);
-
       if (!this.roleId) {
           return;
       }
-
       api.getRoleById(this.roleId).then((res) => {
           let json = res.data;
           if (json.code != 1) {
@@ -99,6 +98,10 @@ export default {
       });
       
       
+    },
+
+    handleCancel () {
+      this.$emit('completeUpdate');
     }
 
   }

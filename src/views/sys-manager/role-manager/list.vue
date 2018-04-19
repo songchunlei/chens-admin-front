@@ -50,7 +50,7 @@
 
     <div>
       <el-dialog title="角色信息" :visible.sync="editRoleDialog.dialogTableVisible">
-        <roleEdit-dialog :roleId="editRoleDialog.currentRoleId" @completeUpdate="completeUpdate"></roleEdit-dialog>
+        <roleEdit-dialog v-if="editRoleDialog.dialogTableVisible" :roleId="currentItem.id" @completeUpdate="completeUpdate"></roleEdit-dialog>
       </el-dialog>
     </div>
 
@@ -110,21 +110,23 @@ export default {
 
     // 选中
     getCurrentRow (item) {
-      console.log(item.id);
-      this.currentItem = item;
+      // console.log(item.id);
+      // this.currentItem = item;
     },
 
     // 角色修改
     routerUpdate (item) {
-      console.log("current role id:"+ item);
-      let itemId = item ? item.id : '';
       // this.$router.push({ path: '/sysManager/role/roleUpdate/', query: { 'userId': itemId }});
-      this.editRoleDialog.currentRoleId = itemId;
+
+      this.currentItem = item;
       this.editRoleDialog.dialogTableVisible = true;
+
+
     },
 
     //更新完成后事件
-    completeUpdate () {
+    completeUpdate (type) {
+      this.editRoleDialog.dialogTableVisible = false;
       this.handleSearch();
     },
 
