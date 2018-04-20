@@ -1,7 +1,6 @@
 <template>
   <div class="resourceList">
     <div class="backBox b-b">
-      
       <el-button-group>
         <el-button type="primary" size="mini" icon="el-icon-d-arrow-left" @click="parantFolder('source')">返回最上层</el-button>
         <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="parantFolder()">返回上一层</el-button>
@@ -15,7 +14,7 @@
           <el-checkbox></el-checkbox>
         </template>
       </el-table-column>
-      
+
       <el-table-column label="文件名">
         <template slot-scope="scope">
           <file-tag :item="scope.row" @resetFolder="getResourceFolder(scope.row.id)"></file-tag>
@@ -27,7 +26,7 @@
           {{scope.row.type | parseDict('fileTag')}}
         </template>
       </el-table-column>
-      
+
       <el-table-column align="center" label="更新日期" width="160">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -51,6 +50,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import api from '@/api'
 import fileTag from './fileTag'
 import folderEditDialog from './editFolder'
@@ -68,13 +68,20 @@ export default {
         currentParId:'',
         currentName:'',
         currentType:''
-      }
+      },
+      currentSource: '', // 当前资源类型
     }
   },
   props: {
     resourceType: {
-      type: String
+      type: String,
+      default: 'SOURCE_APPROVE'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'sources'
+    ])
   },
   components: { fileTag ,folderEditDialog},
   created () {
@@ -82,38 +89,36 @@ export default {
   },
   methods: {
     initData () {
-      this.getResourceFolder(this.resourceId);
+      this.initSources();
     },
+
+    // 调用组件必定会执行的方法 理论上不会出现问题。
+    initSources () {
+      if (this.sources && Object.keys(this.sources).length > 0) {
+        this.currentSource = this.sources[this.resourceType];
+        this.getResourceFolder();
+      } else {
+        this.$store.dispatch('GetSources').then(res => {
+          this.currentSource = res[this.resourceType];
+          this.getResourceFolder();
+        }).catch((error) => {
+          this.$message.error(error);
+        })
+      }
+    },
+
     //资源文件/文件夹
     getResourceFolder (id) {
-      let funName = 'getSourceFolder';
-      //题目
-      if (this.resourceType && this.resourceType == 'QUESTIONS') {
-        funName = 'getQuestionsFolder'
-      }
-      //试卷
-      else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
-      {
-         funName = 'getExamPaperFolder' 
-      }
-      //书本
-      else if(this.resourceType && this.resourceType == 'BOOK')
-      {
-         funName = 'getBookFolder' 
-      }
-      //书本
-      else if(this.resourceType && this.resourceType == 'COURSE')
-      {
-         funName = 'getCourseFolder' 
-      }
-      api[funName](id).then((res) => {
+      const _id = id || this.resourceId;
+      const funName = this.currentSource['funName'];
+      api[funName](_id).then((res) => {
         const json = res.data;
         if (json.code === 1) {
           this.currentFold = json.data;
           this.resourceData = json.data.children || [];
         }
       }).catch((error) => {
-        this.$message.error(error);  
+        this.$message.error(error);
       })
     },
 
@@ -148,17 +153,17 @@ export default {
         //试卷
         else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
         {
-          funName = 'deleteExamPaperFolder' 
+          funName = 'deleteExamPaperFolder'
         }
         //书本
         else if(this.resourceType && this.resourceType == 'BOOK')
         {
-          funName = 'deleteBookFolder' 
+          funName = 'deleteBookFolder'
         }
         //课程
         else if(this.resourceType && this.resourceType == 'COURSE')
         {
-          funName = 'deleteCourseFolder' 
+          funName = 'deleteCourseFolder'
         }
       }
       //题目
@@ -168,22 +173,22 @@ export default {
       //试卷
       else if(item.type && item.type == 'EXAM_PAPER')
       {
-        funName = 'x' 
+        funName = 'x'
       }
       //书本
       else if(item.type && item.type == 'BOOK')
       {
-        funName = 'x' 
+        funName = 'x'
       }
       //课程
       else if(item.type && item.type == 'COURSE')
       {
-        funName = 'x' 
+        funName = 'x'
       }
       //剩下来的都是文件
       else
       {
-         funName = 'deleteFile'; 
+         funName = 'deleteFile';
          id = item.url;
       }
       api[funName](id).then((res) => {
@@ -205,17 +210,17 @@ export default {
       {
           return;
       }
-      
+
       //当前文件夹id就是要创建的父id
       this.editDialog.currentParId = this.currentFold.id;
       this.editDialog.currentType = this.resourceType;
 
       if(item && item.id)
-      { 
+      {
         this.editDialog.currentId = item.id;
         this.editDialog.currentName = item.name;
       }
-      
+
       this.editDialog.dialogTableVisible = true;
     },
     createFolder(){
@@ -231,17 +236,17 @@ export default {
         //试卷
         else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
         {
-          funName = 'getExamPaperFolder' 
+          funName = 'getExamPaperFolder'
         }
         //书本
         else if(this.resourceType && this.resourceType == 'BOOK')
         {
-          funName = 'getBookFolder' 
+          funName = 'getBookFolder'
         }
         //书本
         else if(this.resourceType && this.resourceType == 'COURSE')
         {
-          funName = 'getCourseFolder' 
+          funName = 'getCourseFolder'
         }
         api[funName](id).then((res) => {
           const json = res.data;
@@ -250,8 +255,8 @@ export default {
             this.resourceData = json.data.children || [];
           }
         }).catch((error) => {
-          this.$message.error(error);  
-        })    
+          this.$message.error(error);
+        })
     },
     parantFolder (type) {
       let id = type === 'source' ? this.resourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';

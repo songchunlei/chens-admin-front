@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container"></div>
+  <div class="app-contanier"></div>
 </template>
 <script>
 export default {

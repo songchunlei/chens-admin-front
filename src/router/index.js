@@ -114,7 +114,8 @@ export const asyncRouterMap = [
     ]
   },
 
-  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  path: '/sysManager',
+  { 
+    path: '/sysManager',
     component: Layout,
     redirect: '/sysManager/userManager/userList',
     name: 'sysManager',
@@ -190,7 +191,36 @@ export const asyncRouterMap = [
       { path: 'other', component: _import('source-manager/other'), name: 'other-source', meta: { title: 'otherSource', icon: 'table' }}
     ]
   },
-
+  {
+    path: '/questionManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'questionManager',
+    meta: {
+      title: 'questionManager',
+      icon: 'table'
+    },
+    children: [
+      { path: 'questionPage', component: _import('questions-manager/questionPage'), name: 'questionPage', meta: { title: 'questionPage', code: 'questionPage', icon: 'form' }},
+      { path: 'reQuestionPage', component: _import('questions-manager/reQuestionPage'), name: 'reQuestionPage', meta: { title: 'reQuestionPage', code: 'reQuestionPage', icon: 'form' }},
+      { path: 'createQuestion', component: _import('questions-manager/createQuestion'), name: 'createQuestion', meta: { title: 'createQuestion', icon: 'form' }},
+    ]
+  },
+  {
+    path: '/examPapperManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'examPapperManager',
+    meta: {
+      title: 'examPapperManager',
+      icon: 'table'
+    },
+    children: [
+      { path: 'examPapperPage', component: _import('exam-manager/examPapperPage'), name: 'examPapperPage', meta: { title: 'examPapperPage', code: 'examPapperPage', icon: 'form' }},
+      { path: 'reExamPapperPage', component: _import('exam-manager/reExamPapperPage'), name: 'reExamPapperPage', meta: { title: 'reExamPapperPage', code: 'reExamPapperPage', icon: 'form' }},
+      { path: 'createExam', component: _import('exam-manager/createExam'), name: 'createExam', meta: { title: 'createExam', icon: 'form' }},
+    ]
+  },
   {
     path: '/dictTypeManager',
     component: Layout,

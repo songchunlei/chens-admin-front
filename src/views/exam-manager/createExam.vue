@@ -1,5 +1,7 @@
 <template>
-  <div class="app-container"></div>
+  <div class="app-container">
+    <h3>新增试卷</h3>
+  </div>
 </template>
 <script>
 export default {
