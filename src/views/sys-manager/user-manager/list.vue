@@ -8,27 +8,21 @@
       <el-button v-if="createVisable" type="success" icon="document" @click="routerUpdate">新增</el-button>
     </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label="选择框" width="65">
-        <template slot-scope="scope">
-          <el-checkbox></el-checkbox>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label='Id' width="95">
-        <template slot-scope="scope">
-          {{scope.$index}}
-        </template>
-      </el-table-column>
-      <el-table-column label="用户名">
+      <el-table-column label="用户名" width="180">
         <template slot-scope="scope">
           {{scope.row.username}}
         </template>
       </el-table-column>
-      <el-table-column label="姓名" width="180" align="center">
-
+      <el-table-column label="姓名" >
         <template slot-scope="scope">{{scope.row.name}}</template>
       </el-table-column>
-
-      <el-table-column align="center" label="创建日期" width="200">
+      <el-table-column label="邮箱" >
+        <template slot-scope="scope">{{scope.row.email}}</template>
+      </el-table-column>
+      <el-table-column label="手机号" >
+        <template slot-scope="scope">{{scope.row.phone}}</template>
+      </el-table-column>
+      <el-table-column label="创建日期" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span>{{scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>

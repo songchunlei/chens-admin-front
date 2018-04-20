@@ -114,8 +114,7 @@ export const asyncRouterMap = [
     ]
   },
 
-  {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  path: '/sysManager',
+  {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  path: '/sysManager',
     component: Layout,
     redirect: '/sysManager/userManager/userList',
     name: 'sysManager',
@@ -219,7 +218,22 @@ export const asyncRouterMap = [
     children: [
       { path: 'myUndoPage', component: _import('review-manager/undo'), name: 'undoList', meta: { title: 'undoList', icon: 'form', code: 'myUndoPage' }},
       { path: 'myDonePage', component: _import('review-manager/done'), name: 'doneList', meta: { title: 'doneList', icon: 'form', code: 'myDonePage' }},
+      { path: 'myStartPage', component: _import('review-manager/myStart'), name: 'myStartList', meta: { title: 'myStartList', icon: 'form', code: 'myStartPage' }},
       { path: 'undoReivew', component: _import('review-manager/undoReivew'), name: 'undoReivew', meta: { title: 'undoReivew', icon: 'form' }}
+    ]
+  },
+  {
+    path: '/commonDataManager',
+    component: Layout,
+    redirct: '/commonDataManager/tagClassList',
+    name: 'commonDataManager',
+    meta: {
+      title: 'commonDataManager',
+      icon: 'form'
+    },
+    children: [
+      { path: 'tagClassList', component: _import('tag-manager/tagClass'), name: 'tagClassList', meta: { title: 'tagClassList', icon: 'form', code: 'tagClassList' }},
+      { path: 'tagList', component: _import('tag-manager/tag'), name: 'tagList', meta: { title: 'tagList', icon: 'form', code: 'tagList' }}
     ]
   },
 

@@ -15,19 +15,19 @@
           {{scope.row.tenantName}}
         </template>
       </el-table-column>
-      <el-table-column label="营业执照" width="180" align="center">
+      <el-table-column label="营业执照" width="180">
         <template slot-scope="scope">{{scope.row.jregLicens}}</template>
       </el-table-column>
 
-      <el-table-column label="代理人账号" width="180" align="center">
+      <el-table-column label="代理人账号" width="180">
         <template slot-scope="scope">{{scope.row.userName}}</template>
       </el-table-column>
 
-      <el-table-column label="租户状态" width="180" align="center">
+      <el-table-column label="租户状态" width="180">
         <template slot-scope="scope">{{scope.row.status}}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="创建日期" width="200">
+      <el-table-column align="center" label="创建日期">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span>{{scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>

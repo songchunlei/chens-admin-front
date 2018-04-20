@@ -10,20 +10,20 @@
           {{scope.$index}}
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           {{scope.row.opt}}
         </template>
       </el-table-column>
-      <el-table-column label="请求人HOST" width="150" align="center">
+      <el-table-column label="请求人HOST" width="150">
         <template slot-scope="scope">{{scope.row.host}}</template>
       </el-table-column>
 
-      <el-table-column label="请求串" width="150" align="center">
+      <el-table-column label="请求串">
         <template slot-scope="scope">{{scope.row.url}}</template>
       </el-table-column>
       
-      <el-table-column align="center" label="请求日期" width="220">
+      <el-table-column label="请求日期" width="220">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span>{{scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>

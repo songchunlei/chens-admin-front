@@ -22,7 +22,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="创建日期" width="220">
+      <el-table-column label="创建日期" width="220">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span v-if="scope.row.createTime">{{scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
