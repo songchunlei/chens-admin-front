@@ -50,7 +50,7 @@ export default {
     },
 
     handleRouter () {
-      this.$router.push({ path: '/questionManager/createExam' });
+      this.$router.push({ path: '/examPapperManager/createExam' });
     }
   }
 }
