@@ -20,7 +20,7 @@
     </div>
 
     <div class="m-t-md">
-      <resource-table ref="resourceTable" :resourceType="'SOURCE'"></resource-table>
+      <resource-table ref="resourceTable" :resourceType="'SOURCE_APPROVE'"></resource-table>
     </div>
 
   </div>

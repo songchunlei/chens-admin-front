@@ -108,7 +108,7 @@ export default {
     },
 
     //资源文件/文件夹
-    getResourceFolder (id) {
+    getResourceFolder () {
       const _id = id || this.resourceId;
       const funName = this.currentSource['funName'];
       api[funName](_id).then((res) => {
@@ -139,7 +139,6 @@ export default {
         return;
       }
       let funName = "";
-      let id = item.id;
       if(item.type && item.type == 'FOLDER')
       {
         //资源
@@ -185,13 +184,7 @@ export default {
       {
         funName = 'x'
       }
-      //剩下来的都是文件
-      else
-      {
-         funName = 'deleteFile';
-         id = item.url;
-      }
-      api[funName](id).then((res) => {
+      api[funName](item.id).then((res) => {
         const json = res.data;
         if (json.code ===1) {
           this.$message.success(json.msg);
