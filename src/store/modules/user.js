@@ -75,7 +75,6 @@ const user = {
   actions: {
     // 用户名登录
     DoLogin({ commit }, userInfo) {
-      debugger;
       // const username = userInfo.username.trim();
       userInfo.userName = userInfo.userName.trim();
       return new Promise((resolve, reject) => {

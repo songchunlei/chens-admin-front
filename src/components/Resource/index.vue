@@ -46,6 +46,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import api from '@/api'
 import fileTag from './fileTag'
 
@@ -56,13 +57,19 @@ export default {
       currentFold: {},
       resourceData: [], // 根资源数据
       resourceId: '-1', // 根资源id
-      resourceType:''//资源类型
+      currentSource: '', // 当前资源类型
     }
   },
   props: {
     resourceType: {
-      type: String
+      type: String,
+      default: 'SOURCE_APPROVE'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'sources'
+    ])
   },
   components: { fileTag },
   created () {
@@ -70,31 +77,29 @@ export default {
   },
   methods: {
     initData () {
-      this.getResourceFolder(this.resourceId);
+      this.initSources();
     },
+
+    // 调用组件必定会执行的方法 理论上不会出现问题。
+    initSources () { 
+      if (this.sources && Object.keys(this.sources).length > 0) {
+        this.currentSource = this.sources[this.resourceType];
+        this.getResourceFolder();
+      } else {
+        this.$store.dispatch('GetSources').then(res => {
+          this.currentSource = res[this.resourceType];
+          this.getResourceFolder();
+        }).catch((error) => {
+          this.$message.error(error);
+        })
+      }
+    },
+
     //资源文件/文件夹
     getResourceFolder (id) {
-      let funName = 'getSourceFolder';
-      //题目
-      if (this.resourceType && this.resourceType == 'QUESTIONS') {
-        funName = 'getQuestionsFolder'
-      }
-      //试卷
-      else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
-      {
-         funName = 'getExamPaperFolder' 
-      }
-      //书本
-      else if(this.resourceType && this.resourceType == 'BOOK')
-      {
-         funName = 'getBookFolder' 
-      }
-      //书本
-      else if(this.resourceType && this.resourceType == 'COURSE')
-      {
-         funName = 'getCourseFolder' 
-      }
-      api[funName](id).then((res) => {
+      const _id = id || this.resourceId;
+      const funName = this.currentSource['funName'];
+      api[funName](_id).then((res) => {
         const json = res.data;
         if (json.code === 1) {
           this.currentFold = json.data;
@@ -104,6 +109,7 @@ export default {
         this.$message.error(error);  
       })
     },
+    
     // 重新加载此页， 用于外部调用
     handleReset () {
       this.getResourceFolder(this.currentFold.id);
