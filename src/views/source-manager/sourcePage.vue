@@ -21,7 +21,7 @@
     </div>
 
     <div class="m-t-md">
-      <resource-table ref="resourceTable"></resource-table>
+      <resource-table ref="resourceTable" :resourceType="'SOURCE'"></resource-table>
     </div>
 
   </div>

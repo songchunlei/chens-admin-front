@@ -262,7 +262,7 @@ export default {
 
     // 删除标签分类
     deleteTagClass (id) {
-        return ajax({ url: deleteTagClassApi+ '/' + id, type: 'DELETE' });
+        return ajax({ url: deleteTagClassApi+ '/' + id,type: 'DELETE' });
     },
 
     //根据id获取标签信息

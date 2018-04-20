@@ -90,48 +90,48 @@ const apiChens = {
     getQuestionsRes: proxyUrl + examWms + 'questionsController/getApproveFormData', // 题目-获取表单信息
 
     /**试卷管理*/
-    examPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/info', // 试卷-文件/文件夹
-    createExamPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/create', // 试卷-创建文件夹
-    updateExamPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/update', // 试卷-更新文件夹
-    deleteExamPaperFolderRes: proxyUrl + examWms + 'examPaperFolderController/delete', // 试卷-删除文件夹
-    saveExamPaperRes: proxyUrl + examWms + 'examPaperController/save', // 试卷-保存草稿
-    submitExamPaperRes: proxyUrl + examWms + 'examPaperController/submitDraft', // 试卷-提交草稿
-    passExamPaperRes: proxyUrl + examWms + 'examPaperController/pass', // 试卷-审批通过（只读审批）
-    passWithEditExamPaperRes: proxyUrl + examWms + 'examPaperController/passWithEdit', // 试卷-审批通过（可编辑审批）
-    noPassExamPaperRes: proxyUrl + examWms + 'examPaperController/noPass', // 试卷-审批不通过
-    publishExamPaperRes: proxyUrl + examWms + 'examPaperController/publish', // 试卷-发布
-    unPublishExamPaperRes: proxyUrl + examWms + 'examPaperController/unPublish', // 试卷-取消发布
-    getExamPaperRes: proxyUrl + examWms + 'examPaperController/getApproveFormData', // 试卷-获取表单信息
+    examPaperFolderRes: proxyUrl + examBook + 'examPaperFolderController/info', // 试卷-文件/文件夹
+    createExamPaperFolderRes: proxyUrl + examBook + 'examPaperFolderController/create', // 试卷-创建文件夹
+    updateExamPaperFolderRes: proxyUrl + examBook + 'examPaperFolderController/update', // 试卷-更新文件夹
+    deleteExamPaperFolderRes: proxyUrl + examBook + 'examPaperFolderController/delete', // 试卷-删除文件夹
+    saveExamPaperRes: proxyUrl + examBook + 'examPaperController/save', // 试卷-保存草稿
+    submitExamPaperRes: proxyUrl + examBook + 'examPaperController/submitDraft', // 试卷-提交草稿
+    passExamPaperRes: proxyUrl + examBook + 'examPaperController/pass', // 试卷-审批通过（只读审批）
+    passWithEditExamPaperRes: proxyUrl + examBook + 'examPaperController/passWithEdit', // 试卷-审批通过（可编辑审批）
+    noPassExamPaperRes: proxyUrl + examBook + 'examPaperController/noPass', // 试卷-审批不通过
+    publishExamPaperRes: proxyUrl + examBook + 'examPaperController/publish', // 试卷-发布
+    unPublishExamPaperRes: proxyUrl + examBook + 'examPaperController/unPublish', // 试卷-取消发布
+    getExamPaperRes: proxyUrl + examBook + 'examPaperController/getApproveFormData', // 试卷-获取表单信息
     addQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/addQuestions', // 试卷-增加题目
     deleteQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/deleteQuestions', // 试卷-删除题目
 
     /**书本管理*/
-    bookFolderRes: proxyUrl + examWms + 'bookFolderController/info', // 书本-文件/文件夹
-    createBookFolderRes: proxyUrl + examWms + 'bookFolderController/create', // 书本-创建文件夹
-    updateBookFolderRes: proxyUrl + examWms + 'bookFolderController/update', // 书本-更新文件夹
-    deleteBookFolderRes: proxyUrl + examWms + 'bookFolderController/delete', // 书本-删除文件夹
-    saveBookRes: proxyUrl + examWms + 'bookController/save', // 书本-保存草稿
-    submitBookRes: proxyUrl + examWms + 'bookController/submitDraft', // 书本-提交草稿
-    passBookRes: proxyUrl + examWms + 'bookController/pass', // 书本-审批通过（只读审批）
-    passWithEditBookRes: proxyUrl + examWms + 'bookController/passWithEdit', // 书本-审批通过（可编辑审批）
-    noPassBookRes: proxyUrl + examWms + 'bookController/noPass', // 书本-审批不通过
-    publishBookRes: proxyUrl + examWms + 'bookController/publish', // 书本-发布
-    unPublishBookRes: proxyUrl + examWms + 'bookController/unPublish', // 书本-取消发布
-    getBookRes: proxyUrl + examWms + 'bookController/getApproveFormData', // 书本-获取表单信息
+    bookFolderRes: proxyUrl + examBook + 'bookFolderController/info', // 书本-文件/文件夹
+    createBookFolderRes: proxyUrl + examBook + 'bookFolderController/create', // 书本-创建文件夹
+    updateBookFolderRes: proxyUrl + examBook + 'bookFolderController/update', // 书本-更新文件夹
+    deleteBookFolderRes: proxyUrl + examBook + 'bookFolderController/delete', // 书本-删除文件夹
+    saveBookRes: proxyUrl + examBook + 'bookController/save', // 书本-保存草稿
+    submitBookRes: proxyUrl + examBook + 'bookController/submitDraft', // 书本-提交草稿
+    passBookRes: proxyUrl + examBook + 'bookController/pass', // 书本-审批通过（只读审批）
+    passWithEditBookRes: proxyUrl + examBook + 'bookController/passWithEdit', // 书本-审批通过（可编辑审批）
+    noPassBookRes: proxyUrl + examBook + 'bookController/noPass', // 书本-审批不通过
+    publishBookRes: proxyUrl + examBook + 'bookController/publish', // 书本-发布
+    unPublishBookRes: proxyUrl + examBook + 'bookController/unPublish', // 书本-取消发布
+    getBookRes: proxyUrl + examBook + 'bookController/getApproveFormData', // 书本-获取表单信息
 
     /**课程管理*/
-    courseFolderRes: proxyUrl + examWms + 'courseFolderController/info', //课程-文件/文件夹
-    createCourseFolderRes: proxyUrl + examWms + 'courseFolderController/create', // 课程-创建文件夹
-    updateCourseFolderRes: proxyUrl + examWms + 'courseFolderController/update', // 课程-更新文件夹
-    deleteCourseFolderRes: proxyUrl + examWms + 'courseFolderController/delete', // 课程-删除文件夹
-    saveCourseRes: proxyUrl + examWms + 'courseController/save', // 课程-保存草稿
-    submitCourseRes: proxyUrl + examWms + 'courseController/submitDraft', // 课程-提交草稿
-    passCourseRes: proxyUrl + examWms + 'courseController/pass', // 课程-审批通过（只读审批）
-    passWithEditCourseRes: proxyUrl + examWms + 'courseController/passWithEdit', // 课程-审批通过（可编辑审批）
-    noPassCourseRes: proxyUrl + examWms + 'courseController/noPass', // 课程-审批不通过
-    publishCourseRes: proxyUrl + examWms + 'courseController/publish', // 课程-发布
-    unPublishCourseRes: proxyUrl + examWms + 'courseController/unPublish', // 课程-取消发布
-    getCourseRes: proxyUrl + examWms + 'courseController/getApproveFormData', // 课程-获取表单信息
+    courseFolderRes: proxyUrl + examBook + 'courseFolderController/info', //课程-文件/文件夹
+    createCourseFolderRes: proxyUrl + examBook + 'courseFolderController/create', // 课程-创建文件夹
+    updateCourseFolderRes: proxyUrl + examBook + 'courseFolderController/update', // 课程-更新文件夹
+    deleteCourseFolderRes: proxyUrl + examBook + 'courseFolderController/delete', // 课程-删除文件夹
+    saveCourseRes: proxyUrl + examBook + 'courseController/save', // 课程-保存草稿
+    submitCourseRes: proxyUrl + examBook + 'courseController/submitDraft', // 课程-提交草稿
+    passCourseRes: proxyUrl + examBook + 'courseController/pass', // 课程-审批通过（只读审批）
+    passWithEditCourseRes: proxyUrl + examBook + 'courseController/passWithEdit', // 课程-审批通过（可编辑审批）
+    noPassCourseRes: proxyUrl + examBook + 'courseController/noPass', // 课程-审批不通过
+    publishCourseRes: proxyUrl + examBook + 'courseController/publish', // 课程-发布
+    unPublishCourseRes: proxyUrl + examBook + 'courseController/unPublish', // 课程-取消发布
+    getCourseRes: proxyUrl + examBook + 'courseController/getApproveFormData', // 课程-获取表单信息
 
     /**审批管理*/
     undoRes: proxyUrl + bpmweb + 'bpmController/getMyTodoTaskPage', // 我的代办

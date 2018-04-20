@@ -16,13 +16,13 @@
       
       <el-table-column label="文件名">
         <template slot-scope="scope">
-          <file-tag :item="scope.row" @resetFolder="getSourceFolder(scope.row.id)"></file-tag>
+          <file-tag :item="scope.row" @resetFolder="getResourceFolder(scope.row.id)"></file-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="文件类型" width="140">
         <template slot-scope="scope">
-          {{scope.type | parseDict('fileTag')}}
+          {{scope.row.type | parseDict('fileTag')}}
         </template>
       </el-table-column>
       
@@ -55,10 +55,14 @@ export default {
       listLoading: false,
       currentFold: {},
       resourceData: [], // 根资源数据
-      sourceId: '-1', // 根资源id
+      resourceId: '-1', // 根资源id
+      resourceType:''//资源类型
     }
   },
   props: {
+    resourceType: {
+      type: String
+    }
   },
   components: { fileTag },
   created () {
@@ -66,31 +70,31 @@ export default {
   },
   methods: {
     initData () {
-      debugger;
-      this.getSourceFolder(this.sourceId);
+      this.getResourceFolder(this.resourceId);
     },
     //资源文件/文件夹
-    getSourceFolder (id) {
-      api.getSourceFolder(id).then((res) => {
-        const json = res.data;
-        if (json.code === 1) {
-          this.currentFold = json.data;
-          this.resourceData = json.data.children || [];
-        }
-      }).catch((error) => {
-        this.$message.error(error);  
-      })
-    },
-    //根据类型查询文件/文件夹
-    getFolderAndFile (type,id) {
-      /**
-       * getSourceFolder
-       * getQuestionsFolder
-       * getExamPaperFolder
-       * getBookFolder
-       * getCourseFolder
-       */
-      api.getSourceFolder(id).then((res) => {
+    getResourceFolder (id) {
+      let funName = 'getSourceFolder';
+      //题目
+      if (this.resourceType && this.resourceType == 'QUESTIONS') {
+        funName = 'getQuestionsFolder'
+      }
+      //试卷
+      else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
+      {
+         funName = 'getExamPaperFolder' 
+      }
+      //书本
+      else if(this.resourceType && this.resourceType == 'BOOK')
+      {
+         funName = 'getBookFolder' 
+      }
+      //书本
+      else if(this.resourceType && this.resourceType == 'COURSE')
+      {
+         funName = 'getCourseFolder' 
+      }
+      api[funName](id).then((res) => {
         const json = res.data;
         if (json.code === 1) {
           this.currentFold = json.data;
@@ -102,15 +106,15 @@ export default {
     },
     // 重新加载此页， 用于外部调用
     handleReset () {
-      this.getSourceFolder(this.currentFold.id);
+      this.getResourceFolder(this.currentFold.id);
     },
 
     parantFolder (type) {
-      let id = type === 'source' ? this.sourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';
+      let id = type === 'source' ? this.resourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';
       if (!id) {
-        id = this.sourceId;
+        id = this.resourceId;
       }
-      this.getSourceFolder(id);
+      this.getResourceFolder(id);
     }
   }
 }
