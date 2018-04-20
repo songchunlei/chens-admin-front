@@ -9,7 +9,6 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button type="default" icon="el-icon-share" class="m-lr-md">新建文件夹</el-button>
     </div>
     
     

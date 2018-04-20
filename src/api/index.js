@@ -111,7 +111,10 @@ import {
     //待办
     undoApi,
     doneApi,
-    myStartApi
+    myStartApi,
+    //文件
+    downloadFileApi,
+    deleteFileApi
 } from './resource';
 
 export default {
@@ -306,7 +309,7 @@ export default {
     },
 
     // 资源-删除目录
-    deleteRSourceFolder (id) {
+    deleteSourceFolder (id) {
         return ajax({ url: deleteSourceFolderApi + '/' + id, type: 'DELETE' })
     },
 
@@ -366,7 +369,7 @@ export default {
     },
 
     // 资源-删除目录
-    deleteRQuestionsFolder (id) {
+    deleteQuestionsFolder (id) {
         return ajax({ url: deleteQuestionsFolderApi + '/' + id, type: 'DELETE' })
     },
 
@@ -426,7 +429,7 @@ export default {
     },
 
     // 试卷-删除目录
-    deleteRExamPaperFolder (id) {
+    deleteExamPaperFolder (id) {
         return ajax({ url: deleteExamPaperFolderApi + '/' + id, type: 'DELETE' })
     },
 
@@ -496,7 +499,7 @@ export default {
     },
 
     // 书本-删除目录
-    deleteRBookFolder (id) {
+    deleteBookFolder (id) {
         return ajax({ url: deleteBookFolderApi + '/' + id, type: 'DELETE' })
     },
 
@@ -556,7 +559,7 @@ export default {
     },
 
     // 课程-删除目录
-    deleteRCourseFolder (id) {
+    deleteCourseFolder (id) {
         return ajax({ url: deleteCourseFolderApi + '/' + id, type: 'DELETE' })
     },
 
@@ -613,7 +616,16 @@ export default {
     // 我发起的
     myStartPage (params) {
         return ajax({ url: myStartApi, params: params, type: 'POST' })
-    }
+    },
     
+    //下载
+    downloadFile (name){
+       window.open(downloadFileApi+"?name="+name);
+    },
+
+    //下载
+    deleteFile (name){
+        return ajax({ url: deleteFileApi + '/' + name, type: 'DELETE' })
+    }
     
 }

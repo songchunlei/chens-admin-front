@@ -6,7 +6,7 @@ const proxyUrl = '/chens-api/'; // 服务器资源路径代理抬头
 const examWms = 'exam-wms/'; // 服务器资源模块
 const examBook = 'exam-book/'; // 服务器应用模块
 const csweb = 'chens-admin-web/';
-const bpmweb = 'chens-bpm-web/'; // 流程应用
+
 const apiChens = {
     /** 无拦截请求 **/
     loginRes: proxyUrl + 'authController/login', // 登录请求路径
@@ -134,11 +134,13 @@ const apiChens = {
     getCourseRes: proxyUrl + examBook + 'courseController/getApproveFormData', // 课程-获取表单信息
 
     /**审批管理*/
-    undoRes: proxyUrl + bpmweb + 'bpmController/getMyTodoTaskPage', // 我的代办
-    doneRes: proxyUrl + bpmweb + 'bpmController/getMyDoneTaskPage', // 我的已办
-    myStartRes: proxyUrl + bpmweb + 'bpmController/getMyStartProcessInstancePage', // 我发起的审批
+    undoRes: proxyUrl + examWms + 'bpmController/getMyTodoTaskPage', // 我的代办
+    doneRes: proxyUrl + examWms + 'bpmController/getMyDoneTaskPage', // 我的已办
+    myStartRes: proxyUrl + examWms + 'bpmController/getMyStartProcessInstancePage', // 我发起的审批
 
-
+    /**文件*/
+    downloadFileRes: proxyUrl + examWms + 'fileController/download',
+    deleteFileRes: proxyUrl + examWms + 'fileController/delete',
 }
 
 export const loginApi = API_ROOT.concat(apiChens.loginRes);
@@ -250,7 +252,8 @@ export const undoApi = API_ROOT.concat(apiChens.undoRes);
 export const doneApi = API_ROOT.concat(apiChens.doneRes);
 export const myStartApi = API_ROOT.concat(apiChens.myStartRes);
 
-
+export const downloadFileApi = API_ROOT.concat(apiChens.downloadFileRes);
+export const deleteFileApi = API_ROOT.concat(apiChens.deleteFileRes);
 
 
 

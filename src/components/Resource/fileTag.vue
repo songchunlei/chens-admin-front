@@ -41,7 +41,7 @@ export default {
           this.getCourse();
           break;
         default:
-          window.open(this.item.url);
+          window.open(api.downloadFile(this.item.url));
           break;
       }
     },

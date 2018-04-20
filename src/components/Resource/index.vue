@@ -1,9 +1,11 @@
 <template>
   <div class="resourceList">
     <div class="backBox b-b">
+      
       <el-button-group>
-        <el-button type="primary" size="mini" icon="el-icon-d-arrow-left" @click="parantFolder('source')"></el-button>
-        <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="parantFolder()"></el-button>
+        <el-button type="primary" size="mini" icon="el-icon-d-arrow-left" @click="parantFolder('source')">返回最上层</el-button>
+        <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="parantFolder()">返回上一层</el-button>
+        <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdate()">新建文件夹</el-button>
       </el-button-group>
     </div>
 
@@ -34,20 +36,24 @@
       </el-table-column>
       <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-          <!-- 
-          <perm-btn :item="scope.row" :code="$route.meta.code" @handlerAllot="handlerAllot">
-            <el-button slot="resetPwd" size="mini" type="danger" @click="restPwd(scope.row)">{{$t('table.restPwd')}}</el-button>
-          </perm-btn>
-          -->
-
+          <el-button @click="routerUpdate(scope.row)" type="text" size="small">编辑</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <div>
+      <el-dialog title="文件夹" :visible.sync="editDialog.dialogTableVisible">
+        <folderEdit-dialog :busParId="editDialog.currentParId" :busType="editDialog.currentType" :busName="editDialog.currentName" v-if="editDialog.dialogTableVisible" :busId="editDialog.currentId" @completeUpdate="completeUpdate"></folderEdit-dialog>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
 import api from '@/api'
 import fileTag from './fileTag'
+import folderEditDialog from './editFolder'
 
 export default {
   data () {
@@ -56,7 +62,13 @@ export default {
       currentFold: {},
       resourceData: [], // 根资源数据
       resourceId: '-1', // 根资源id
-      resourceType:''//资源类型
+      editDialog: {
+        dialogTableVisible: false,
+        currentId:'',
+        currentParId:'',
+        currentName:'',
+        currentType:''
+      }
     }
   },
   props: {
@@ -64,7 +76,7 @@ export default {
       type: String
     }
   },
-  components: { fileTag },
+  components: { fileTag ,folderEditDialog},
   created () {
     this.initData();
   },
@@ -104,11 +116,143 @@ export default {
         this.$message.error(error);  
       })
     },
+
+    //更新完成后事件
+    completeUpdate (type) {
+      this.editDialog.dialogTableVisible = false;
+      this.handleReset();
+    },
+
     // 重新加载此页， 用于外部调用
     handleReset () {
       this.getResourceFolder(this.currentFold.id);
     },
 
+    // 删除
+    handleDelete (item) {
+      if (!item || !item.id) {
+        return;
+      }
+      let funName = "";
+      let id = item.id;
+      if(item.type && item.type == 'FOLDER')
+      {
+        //资源
+        if (this.resourceType && this.resourceType == 'RESOURCE') {
+          funName = 'deleteSourceFolder'
+        }
+        //题目
+        else if (this.resourceType && this.resourceType == 'QUESTIONS') {
+          funName = 'deleteQuestionsFolder'
+        }
+        //试卷
+        else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
+        {
+          funName = 'deleteExamPaperFolder' 
+        }
+        //书本
+        else if(this.resourceType && this.resourceType == 'BOOK')
+        {
+          funName = 'deleteBookFolder' 
+        }
+        //课程
+        else if(this.resourceType && this.resourceType == 'COURSE')
+        {
+          funName = 'deleteCourseFolder' 
+        }
+      }
+      //题目
+      else if (item.type && item.type == 'QUESTIONS') {
+        funName = 'x'
+      }
+      //试卷
+      else if(item.type && item.type == 'EXAM_PAPER')
+      {
+        funName = 'x' 
+      }
+      //书本
+      else if(item.type && item.type == 'BOOK')
+      {
+        funName = 'x' 
+      }
+      //课程
+      else if(item.type && item.type == 'COURSE')
+      {
+        funName = 'x' 
+      }
+      //剩下来的都是文件
+      else
+      {
+         funName = 'deleteFile'; 
+         id = item.url;
+      }
+      api[funName](id).then((res) => {
+        const json = res.data;
+        if (json.code ===1) {
+          this.$message.success(json.msg);
+          this.handleReset();
+        }
+      }).catch((error) => {
+        this.$message.error(error);
+      });
+    },
+
+    routerUpdate (item) {
+
+      console.log(this.currentFold);
+
+      if(!this.currentFold)
+      {
+          return;
+      }
+      
+      //当前文件夹id就是要创建的父id
+      this.editDialog.currentParId = this.currentFold.id;
+      this.editDialog.currentType = this.resourceType;
+
+      if(item && item.id)
+      { 
+        this.editDialog.currentId = item.id;
+        this.editDialog.currentName = item.name;
+      }
+      
+      this.editDialog.dialogTableVisible = true;
+    },
+    createFolder(){
+        let currentFoldId = this.currentFold.id;
+        if(!id){
+          id = '-1';
+        }
+        let funName = 'getSourceFolder';
+        //题目
+        if (this.resourceType && this.resourceType == 'QUESTIONS') {
+          funName = 'getQuestionsFolder'
+        }
+        //试卷
+        else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
+        {
+          funName = 'getExamPaperFolder' 
+        }
+        //书本
+        else if(this.resourceType && this.resourceType == 'BOOK')
+        {
+          funName = 'getBookFolder' 
+        }
+        //书本
+        else if(this.resourceType && this.resourceType == 'COURSE')
+        {
+          funName = 'getCourseFolder' 
+        }
+        api[funName](id).then((res) => {
+          const json = res.data;
+          if (json.code === 1) {
+            this.currentFold = json.data;
+            this.resourceData = json.data.children || [];
+          }
+        }).catch((error) => {
+          this.$message.error(error);  
+        })    
+    },
     parantFolder (type) {
       let id = type === 'source' ? this.resourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';
       if (!id) {
