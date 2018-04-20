@@ -13,7 +13,8 @@ export default {
   name: 'file-tag',
   props: {
     item: {
-      type: Object    
+      type: Object,
+      url:String    
     }
   },
   data () {
@@ -24,14 +25,45 @@ export default {
   methods: {
     handleAssige () {
       switch (this.item.type) {
-        case 'FOLDER': this.getFolder();
-        break;
-        default:;
+        case 'FOLDER': 
+          this.getFolder();
+          break;
+        case 'QUESTIONS': 
+          this.Question();
+          break;
+        case 'EXAM_PAPER': 
+          this.getFolder();
+          break;
+        case 'BOOK': 
+          this.getBook();
+          break;
+        case 'COURSE': 
+          this.getCourse();
+          break;
+        default:
+          window.open(this.item.url);
+          break;
       }
     },
     // 类型为文件夹 继续获取文件夹
     getFolder () {
       this.$emit('resetFolder');
+    },
+    // 类型为题目
+    getQuestion () {
+      
+    },
+    // 类型为试卷
+    getExamPaper () {
+      
+    },
+    // 类型为书本
+    getBook () {
+      
+    },
+    // 类型为课程
+    getCourse () {
+      
     }
   }
 }
