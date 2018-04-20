@@ -5,7 +5,7 @@
         <h3 class="title">新增题目</h3>
       </div>
       <el-form-item label="试题类型" prop="belong_subject">
-        <el-select clearable style="width: 90px" class="filter-item" v-model="questionForm.belong_subject" :placeholder="$t('table.importance')">
+        <el-select clearable style="width: 90px" class="filter-item" v-model="questionForm.belong_subject" :placeholder="选择试题类型">
           <el-option v-for="item in subjects" :key="item.code" :label="item.name" :value="item.code">
           </el-option>
         </el-select>
