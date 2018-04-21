@@ -108,7 +108,7 @@ export default {
     },
 
     //资源文件/文件夹
-    getResourceFolder () {
+    getResourceFolder (id) {
       const _id = id || this.resourceId;
       const funName = this.currentSource['funName'];
       api[funName](_id).then((res) => {
