@@ -8,11 +8,13 @@
       <el-button @click="handleAddSource(item, index)" size="mini" type="primary">添加资源<i class="el-icon-circle-plus-outline el-icon--right"></i></el-button>
       
     </div>  
-    <div class="choicedBox" v-for="(item, index) in choices" v-if="showCheckedJson">
-      <p v-if="item[index] && item[index].questionsOptionQuoteJson">
-        <a href="citem.url" v-for="(citem, key) in item[index].questionsOptionQuoteJson">{{citem.name}}</a>
-      </p>
-    </div>  
+
+    <div v-if="showCheckedJson">
+        <p>
+          <a href="item.url" v-for="(item, key) in quoteJson">{{item.name}}</a>
+        </p>
+    </div>
+     
 
     <el-dialog title="资源列表" :visible.sync="dialogTableVisible">
       <resource-table v-if="dialogTableVisible" ref="resourceTable" :btnVisable="false" :noFolder="true">
@@ -39,6 +41,7 @@ export default {
       currentIndex: '', // 当前操作的选项
       checkeds: '', // 选中的资源文件对象
       showCheckedJson: false, // 控制 已选资源是否显示
+      quoteJson: '', 
     }
   },
   props: {
@@ -49,10 +52,10 @@ export default {
   },
   components: { resourceTable },
   created () {
-    this.initData();
+    
   },
   mounted () {
-
+    this.initData();
   },
   methods: {
     initData () {
@@ -77,8 +80,7 @@ export default {
     handleGetChecked () {
       debugger;
       this.checkeds = this.$refs.resourceTable.checkeds;
-      this.choices[this.currentIndex].questionsOptionQuoteJson = this.checkeds;
-      !this.showCheckedJson ? this.showCheckedJson = true : '';
+      this.choices[this.currentIndex].quoteJson = this.checkeds;
       for (var key in this.checkeds) {
         if (!this.choices[this.currentIndex].questionsOptionQuoteList) {
           this.choices[this.currentIndex].questionsOptionQuoteList = [];
@@ -86,6 +88,9 @@ export default {
         this.choices[this.currentIndex].questionsOptionQuoteList.push(this.checkeds[key].id);
       }
       this.dialogTableVisible = false;
+      this.quoteJson = this.checkeds
+      console.log(this.quoteJson);
+      !this.showCheckedJson ? this.showCheckedJson = true : '';
     },
 
     handleAddSource (item, index) {
