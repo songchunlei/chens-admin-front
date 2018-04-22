@@ -33,11 +33,13 @@ import {
     //标签
     getTagClassByIdApi,
     tagClassesApi,
+    tagClassListApi,
     createTagClassApi,
     updateTagClassApi,
     deleteTagClassApi,
     getTagByIdApi,
     tagsApi,
+    tagListApi,
     createTagApi,
     updateTagApi,
     deleteTagApi,
@@ -253,6 +255,11 @@ export default {
         return ajax({ url: tagClassesApi, params: params, type: 'POST' });
     },
 
+    // 标签分类列表
+    getTagClassList (params) {
+        return ajax({ url: tagClassListApi, params: params, type: 'GET' });
+    },
+
     // 创建标签分类
     createTagClass (params) {
         return ajax({ url: createTagClassApi, params: params, type: 'POST' });
@@ -273,9 +280,14 @@ export default {
         return ajax({ url: getTagByIdApi+ '/' + id});
     },
 
-    // 标签列表
+    // 标签分页列表
     getTags (params) {
         return ajax({ url: tagsApi, params: params, type: 'POST' });
+    },
+
+    // 标签列表
+    getTagList (params) {
+        return ajax({ url: tagListApi, params: params, type: 'GET' });
     },
 
     // 创建标签

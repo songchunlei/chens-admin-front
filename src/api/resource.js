@@ -49,14 +49,16 @@ const apiChens = {
 
     /**标签分类管理*/
     getTagClassByIdRes: proxyUrl + examWms + 'tagClassController/info', // 获取知识分类数据
-    tagClassRes: proxyUrl + examWms + 'tagClassController/pagelist', // 获取知识分类数据
+    tagClassRes: proxyUrl + examWms + 'tagClassController/pagelist', // 获取知识分类分页数据
+    tagClassListRes: proxyUrl + examWms + 'tagClassController/list', // 获取标签数据
     createTagClassRes: proxyUrl + examWms + 'tagClassController/create', // 创建知识分类
     updateTagClassRes: proxyUrl + examWms + 'tagClassController/update', // 修改知识分类
     deleteTagClassRes: proxyUrl + examWms + 'tagClassController/delete', // 删除知识分类
 
     /**标签管理*/
     getTagByIdRes: proxyUrl + examWms + 'tagController/info', // 获取知识分类数据
-    tagRes: proxyUrl + examWms + 'tagController/pagelist', // 获取标签数据
+    tagRes: proxyUrl + examWms + 'tagController/pagelist', // 获取标签分页数据
+    tagListRes: proxyUrl + examWms + 'tagController/list', // 获取标签数据
     createTagRes: proxyUrl + examWms + 'tagController/create', // 创建标签
     updateTagRes: proxyUrl + examWms + 'tagController/update', // 修改标签
     deleteTagRes: proxyUrl + examWms + 'tagController/delete', // 删除标签
@@ -170,6 +172,7 @@ export const userListByTenantIdApi = API_ROOT.concat(apiChens.userListByTenantId
 export const sysLogsApi = API_ROOT.concat(apiChens.sysLogsRes);
 
 export const getTagClassByIdApi = API_ROOT.concat(apiChens.getTagClassByIdRes);
+export const tagClassListApi = API_ROOT.concat(apiChens.tagClassListRes);
 export const tagClassesApi = API_ROOT.concat(apiChens.tagClassRes);
 export const createTagClassApi = API_ROOT.concat(apiChens.createTagClassRes);
 export const updateTagClassApi = API_ROOT.concat(apiChens.updateTagClassRes);
@@ -177,6 +180,7 @@ export const deleteTagClassApi = API_ROOT.concat(apiChens.deleteTagClassRes);
 
 export const getTagByIdApi = API_ROOT.concat(apiChens.getTagByIdRes);
 export const tagsApi = API_ROOT.concat(apiChens.tagRes);
+export const tagListApi = API_ROOT.concat(apiChens.tagListes);
 export const createTagApi = API_ROOT.concat(apiChens.createTagRes);
 export const updateTagApi = API_ROOT.concat(apiChens.updateTagRes);
 export const deleteTagApi = API_ROOT.concat(apiChens.deleteTagRes);

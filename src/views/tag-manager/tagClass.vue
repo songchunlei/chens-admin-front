@@ -39,7 +39,7 @@
 
     <div>
       <el-dialog title="标签分类信息" :visible.sync="editDialog.dialogTableVisible">
-        <roleEdit-dialog v-if="editDialog.dialogTableVisible" :roleId="editDialog.currentId" @completeUpdate="completeUpdate"></roleEdit-dialog>
+        <tagClassEdit-dialog v-if="editDialog.dialogTableVisible" :roleId="editDialog.currentId" @completeUpdate="completeUpdate"></tagClassEdit-dialog>
       </el-dialog>
     </div>
   </div>
@@ -51,7 +51,7 @@ import { mapGetter } from 'vuex'
 import { parseTime } from '@/utils'
 import permBtn from '@/components/BtnTemp'
 import pagePagination from '@/components/Pagination'
-import tagEditDialog from './components/tagClass.edit'
+import tagClassEditDialog from './components/tagClass.edit'
 
 export default {
   name: 'tagClassList',
@@ -71,7 +71,7 @@ export default {
       }
     }
   },
-  components: { permBtn, pagePagination,tagEditDialog },
+  components: { permBtn, pagePagination,tagClassEditDialog },
   computed: {
   },
   created () {
@@ -84,8 +84,8 @@ export default {
 
     handleSearch () {
       let searchParams = {};
-      searchParams.roleName = this.search.keywords;
-      searchParams.roleCode= this.search.keywords;
+      searchParams.className = this.search.keywords;
+      searchParams.comment= this.search.keywords;
       searchParams.isAnd = false;
       this.$refs.pagination.search(searchParams);
     },

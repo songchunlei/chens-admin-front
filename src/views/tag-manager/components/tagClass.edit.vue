@@ -79,7 +79,7 @@ export default {
           if (this.busId && this.busId != ':id') {
             funName = 'updateTagClass'
           }
-          api[funName](this.roleForm).then((res) => {
+          api[funName](this.tagClassForm).then((res) => {
             const json = res.data;
             if (json.code != 1) {
               this.$message.error(json.msg || '提交标签分类信息失败。');
