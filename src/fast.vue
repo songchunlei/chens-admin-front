@@ -9,7 +9,7 @@ export default {
 
     }
   },
-  compotents: {},
+  components: {},
   created () {
 
   },

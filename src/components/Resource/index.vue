@@ -8,13 +8,11 @@
       </el-button-group>
     </div>
 
-    <el-table :data="resourceData" v-loading.body="listLoading" element-loading-text="拼命加载中" bolder fit highlight-current-row>
-      <el-table-column align="center" label="选择框" width="65">
-        <template slot-scope="scope">
-          <el-checkbox></el-checkbox>
-        </template>
+    <el-table @select="onSelect" @select-all="onSelectAll" :data="resourceData" v-loading.body="listLoading" element-loading-text="拼命加载中" bolder fit highlight-current-row>
+      <el-table-column label="选择框"
+        type="selection"
+        width="55">
       </el-table-column>
-
       <el-table-column label="文件名">
         <template slot-scope="scope">
           <file-tag :item="scope.row" @resetFolder="getResourceFolder(scope.row.id)"></file-tag>
@@ -35,8 +33,9 @@
       </el-table-column>
       <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-          <el-button @click="routerUpdate(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button>
+          <slot name="btn"></slot>
         </template>
       </el-table-column>
     </el-table>
@@ -62,6 +61,7 @@ export default {
       currentFold: {},
       resourceData: [], // 根资源数据
       resourceId: '-1', // 根资源id
+      checkedIds: [], // 保存选中的资源id
       editDialog: {
         dialogTableVisible: false,
         currentId:'',
@@ -69,6 +69,7 @@ export default {
         currentName:'',
         currentType:''
       },
+
       currentSource: '', // 当前资源类型
     }
   },
@@ -76,6 +77,16 @@ export default {
     resourceType: {
       type: String,
       default: 'SOURCE_APPROVE'
+    },
+
+    btnVisable: {
+      type: Boolean,
+      default: true
+    },
+
+    noFolder: { // 不能选择文件夹
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -87,6 +98,9 @@ export default {
   created () {
     this.initData();
   },
+  mounted () {
+    
+  },
   methods: {
     initData () {
       this.initSources();
@@ -94,6 +108,7 @@ export default {
 
     // 调用组件必定会执行的方法 理论上不会出现问题。
     initSources () {
+      debugger;
       if (this.sources && Object.keys(this.sources).length > 0) {
         this.currentSource = this.sources[this.resourceType];
         this.getResourceFolder();
@@ -108,7 +123,7 @@ export default {
     },
 
     //资源文件/文件夹
-    getResourceFolder () {
+    getResourceFolder (id) {
       const _id = id || this.resourceId;
       const funName = this.currentSource['funName'];
       api[funName](_id).then((res) => {
@@ -257,6 +272,41 @@ export default {
         id = this.resourceId;
       }
       this.getResourceFolder(id);
+    },
+    onSelect (selection, row) {
+      if (this.noFolder && row.type === 'FOLDER') {
+        return;
+      }
+      if (selection.length < 1) {
+        this.checkedIds.splice(this.checkedIds.indexOf(row.id), 1);
+      } else {
+        this.checkedIds.push(row.id);
+      }
+    },
+
+    onSelectAll (selection) {
+      console.log(selection);
+      if (selection.length > 0) { // 全选 选中
+        for (var i = 0; i < selection.length; i ++) {
+          if (this.noFolder && selection[i].type === 'FOLDER') {
+            continue;
+          }
+          if (this.checkedIds.indexOf(selection[i].id) < 0) {
+            this.checkedIds.push(selection[i].id);
+          }
+        }
+      } else { // 全选 取消
+        if (this.resourceData && this.resourceData.length > 0) {
+          for (var i = 0; i < this.resourceData.length; i ++) {
+            if (this.checkedIds.indexOf(this.resourceData[i].id) < 0) {
+              continue;
+            }
+            this.checkedIds.splice(this.checkedIds.indexOf(this.resourceData[i].id), 1);
+          }
+        }
+        
+      } 
+      
     }
   }
 }

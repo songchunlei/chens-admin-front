@@ -252,3 +252,12 @@ code {
   display: block;
   clear: both;
 }
+label.el-radio,
+label.el-checkbox {
+  margin-right: 30px;
+  line-height: 36px;
+}
+label.el-radio+label.el-radio,
+label.el-checkbox+label.el-checkbox {
+  margin-left: 0px;
+}
