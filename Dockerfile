@@ -2,7 +2,7 @@ FROM nginx
 MAINTAINER SongChunlei <songchunlei@qq.com>
 
 RUN apt-get update && apt-get install -y sudo curl bzip2 git vim gnupg
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 RUN apt-get install -y nodejs && apt-get clean
 
 # forward request and error logs to docker log collector
