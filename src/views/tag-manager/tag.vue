@@ -5,6 +5,20 @@
     <el-button style='margin-bottom:20px;' type="primary" icon="document" @click="handleSearch">查询</el-button>
     <el-button v-if="createVisable" type="success" icon="document" @click="routerUpdate">新增</el-button>
 
+
+    <!-- <el-row>
+      <el-button v-for="tag in tagClasses" size="small">{{tag.className}}</el-button>
+    </el-row> -->
+
+    <div>
+        <el-tag
+          v-for="tag in tagClasses"
+          :key="tag.id"
+          :type="''">
+          {{tag.className}}
+        </el-tag>
+    </div>
+
     <el-table :data="list" ref="tagTable" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column label="名称" width="180">
         <template slot-scope="scope">
@@ -68,15 +82,31 @@ export default {
       editDialog: {
         dialogTableVisible: false,
         currentId:''
-      }
+      },
+      tagClasses: []
     }
   },
   components: { permBtn, pagePagination,tagEditDialog },
   computed: {
   },
   created () {
+    this.initData();
   },
   methods: {
+    initData () {
+      this.getTagClassList();
+    },
+    getTagClassList(){
+      api.getTagClassList({}).then((res) => {
+        const json = res.data;
+        if (json.code === 1) {
+          this.tagClasses = json.data;
+        }
+      }).catch((error) => {
+        this.$message.error(error);
+      })
+    },
+
     complete (res) {
       this.listLoading = false;
       this.list = res.data.data.records;
@@ -96,8 +126,6 @@ export default {
 
       this.editDialog.currentId = item.id!=''?item.id:'';
       this.editDialog.dialogTableVisible = true;
-
-
     },
 
     //更新完成后事件
