@@ -6,15 +6,15 @@
         :autosize="{ minRows: 2, maxRows: 3}" style="width: 180px" placeholder="请输入内容">
       </el-input>
       <el-button @click="handleAddSource(item, index)" size="mini" type="primary">添加资源<i class="el-icon-circle-plus-outline el-icon--right"></i></el-button>
-      
-    </div>  
+
+    </div>
 
     <div v-if="showCheckedJson">
         <p>
           <a href="item.url" v-for="(item, key) in quoteJson">{{item.name}}</a>
         </p>
     </div>
-     
+
 
     <el-dialog title="资源列表" :visible.sync="dialogTableVisible">
       <resource-table v-if="dialogTableVisible" ref="resourceTable" :btnVisable="false" :noFolder="true">
@@ -24,11 +24,11 @@
         <el-button @click="dialogTableVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleGetChecked">添加选中</el-button>
       </div>
-    </el-dialog>                                   
+    </el-dialog>
   </div>
 </template>
 <script>
-import Dict from '@/config/dict'
+import Dict from '@/sysconfig/dict'
 import resourceTable from '@/components/Resource'
 
 export default {
@@ -41,18 +41,18 @@ export default {
       currentIndex: '', // 当前操作的选项
       checkeds: '', // 选中的资源文件对象
       showCheckedJson: false, // 控制 已选资源是否显示
-      quoteJson: '', 
+      quoteJson: '',
     }
   },
   props: {
     size: {
       type: Number,
-      default: 4  
+      default: 4
     }
   },
   components: { resourceTable },
   created () {
-    
+
   },
   mounted () {
     this.initData();
