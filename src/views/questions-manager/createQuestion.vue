@@ -43,7 +43,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="题目名" prop="name">
-            <el-input name="name" type="text" v-model="questionForm.name" placeholder="请输入题目名称" />
+            <el-input name="name" type="textarea" v-model="questionForm.name" placeholder="请输入题目名称" />
           </el-form-item>
         </el-col>
       </el-row>
