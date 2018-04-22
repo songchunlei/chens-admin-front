@@ -61,7 +61,7 @@ export default {
       currentFold: {},
       resourceData: [], // 根资源数据
       resourceId: '-1', // 根资源id
-      checkedIds: [], // 保存选中的资源id
+      checkeds: [], // 保存选中的资源id
       editDialog: {
         dialogTableVisible: false,
         currentId:'',
@@ -278,9 +278,9 @@ export default {
         return;
       }
       if (selection.length < 1) {
-        this.checkedIds.splice(this.checkedIds.indexOf(row.id), 1);
+        this.checkeds[row.id] = "";
       } else {
-        this.checkedIds.push(row.id);
+        this.checkeds[row.id] = row;
       }
     },
 
@@ -291,17 +291,19 @@ export default {
           if (this.noFolder && selection[i].type === 'FOLDER') {
             continue;
           }
-          if (this.checkedIds.indexOf(selection[i].id) < 0) {
-            this.checkedIds.push(selection[i].id);
+          const sle_i = this.checkeds[selection[i].id];
+          if (!sle_i || Object.keys(sle_i).length < 0) {
+            this.checkeds[selection[i].id] = selection[i];
           }
         }
       } else { // 全选 取消
         if (this.resourceData && this.resourceData.length > 0) {
           for (var i = 0; i < this.resourceData.length; i ++) {
-            if (this.checkedIds.indexOf(this.resourceData[i].id) < 0) {
+            const res_i = this.checkeds[this.resourceData[i].id];
+            if (res_i && Object.keys(res_i).length > 0) {
               continue;
             }
-            this.checkedIds.splice(this.checkedIds.indexOf(this.resourceData[i].id), 1);
+            this.checkeds[this.resourceData[i].id] = "";
           }
         }
         

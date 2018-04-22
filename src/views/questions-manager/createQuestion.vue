@@ -8,25 +8,34 @@
         <el-col :span="24">
           <el-form-item label="试题类型" prop="type">
             <el-select v-model="questionForm.type" placeholder="选择试题类型">
-              <el-option v-for="item in types" :key="item.code" :label="item.name" :value="item.code">
+              <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="知识分类" prop="belong_subject">
-            <el-radio-group v-model="questionForm.belong_subject">
-              <el-radio v-for="item in subjects" :label="item.name" :key="item.code" @change="handleChoiceSub(item)"></el-radio>
+            <el-radio-group v-model="currentSubject">
+              <el-radio v-for="item in subjects" :label="item.id" :key="item.id" @change="handleChangeSub(item)">{{item.name}}</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="分类题目" prop="ubject_child">
-            <el-checkbox-group v-model="questionForm.subject_child">
-              <el-checkbox v-for="item in subject_child" :key="item.code" :label="item.name" name="subject_child"></el-checkbox>
+          <el-form-item label="分类题目" prop="ubject_child" class="text-left">
+            <el-checkbox-group v-model="questionForm.belongSubject">
+              <el-checkbox v-for="item in subject_child" :key="item.id" :label="item.id" @change="handleSubjectChange(item)" name="subject_child">{{item.name}}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
         </el-col>
+        <el-col :span="24">
+          <el-form-item label="已选分类">
+             <div class="listBox">
+               <span v-for="(item, key) in currentSubjectJson">/&nbsp;{{item.name}}&nbsp;/</span>
+             </div>
+             <el-button size="mini" type="warning" @click="handeClearSub">清空列表</el-button>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24" class="line"></el-col>
         <el-col :span="24">
           <el-form-item label="选项">
             <single-choice :size="3"></single-choice>
@@ -51,55 +60,94 @@ export default {
     return {
       questionRules: Rule.rules,
       types: [
-        { name: '单选题', code: '001' },
-        { name: '多选题', code: '002' },
-        { name: '判断题', code: '003' },
-        { name: '填空题', code: '004' },
-        { name: '简答题', code: '005' },
+        { name: '单选题', id: '001' },
+        { name: '多选题', id: '002' },
+        { name: '判断题', id: '003' },
+        { name: '填空题', id: '004' },
+        { name: '简答题', id: '005' },
       ],
 
       subjects: [
-        { name: '驾照题', code: '001' },
-        { name: '高中毕业数学题', code: '002' },
-        { name: '大学英语', code: '003' },
-        { name: '大学物理', code: '004' },
-        { name: '材料分析', code: '005' },
-        { name: '分子结构', code: '006' }
+        { name: '驾照题', id: '001' },
+        { name: '高中毕业数学题', id: '002' },
+        { name: '大学英语', id: '003' },
+        { name: '大学物理', id: '004' },
+        { name: '材料分析', id: '005' },
+        { name: '分子结构', id: '006' }
       ],
       subject_child: [], // 筛选后
       subject_child_data: [ // 数据
-        { name: '驾照题child', code: '001', pid: "001" },
-        { name: '高中毕业数学题child', code: '002', pid: "002" },
-        { name: '大学英语child', code: '003', pid: "003" },
-        { name: '大学物理child', code: '004', pid: "004" },
-        { name: '材料分析child', code: '005', pid: "005" },
-        { name: '分子结构child', code: '006', pid: "006" }
+        { name: '驾照题child', id: '001', pid: "001" },
+        { name: '高中毕业数学题child', id: '002', pid: "002" },
+        { name: '大学英语child', id: '003', pid: "003" },
+        { name: '大学物理child', id: '004', pid: "004" },
+        { name: '材料分析child', id: '005', pid: "005" },
+        { name: '分子结构child', id: '006', pid: "006" },
+        { name: '驾照题child2', id: '007', pid: "001" },
+        { name: '高中毕业数学题child2', id: '008', pid: "002" },
+        { name: '大学英语child2', id: '009', pid: "003" },
+        { name: '大学物理child2', id: '010', pid: "004" },
+        { name: '材料分析child2', id: '011', pid: "005" },
+        { name: '分子结构child2', id: '012', pid: "006" }
       ],
       questionForm: {
+        belongSubject: [], // 所选的分类
+      },
 
+      currentSubject: '001', // 当前标签分类
+      currentSubjectJson: { // 当前标签分类信息
+        
       },
       
     }
   },
   components: { singleChoice },
-  created () {
+  filters: {
+    getName (id, item) {
+      return item.name
+    }
+  },
+  watch: {
 
+  },
+  created () {
+    this.initData();
   },
   mounted () {
 
   },
   methods: {
-    handleChoiceSub (item) {
-      console.log(item);
+    initData () {
+      this.currentSubject = this.subjects[0].id;
+      this.handleChangeSub({ id: this.currentSubject });
+    },
+    handleChangeSub (item) {
       this.subject_child = [];
       for (let i = 0; i < this.subject_child_data.length; i ++) {
-        if (this.subject_child_data[i].pid === item.code) {
+        if (this.subject_child_data[i].pid === item.id) {
           this.subject_child.push(this.subject_child_data[i]);
         }
       }
+    },
+    handleSubjectChange (item) {
+      this.currentSubjectJson[item.id] = item; 
+      console.log(this.currentSubjectJson);
+    },
+    handeClearSub () {
+      this.questionForm.belongSubject = [];
+      this.currentSubjectJson = {};
     }
   }
 }
 </script>
 <style scoped>
+.listBox > span{
+  margin-right: 30px;
+  margin-bottom: 0px;
+  color: #666;
+  display: inline-block;
+}
+.line {
+  margin: 20px 0;
+}
 </style>

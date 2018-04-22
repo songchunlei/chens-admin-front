@@ -5,16 +5,22 @@
       <el-input v-model="choices[index].optionContent" type="textarea"
         :autosize="{ minRows: 2, maxRows: 3}" style="width: 180px" placeholder="请输入内容">
       </el-input>
-      <el-button @click="handleAddSource(item)" size="mini" type="primary">添加资源<i class="el-icon-circle-plus-outline el-icon--right"></i></el-button>
-    </div>    
+      <el-button @click="handleAddSource(item, index)" size="mini" type="primary">添加资源<i class="el-icon-circle-plus-outline el-icon--right"></i></el-button>
+      
+    </div>  
+    <div class="choicedBox" v-for="(item, index) in choices" v-if="showCheckedJson">
+      <p v-if="item[index] && item[index].questionsOptionQuoteJson">
+        <a href="citem.url" v-for="(citem, key) in item[index].questionsOptionQuoteJson">{{citem.name}}</a>
+      </p>
+    </div>  
 
     <el-dialog title="资源列表" :visible.sync="dialogTableVisible">
       <resource-table v-if="dialogTableVisible" ref="resourceTable" :btnVisable="false" :noFolder="true">
         <el-button>选择</el-button>
       </resource-table>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleGetChoice">添加选中</el-button>
+        <el-button @click="dialogTableVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleGetChecked">添加选中</el-button>
       </div>
     </el-dialog>                                   
   </div>
@@ -30,6 +36,9 @@ export default {
       choices: [],
       enAlphabet: [], // 选项
       dialogTableVisible: false, // 控制资源列表显示
+      currentIndex: '', // 当前操作的选项
+      checkeds: '', // 选中的资源文件对象
+      showCheckedJson: false, // 控制 已选资源是否显示
     }
   },
   props: {
@@ -57,22 +66,30 @@ export default {
     // 组装选项 array
     packChoices () {
       for (let i = 0; i < this.size; i ++) {
-        console.log(i);
-
         let choice = {};
         choice.label = this.enAlphabet[i];
         choice.optionSeq = i;
         this.choices.push(choice);
-        console.log(choice);
       }
     },
 
     // 获取选中
-    handleGetChecked (items) {
-      // this.resourceTable.
+    handleGetChecked () {
+      debugger;
+      this.checkeds = this.$refs.resourceTable.checkeds;
+      this.choices[this.currentIndex].questionsOptionQuoteJson = this.checkeds;
+      !this.showCheckedJson ? this.showCheckedJson = true : '';
+      for (var key in this.checkeds) {
+        if (!this.choices[this.currentIndex].questionsOptionQuoteList) {
+          this.choices[this.currentIndex].questionsOptionQuoteList = [];
+        }
+        this.choices[this.currentIndex].questionsOptionQuoteList.push(this.checkeds[key].id);
+      }
+      this.dialogTableVisible = false;
     },
 
-    handleAddSource (item) {
+    handleAddSource (item, index) {
+      this.currentIndex = index;
       this.dialogTableVisible = true;
     }
   }
