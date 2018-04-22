@@ -16,7 +16,7 @@
     </div>
      
 
-    <el-dialog title="资源列表" :visible.sync="dialogTableVisible">
+    <el-dialog title="资源列表" width="1000px" :visible.sync="dialogTableVisible">
       <resource-table v-if="dialogTableVisible" ref="resourceTable" :btnVisable="false" :noFolder="true">
         <el-button>选择</el-button>
       </resource-table>
