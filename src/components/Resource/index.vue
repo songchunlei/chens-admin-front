@@ -4,7 +4,7 @@
       <el-button-group>
         <el-button type="primary" size="mini" icon="el-icon-d-arrow-left" @click="parantFolder('source')">返回最上层</el-button>
         <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="parantFolder()">返回上一层</el-button>
-        <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdate()">新建文件夹</el-button>
+        <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建文件夹</el-button>
       </el-button-group>
     </div>
 
@@ -125,7 +125,7 @@ export default {
     //资源文件/文件夹
     getResourceFolder (id) {
       const _id = id || this.resourceId;
-      const funName = this.currentSource['funName'];
+      const funName = this.currentSource['getFolders'];
       api[funName](_id).then((res) => {
         const json = res.data;
         if (json.code === 1) {
@@ -153,52 +153,17 @@ export default {
       if (!item || !item.id) {
         return;
       }
-      let funName = "";
+      //默认删除资源文件
+      let funName = "deleteSource";
       if(item.type && item.type == 'FOLDER')
       {
-        //资源
-        if (this.resourceType && this.resourceType == 'RESOURCE') {
-          funName = 'deleteSourceFolder'
-        }
-        //题目
-        else if (this.resourceType && this.resourceType == 'QUESTIONS') {
-          funName = 'deleteQuestionsFolder'
-        }
-        //试卷
-        else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
-        {
-          funName = 'deleteExamPaperFolder'
-        }
-        //书本
-        else if(this.resourceType && this.resourceType == 'BOOK')
-        {
-          funName = 'deleteBookFolder'
-        }
-        //课程
-        else if(this.resourceType && this.resourceType == 'COURSE')
-        {
-          funName = 'deleteCourseFolder'
-        }
+        funName = this.currentSource['deleteFolder'];
       }
-      //题目
-      else if (item.type && item.type == 'QUESTIONS') {
-        funName = 'x'
-      }
-      //试卷
-      else if(item.type && item.type == 'EXAM_PAPER')
+      else
       {
-        funName = 'x'
+        funName = this.currentSource['deleteFile'];
       }
-      //书本
-      else if(item.type && item.type == 'BOOK')
-      {
-        funName = 'x'
-      }
-      //课程
-      else if(item.type && item.type == 'COURSE')
-      {
-        funName = 'x'
-      }
+      //删除
       api[funName](item.id).then((res) => {
         const json = res.data;
         if (json.code ===1) {
@@ -210,61 +175,41 @@ export default {
       });
     },
 
-    routerUpdate (item) {
-
-      console.log(this.currentFold);
-
+    routerUpdateFolder (item) {
+    
       if(!this.currentFold)
       {
           return;
       }
-
       //当前文件夹id就是要创建的父id
       this.editDialog.currentParId = this.currentFold.id;
       this.editDialog.currentType = this.resourceType;
 
-      if(item && item.id)
+      //当类型为文件夹时，修改文件夹
+      if(item && item.type && item.type == 'FOLDER')
       {
-        this.editDialog.currentId = item.id;
-        this.editDialog.currentName = item.name;
+          if(item && item.id)
+          {
+            this.editDialog.currentId = item.id;
+            this.editDialog.currentName = item.name;
+          }    
       }
-
       this.editDialog.dialogTableVisible = true;
+      
     },
-    createFolder(){
-        let currentFoldId = this.currentFold.id;
-        if(!id){
-          id = '-1';
-        }
-        let funName = 'getSourceFolder';
-        //题目
-        if (this.resourceType && this.resourceType == 'QUESTIONS') {
-          funName = 'getQuestionsFolder'
-        }
-        //试卷
-        else if(this.resourceType && this.resourceType == 'EXAM_PAPER')
-        {
-          funName = 'getExamPaperFolder'
-        }
-        //书本
-        else if(this.resourceType && this.resourceType == 'BOOK')
-        {
-          funName = 'getBookFolder'
-        }
-        //书本
-        else if(this.resourceType && this.resourceType == 'COURSE')
-        {
-          funName = 'getCourseFolder'
-        }
-        api[funName](id).then((res) => {
-          const json = res.data;
-          if (json.code === 1) {
-            this.currentFold = json.data;
-            this.resourceData = json.data.children || [];
-          }
-        }).catch((error) => {
-          this.$message.error(error);
-        })
+
+    routerUpdate (item) {
+      if(!this.currentFold)
+      {
+          return;
+      }
+    
+      //当类型为文件夹时，修改文件夹
+      if(item && item.type == 'FOLDER')
+      {
+          routerUpdateFolder(item);
+      }
+      
     },
     parantFolder (type) {
       let id = type === 'source' ? this.resourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';

@@ -55,6 +55,7 @@ import {
     noPassSourceApi,
     publishSourceApi,
     unPublishSourceApi,
+    deleteSourceApi,
     getSourceApi,
     //题目
     questionsFolderApi,
@@ -68,6 +69,7 @@ import {
     noPassQuestionsApi,
     publishQuestionsApi,
     unPublishQuestionsApi,
+    deleteQuestionsApi,
     getQuestionsApi,
     //试卷
     examPaperFolderApi,
@@ -81,6 +83,7 @@ import {
     noPassExamPaperApi,
     publishExamPaperApi,
     unPublishExamPaperApi,
+    deleteExamPaperApi,
     getExamPaperApi,
     addQuestionsInExamPapperApi,
     deleteQuestionsInExamPapperApi,
@@ -96,6 +99,7 @@ import {
     noPassBookApi,
     publishBookApi,
     unPublishBookApi,
+    deleteBookApi,
     getBookApi,
     //课程
     courseFolderApi,
@@ -109,6 +113,7 @@ import {
     noPassCourseApi,
     publishCourseApi,
     unPublishCourseApi,
+    deleteCourseApi,
     getCourseApi,
     //待办
     undoApi,
@@ -360,67 +365,77 @@ export default {
         return ajax({ url: unPublishSourceApi , params: params, type: 'PUT' })
     },
 
+    // 资源-删除
+    deleteSource (id) {
+        return ajax({ url: deleteSourceApi+ '/' + id  , type: 'DELETE' })
+    },
+
     // 资源-取消发布
     getSource (params) {
         return ajax({ url: getSourceApi , params: params, type: 'POST' })
     },
 
-    // 资源-目录
+    // 题目-目录
     getQuestionsFolder (id) {
         return ajax({ url: questionsFolderApi + '/' + id })
     },
 
-    // 资源-创建目录
+    // 题目-创建目录
     createQuestionsFolder (params) {
         return ajax({ url: createQuestionsFolderApi, params: params, type: 'POST' })
     },
     
-    // 资源-更新目录
+    // 题目-更新目录
     updateQuestionsFolder (params) {
         return ajax({ url: updateQuestionsFolderApi, params: params, type: 'PUT' })
     },
 
-    // 资源-删除目录
+    // 题目-删除目录
     deleteQuestionsFolder (id) {
         return ajax({ url: deleteQuestionsFolderApi + '/' + id, type: 'DELETE' })
     },
 
-    // 资源-保存草稿
+    // 题目-保存草稿
     saveQuestions (params) {
         return ajax({ url: saveQuestionsApi, params: params, type: 'POST' })
     },
     
-    // 资源-提交草稿
+    // 题目-提交草稿
     submitQuestionsApi (params) {
         return ajax({ url: submitQuestionsApi, params: params, type: 'POST' })
     },
 
-    // 资源-审批（只读）
+    // 题目-审批（只读）
     passQuestions (params) {
         return ajax({ url: passQuestionsApi , params: params, type: 'POST' })
     },
 
-    // 资源-审批（编辑）
+    // 题目-审批（编辑）
     passWithEditQuestions (params) {
         return ajax({ url: passWithEditQuestionsApi , params: params, type: 'POST' })
     },
 
-    // 资源-驳回
+    // 题目-驳回
     noPassQuestions (params) {
         return ajax({ url: noPassQuestionsApi , params: params, type: 'POST' })
     },
 
-    // 资源-发布
+    // 题目-发布
     publishQuestions (params) {
         return ajax({ url: publishQuestionsApi , params: params, type: 'PUT' })
     },
 
-    // 资源-取消发布
+    // 题目-取消发布
     unPublishQuestions (params) {
         return ajax({ url: unPublishQuestionsApi , params: params, type: 'PUT' })
     },
 
-    // 资源-取消发布
+    // 题目-删除
+    deleteQuestions (id) {
+        return ajax({ url:  deleteQuestionsApi+ '/' + id  , type: 'DELETE' })
+    },
+
+    // 题目-取消发布
     getQuestions (params) {
         return ajax({ url: getQuestionsApi , params: params, type: 'POST' })
     },
@@ -478,6 +493,11 @@ export default {
     // 试卷-取消发布
     unPublishExamPaper (params) {
         return ajax({ url: unPublishExamPaperApi , params: params, type: 'PUT' })
+    },
+
+    // 试卷-删除
+    deleteExamPaper (id) {
+        return ajax({ url:  deleteExamPaperApi+ '/' + id  , type: 'DELETE' })
     },
 
     // 试卷-取消发布
@@ -550,6 +570,11 @@ export default {
         return ajax({ url: unPublishBookApi , params: params, type: 'PUT' })
     },
 
+    // 书本-删除
+    deleteBook (id) {
+        return ajax({ url: deleteBookApi +"/"+id, type: 'DELETE' })
+    },
+
     // 书本-取消发布
     getBook (params) {
         return ajax({ url: getBookApi , params: params, type: 'POST' })
@@ -613,6 +638,11 @@ export default {
     // 课程-获取表单
     getCourse (params) {
         return ajax({ url: getCourseApi , params: params, type: 'POST' })
+    },
+
+    // 课程-删除
+    deleteCourse (id) {
+        return ajax({ url: deleteCourseApi +"/"+id, type: 'DELETE' })
     },
 
     // 待办

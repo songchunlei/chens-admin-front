@@ -15,7 +15,7 @@
 </template>
 <script>
 import api from '@/api';
-import mapGetter from 'vuex';
+import { mapGetters }  from 'vuex';
 import Rule from './rules'
 
 export default {
@@ -28,7 +28,8 @@ export default {
         type:'',
         name: '',
         parentId: ''
-      }
+      },
+      currentSource: '', // 当前资源类型
     }
   },
   props: {
@@ -49,6 +50,9 @@ export default {
   watch: {
   },
   computed: {
+    ...mapGetters([
+      'sources'
+    ])
   },
   components: {
     
@@ -62,6 +66,15 @@ export default {
   methods: {
     // 初始化数据
     initData () {
+        if (this.sources && Object.keys(this.sources).length > 0) {
+          this.currentSource = this.sources[this.busType];
+        } else {
+          this.$store.dispatch('GetSources').then(res => {
+            this.currentSource = res[this.busType];
+          }).catch((error) => {
+            this.$message.error(error);
+          })
+        }
         this.folderForm.id = this.busId;
         this.folderForm.type = this.busType;
         this.folderForm.name = this.busName;
@@ -72,9 +85,9 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let funName = 'createSourceFolder';
+          let funName = this.currentSource['createFolder'];
           if (this.busId && this.busId != ':id') {
-            funName = 'updateSourceFolder'
+            funName = this.currentSource['updateFolder'];
           }
           api[funName](this.folderForm).then((res) => {
             const json = res.data;

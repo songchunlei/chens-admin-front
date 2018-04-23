@@ -75,6 +75,7 @@ const apiChens = {
     noPassSourceRes: proxyUrl + examWms + 'sourceController/noPass', // 资源-审批不通过
     publishSourceRes: proxyUrl + examWms + 'sourceController/publish', // 资源-发布
     unPublishSourceRes: proxyUrl + examWms + 'sourceController/unPublish', // 资源-取消发布
+    deleteSourceRes: proxyUrl + examWms + 'sourceController/delete', // 资源-删除
     getSourceRes: proxyUrl + examWms + 'sourceController/getApproveFormData', // 资源-获取表单信息
 
     /**题目管理*/
@@ -89,6 +90,7 @@ const apiChens = {
     noPassQuestionsRes: proxyUrl + examWms + 'questionsController/noPass', // 题目-审批不通过
     publishQuestionsRes: proxyUrl + examWms + 'questionsController/publish', // 题目-发布
     unPublishQuestionsRes: proxyUrl + examWms + 'questionsController/unPublish', // 题目-取消发布
+    deleteQuestionsRes: proxyUrl + examWms + 'questionsController/delete', // 题目-删除
     getQuestionsRes: proxyUrl + examWms + 'questionsController/getApproveFormData', // 题目-获取表单信息
 
     /**试卷管理*/
@@ -103,6 +105,7 @@ const apiChens = {
     noPassExamPaperRes: proxyUrl + examBook + 'examPaperController/noPass', // 试卷-审批不通过
     publishExamPaperRes: proxyUrl + examBook + 'examPaperController/publish', // 试卷-发布
     unPublishExamPaperRes: proxyUrl + examBook + 'examPaperController/unPublish', // 试卷-取消发布
+    deleteExamPaperRes: proxyUrl + examBook + 'examPaperController/delete', // 试卷-删除
     getExamPaperRes: proxyUrl + examBook + 'examPaperController/getApproveFormData', // 试卷-获取表单信息
     addQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/addQuestions', // 试卷-增加题目
     deleteQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/deleteQuestions', // 试卷-删除题目
@@ -119,6 +122,7 @@ const apiChens = {
     noPassBookRes: proxyUrl + examBook + 'bookController/noPass', // 书本-审批不通过
     publishBookRes: proxyUrl + examBook + 'bookController/publish', // 书本-发布
     unPublishBookRes: proxyUrl + examBook + 'bookController/unPublish', // 书本-取消发布
+    deleteBookRes: proxyUrl + examBook + 'bookController/delete', // 书本-删除
     getBookRes: proxyUrl + examBook + 'bookController/getApproveFormData', // 书本-获取表单信息
 
     /**课程管理*/
@@ -133,6 +137,7 @@ const apiChens = {
     noPassCourseRes: proxyUrl + examBook + 'courseController/noPass', // 课程-审批不通过
     publishCourseRes: proxyUrl + examBook + 'courseController/publish', // 课程-发布
     unPublishCourseRes: proxyUrl + examBook + 'courseController/unPublish', // 课程-取消发布
+    deleteCourseRes: proxyUrl + examBook + 'courseController/delete', // 课程-删除
     getCourseRes: proxyUrl + examBook + 'courseController/getApproveFormData', // 课程-获取表单信息
 
     /**审批管理*/
@@ -196,6 +201,7 @@ export const passWithEditSourceApi = API_ROOT.concat(apiChens.passWithEditSource
 export const noPassSourceApi = API_ROOT.concat(apiChens.noPassSourceRes);
 export const publishSourceApi = API_ROOT.concat(apiChens.publishSourceRes);
 export const unPublishSourceApi = API_ROOT.concat(apiChens.unPublishSourceRes);
+export const deleteSourceApi = API_ROOT.concat(apiChens.deleteSourceRes);
 export const getSourceApi = API_ROOT.concat(apiChens.getSourceRes);
 
 export const questionsFolderApi = API_ROOT.concat(apiChens.questionsFolderRes);
@@ -209,6 +215,7 @@ export const passWithEditQuestionsApi = API_ROOT.concat(apiChens.passWithEditQue
 export const noPassQuestionsApi = API_ROOT.concat(apiChens.noPassQuestionsRes);
 export const publishQuestionsApi = API_ROOT.concat(apiChens.publishQuestionsRes);
 export const unPublishQuestionsApi = API_ROOT.concat(apiChens.unPublishQuestionsRes);
+export const deleteQuestionsApi = API_ROOT.concat(apiChens.deleteQuestionsRes);
 export const getQuestionsApi = API_ROOT.concat(apiChens.getQuestionsRes);
 
 export const examPaperFolderApi = API_ROOT.concat(apiChens.examPaperFolderRes);
@@ -222,6 +229,7 @@ export const passWithEditExamPaperApi = API_ROOT.concat(apiChens.passWithEditExa
 export const noPassExamPaperApi = API_ROOT.concat(apiChens.noPassExamPaperRes);
 export const publishExamPaperApi = API_ROOT.concat(apiChens.publishExamPaperRes);
 export const unPublishExamPaperApi = API_ROOT.concat(apiChens.unPublishExamPaperRes);
+export const deleteExamPaperApi = API_ROOT.concat(apiChens.deleteExamPaperRes);
 export const getExamPaperApi = API_ROOT.concat(apiChens.getExamPaperRes);
 export const addQuestionsInExamPapperApi = API_ROOT.concat(apiChens.addQuestionsInExamPapperRes);
 export const deleteQuestionsInExamPapperApi = API_ROOT.concat(apiChens.deleteQuestionsInExamPapperRes);
@@ -237,6 +245,7 @@ export const passWithEditBookApi = API_ROOT.concat(apiChens.passWithEditBookRes)
 export const noPassBookApi = API_ROOT.concat(apiChens.noPassBookRes);
 export const publishBookApi = API_ROOT.concat(apiChens.publishBookRes);
 export const unPublishBookApi = API_ROOT.concat(apiChens.unPublishBookRes);
+export const deleteBookApi = API_ROOT.concat(apiChens.deleteBookRes);
 export const getBookApi = API_ROOT.concat(apiChens.getBookRes);
 
 export const courseFolderApi = API_ROOT.concat(apiChens.courseFolderRes);
@@ -250,6 +259,7 @@ export const passWithEditCourseApi = API_ROOT.concat(apiChens.passWithEditCourse
 export const noPassCourseApi = API_ROOT.concat(apiChens.noPassCourseRes);
 export const publishCourseApi = API_ROOT.concat(apiChens.publishCourseRes);
 export const unPublishCourseApi = API_ROOT.concat(apiChens.unPublishCourseRes);
+export const deleteCourseApi = API_ROOT.concat(apiChens.deleteCourseRes);
 export const getCourseApi = API_ROOT.concat(apiChens.getCourseRes);
 
 export const undoApi = API_ROOT.concat(apiChens.undoRes);
