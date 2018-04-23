@@ -9,12 +9,14 @@
 
     </div>
 
-    <div v-if="showCheckedJson">
-        <p>
-          <a href="item.url" v-for="(item, key) in quoteJson">{{item.name}}</a>
-        </p>
+    <div class="checkedSourceBox">
+      <div v-for="(choice, index) in choices">
+        <span>选项&nbsp;{{choice.label}}&nbsp;的资源</span></br>
+        <div>
+          <a href="item.url" target="_blank" v-for="(item, key) in choice.quoteJson">{{item.name}}</a>    
+        </div>
+      </div>
     </div>
-
 
     <el-dialog title="资源列表" width="1000px" :visible.sync="dialogTableVisible">
       <resource-table v-if="dialogTableVisible" ref="resourceTable" :btnVisable="false" :noFolder="true">
@@ -30,6 +32,7 @@
 <script>
 import Dict from '@/sysconfig/dict'
 import resourceTable from '@/components/Resource'
+import { deepClone } from '@/utils'
 
 export default {
   name: 'single-choice',
@@ -41,7 +44,6 @@ export default {
       currentIndex: '', // 当前操作的选项
       checkeds: '', // 选中的资源文件对象
       showCheckedJson: false, // 控制 已选资源是否显示
-      quoteJson: '',
     }
   },
   props: {
@@ -51,6 +53,8 @@ export default {
     }
   },
   components: { resourceTable },
+  watch: {
+  },
   created () {
 
   },
@@ -80,7 +84,12 @@ export default {
     handleGetChecked () {
       debugger;
       this.checkeds = this.$refs.resourceTable.checkeds;
-      this.choices[this.currentIndex].quoteJson = this.checkeds;
+      if (!this.choices[this.currentIndex].quoteJson) {
+        this.choices[this.currentIndex].quoteJson = {}
+        for (var key in this.checkeds) {
+          this.choices[this.currentIndex].quoteJson[key] = this.checkeds[key]
+        }
+      }
       for (var key in this.checkeds) {
         if (!this.choices[this.currentIndex].questionsOptionQuoteList) {
           this.choices[this.currentIndex].questionsOptionQuoteList = [];
@@ -88,8 +97,6 @@ export default {
         this.choices[this.currentIndex].questionsOptionQuoteList.push(this.checkeds[key].id);
       }
       this.dialogTableVisible = false;
-      this.quoteJson = this.checkeds
-      console.log(this.quoteJson);
       !this.showCheckedJson ? this.showCheckedJson = true : '';
     },
 
@@ -110,5 +117,17 @@ export default {
 }
 .lineBox > div+div {
   margin-top: 20px;
+}
+.checkedSourceBox > div {
+  margin-bottom: 20px;
+}
+.checkedSourceBox > div > div {
+  margin-bottom: 10px;
+  padding-left: 15px;
+}
+.checkedSourceBox a {
+  margin-right: 30px;
+  text-decoration: underline;
+  color: #666;
 }
 </style>
