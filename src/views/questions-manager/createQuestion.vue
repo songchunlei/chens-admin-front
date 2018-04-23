@@ -43,7 +43,10 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="题目名" prop="name">
+            <!--
             <el-input name="name" type="textarea" v-model="questionForm.name" placeholder="请输入题目名称" />
+            -->
+            <vueUEditor @ready="editorReady" style="width: 800px"></vueUEditor>
           </el-form-item>
         </el-col>
       </el-row>
@@ -53,6 +56,7 @@
 <script>
 import Rule from './config/rules'
 import singleChoice from '@/components/SourceForm/singleChoice'
+import vueUEditor from '@/components/Ueditor'
 
 export default {
   name: '',
@@ -101,7 +105,7 @@ export default {
       
     }
   },
-  components: { singleChoice },
+  components: { singleChoice, vueUEditor },
   filters: {
     getName (id, item) {
       return item.name
@@ -136,6 +140,13 @@ export default {
     handeClearSub () {
       this.questionForm.belongSubject = [];
       this.currentSubjectJson = {};
+    },
+
+    editorReady (editorInstance) {
+      editorInstance.setContent('Hello world!<br>你可以在这里初始化编辑器的初始内容。');
+      editorInstance.addListener('contentChange', () => {
+        console.log('编辑器内容发生了变化：', editorInstance.getContent());
+      });
     }
   }
 }
