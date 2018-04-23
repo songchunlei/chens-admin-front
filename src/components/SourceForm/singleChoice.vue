@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import Dict from '@/sysconfig/dict'
+//import Dict from '@/sysconfig/dict'
 import resourceTable from '@/components/Resource'
 
 export default {
@@ -62,7 +62,8 @@ export default {
       if (this.size < 1) {
         return;
       }
-      this.enAlphabet = Dict.enAlphabet;
+      //this.enAlphabet = Dict.enAlphabet;
+      this.enAlphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
       this.packChoices();
     },
 
