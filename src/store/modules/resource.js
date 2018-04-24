@@ -22,23 +22,23 @@ const resource = {
         const sources = [
           { code: 'SOURCE_APPROVE', resourceType: 'SOURCE', 
             getFolders: 'getSourceFolder', createFolder:'createSourceFolder',updateFolder: 'updateSourceFolder', deleteFolder:'deleteSourceFolder',
-            createFileRoute:'',editFileRoute:'',deleteFile:'deleteSource',
+            createFileRoute:'/sourceManager',editFileRoute:'',deleteFile:'deleteSource',
           },    
           { code: 'QUESTION_APPROVE', resourceType: 'QUESTION', 
             getFolders: 'getQuestionsFolder', createFolder:'createQuestionsFolder',updateFolder: 'updateQuestionsFolder', deleteFolder:'deleteQuestionsFolder',
-            createFileRoute:'',editFileRoute:'',deleteFile:'deleteQuestions'
+            createFileRoute:'/questionManager/createQuestion',editFileRoute:'/questionManager/createQuestion',deleteFile:'deleteQuestions'
           },    
           { code: 'EXAM_PAPER_APPROVE', resourceType: 'EXAM_PAPER',
             getFolders: 'getExamPaperFolder', createFolder:'createExamPaperFolder',updateFolder: 'updateExamPaperFolder', deleteFolder:'deleteExamPaperFolder',
-            createFileRoute:'',editFileRoute:'',deleteFile:'deleteExamPaper'
+            createFileRoute:'/examPaperManager/createExam',editFileRoute:'/examPaperManager/createExam',deleteFile:'deleteExamPaper'
           },
           { code: 'COURSE_APPROVE', resourceType: 'COURSE',
             getFolders: 'getCourseFolder', createFolder:'createCourseFolder',updateFolder: 'updateCourseFolder', deleteFolder:'deleteCourseFolder',
-            createFileRoute:'',editFileRoute:'',deleteFile:'deleteCourse'
+            createFileRoute:'/courseManager/createCourse',editFileRoute:'/courseManager/createCourse',deleteFile:'deleteCourse'
           },
           { code: 'BOOK_APPROVE', resourceType: 'BOOK',
             getFolders: 'getBookFolder', createFolder:'createBookFolder',updateFolder: 'updateBookFolder', deleteFolder:'deleteBookFolder',
-            createFileRoute:'',editFileRoute:'',deleteFile:'deleteBook'
+            createFileRoute:'/bookManager/createBook',editFileRoute:'/bookManager/createBook',deleteFile:'deleteBook'
           }
         ];
         commit('SAVE_SOURCES', sources);
