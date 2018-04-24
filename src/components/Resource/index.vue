@@ -3,7 +3,7 @@
     <div class="treeLine">
       <el-button-group class="resBtns">
         <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建文件夹</el-button>
-        <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建</el-button>
+        <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdate()">新建</el-button>
       </el-button-group>
       <a href="javascript:void(0)" v-for="(tree, index) in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">
         <span>{{tree.name}}</span><i v-if="index !== currentFold.tree.length">\</i>
@@ -182,6 +182,7 @@ export default {
       });
     },
 
+    //更新文件夹
     routerUpdateFolder (item) {
     
       if(!this.currentFold)
@@ -205,16 +206,25 @@ export default {
       
     },
 
+    //更新文件夹/文件
     routerUpdate (item) {
       if(!this.currentFold)
       {
           return;
       }
-    
       //当类型为文件夹时，修改文件夹
       if(item && item.type == 'FOLDER')
       {
           this.routerUpdateFolder(item);
+      }
+      else
+      {
+        let routerPath = this.currentSource['createFileRoute'];
+        if(item && item.id!=null && item.id!='')
+        { 
+          routerPath = this.currentSource['editFileRoute'];
+        }
+        this.$router.push({ path: routerPath});
       }
       
     },
