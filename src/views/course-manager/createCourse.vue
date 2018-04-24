@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <h3>新增试卷</h3>
+    <h3>新增课程</h3>
   </div>
 </template>
 <script>

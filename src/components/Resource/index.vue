@@ -1,12 +1,19 @@
 <template>
   <div class="resourceList">
-    <div class="backBox b-b">
+    <div class="backBox">
       <el-button-group>
-        <el-button type="primary" size="mini" icon="el-icon-d-arrow-left" @click="parantFolder('source')">返回最上层</el-button>
-        <el-button type="primary" size="mini" icon="el-icon-arrow-left" @click="parantFolder()">返回上一层</el-button>
         <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建文件夹</el-button>
+        <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建</el-button>
       </el-button-group>
     </div>
+
+    <span v-for="tree in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">
+      <i class="el-icon-arrow-right"></i>{{tree.name}}
+    </span>
+
+    <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item v-for="tree in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">{{tree.name}}</el-breadcrumb-item>
+    </el-breadcrumb> -->
 
     <el-table @select="onSelect" @select-all="onSelectAll" :data="resourceData" v-loading.body="listLoading" element-loading-text="拼命加载中" bolder fit highlight-current-row>
       <el-table-column label="选择框"
@@ -211,6 +218,7 @@ export default {
       }
       
     },
+
     parantFolder (type) {
       let id = type === 'source' ? this.resourceId : this.currentFold && this.currentFold.parent ? this.currentFold.parent.id : '';
       if (!id) {
@@ -218,6 +226,7 @@ export default {
       }
       this.getResourceFolder(id);
     },
+
     onSelect (selection, row) {
       if (this.noFolder && row.type === 'FOLDER') {
         return;
