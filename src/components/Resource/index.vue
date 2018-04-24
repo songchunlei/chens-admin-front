@@ -1,22 +1,22 @@
 <template>
   <div class="resourceList">
-    <div class="backBox">
-      <el-button-group>
+    <div class="treeLine">
+      <el-button-group class="resBtns">
         <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建文件夹</el-button>
         <el-button type="default" size="mini" icon="el-icon-share" @click="routerUpdateFolder()">新建</el-button>
       </el-button-group>
+      <a href="javascript:void(0)" v-for="(tree, index) in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">
+        <span>{{tree.name}}</span><i v-if="index !== currentFold.tree.length">\</i>
+      </a>
     </div>
-
-    <span v-for="tree in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">
-      <i class="el-icon-arrow-right"></i>{{tree.name}}
-    </span>
-
-    <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
+    
+    <!-- 
+    <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item v-for="tree in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">{{tree.name}}</el-breadcrumb-item>
     </el-breadcrumb> -->
 
-    <el-table @select="onSelect" @select-all="onSelectAll" :data="resourceData" v-loading.body="listLoading" element-loading-text="拼命加载中" bolder fit highlight-current-row>
-      <el-table-column label="选择框"
+    <el-table @select="onSelect" @select-all="onSelectAll" :data="resourceData" v-loading.body="listLoading" stripe element-loading-text="拼命加载中" style="width: 100%">
+      <el-table-column 
         type="selection"
         width="55">
       </el-table-column>
@@ -268,9 +268,28 @@ export default {
 }
 </script>
 <style scoped>
+.resBtns {
+  padding-right: 20px;
+  margin-right: 20px;
+}
 .backBox {
   margin: 10px 0;
   padding: 6px 10px;
 }
-
+.el-table div.text-ini{
+  text-overflow: initial
+}
+.treeLine {
+  padding: 8px 5px;
+  background: #fAFAFA;
+  border-bottom: 1px solid #e5e5e5;
+}
+.treeLine > a > i {
+  margin: 0 4px;
+  color: #ff9a4c;
+}
+.treeLine > a > span{
+  color: #212121;
+  font-size: 14px;
+}
 </style>
