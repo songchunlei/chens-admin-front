@@ -207,7 +207,7 @@ export default {
       //当类型为文件夹时，修改文件夹
       if(item && item.type == 'FOLDER')
       {
-          routerUpdateFolder(item);
+          this.routerUpdateFolder(item);
       }
       
     },

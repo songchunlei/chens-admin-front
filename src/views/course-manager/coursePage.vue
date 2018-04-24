@@ -1,9 +1,5 @@
 <template>
-  <div id="examSource" class="app-container">
-    <div class="i-header">
-      <el-button type="default" icon="el-icon-share" class="m-lr-md">新建文件夹</el-button>
-      <el-button type="success" icon="el-icon-share" class="m-lr-md" @click="handleRouter">新建试卷</el-button>
-    </div>
+  <div id="courseSource" class="app-container">
 
     <div class="m-t-md">
       <resource-table ref="resourceTable" :resourceType="resourceType"></resource-table>
@@ -20,12 +16,7 @@ export default {
     return {
       addType: '', // 添加方法
       sourceTitle: '', // 资源名 用来搜索
-      resourceType: 'EXAM_PAPER_APPROVE', // 模块类型
-      upload: {
-        dialogTableVisible: false,
-        files: [], // 文件
-        folderId:'-1',//默认文件夹位置-1
-      },
+      resourceType: 'COURSE_APPROVE', // 模块类型
     }
   },
 
@@ -38,19 +29,13 @@ export default {
   },
   methods: {
 
-    // 上传完成的回调
-    completeUpload (newFile, oldFile) {
-      this.upload.dialogTableVisible = false;
-      this.refrashTable();
-    },
-
     // 刷新列表
     refrashTable () {
       this.$refs.resourceTable.handleReset();
     },
 
     handleRouter () {
-      this.$router.push({ path: '/examPapperManager/createExam' });
+      this.$router.push({ path: '/courseManager/createCourse' });
     }
   }
 }

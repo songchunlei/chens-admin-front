@@ -6,18 +6,18 @@
     <el-button v-if="createVisable" type="success" icon="document" @click="routerUpdate">新增</el-button>
 
 
-    <!-- <el-row>
-      <el-button v-for="tag in tagClasses" size="small">{{tag.className}}</el-button>
-    </el-row> -->
+    <el-row>
+      <el-button v-for="tag in tagClasses" :key="tag.id" size="mini" @click="handleClassIdSearch(tag.id)">{{tag.className}}</el-button>
+    </el-row>
 
-    <div>
+    <!-- <div>
         <el-tag
           v-for="tag in tagClasses"
           :key="tag.id"
           :type="''">
           {{tag.className}}
         </el-tag>
-    </div>
+    </div> -->
 
     <el-table :data="list" ref="tagTable" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column label="名称" width="180">
@@ -53,7 +53,7 @@
 
     <div>
       <el-dialog title="标签信息" :visible.sync="editDialog.dialogTableVisible">
-        <tagEdit-dialog v-if="editDialog.dialogTableVisible" :busId="editDialog.currentId" @completeUpdate="completeUpdate"></tagEdit-dialog>
+        <tagEdit-dialog v-if="editDialog.dialogTableVisible" :busId="editDialog.currentId" :busParId="editDialog.currentClassId" @completeUpdate="completeUpdate"></tagEdit-dialog>
       </el-dialog>
     </div>
   </div>
@@ -81,9 +81,11 @@ export default {
       createVisable: false, // 新增显示控制
       editDialog: {
         dialogTableVisible: false,
-        currentId:''
+        currentId:'',
+        currentClassId:''
       },
-      tagClasses: []
+      tagClasses: [],
+      currentTagClassId:''
     }
   },
   components: { permBtn, pagePagination,tagEditDialog },
@@ -116,15 +118,22 @@ export default {
       let searchParams = {};
       searchParams.tagName = this.search.keywords;
       searchParams.comment= this.search.keywords;
+      searchParams.classId = this.currentTagClassId;
       searchParams.isAnd = false;
       this.$refs.pagination.search(searchParams);
     },
 
+    handleClassIdSearch (classId) {
+      this.currentTagClassId = classId;
+      this.handleSearch();
+    },
+
+
     // 角色修改
     routerUpdate (item) {
       // this.$router.push({ path: '/sysManager/role/roleUpdate/', query: { 'userId': itemId }});
-
-      this.editDialog.currentId = item.id!=''?item.id:'';
+      this.editDialog.currentId = item.id;
+      this.editDialog.currentClassId = this.currentTagClassId;
       this.editDialog.dialogTableVisible = true;
     },
 

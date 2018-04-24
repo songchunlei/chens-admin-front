@@ -29,6 +29,7 @@ export default {
       tagForm: {
         id: '',
         comment: '',
+        tagName: '',
         classId: ''
       }
     }
@@ -81,6 +82,8 @@ export default {
           if (this.busId && this.busId != ':id') {
             funName = 'updateTag'
           }
+          console.log(this.busParId);
+          this.tagForm.classId = this.busParId; 
           api[funName](this.tagForm).then((res) => {
             const json = res.data;
             if (json.code != 1) {

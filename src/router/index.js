@@ -207,32 +207,50 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/examPapperManager',
+    path: '/examPaperManager',
     component: Layout,
     redirect: 'noredirect',
-    name: 'examPapperManager',
+    name: 'examPaperManager',
     meta: {
-      title: 'examPapperManager',
+      title: 'examPaperManager',
       icon: 'table'
     },
     children: [
-      { path: 'examPapperPage', component: _import('exam-manager/examPapperPage'), name: 'examPapperPage', meta: { title: 'examPapperPage', code: 'examPapperPage', icon: 'form' }},
-      { path: 'reExamPapperPage', component: _import('exam-manager/reExamPapperPage'), name: 'reExamPapperPage', meta: { title: 'reExamPapperPage', code: 'reExamPapperPage', icon: 'form' }},
+      { path: 'examPaperPage', component: _import('exam-manager/examPaperPage'), name: 'examPaperPage', meta: { title: 'examPaperPage', code: 'examPaperPage', icon: 'form' }},
+      { path: 'reExamPaperPage', component: _import('exam-manager/reExamPaperPage'), name: 'reExamPaperPage', meta: { title: 'reExamPaperPage', code: 'reExamPaperPage', icon: 'form' }},
       { path: 'createExam', component: _import('exam-manager/createExam'), name: 'createExam', meta: { title: 'createExam', icon: 'form' }},
     ]
   },
+
   {
-    path: '/dictTypeManager',
+    path: '/bookManager',
     component: Layout,
     redirect: 'noredirect',
-    name: 'dictTypeManager',
+    name: 'bookManager',
     meta: {
-      title: 'dictTypeManager',
-      icon: 'form'
+      title: 'bookManager',
+      icon: 'table'
     },
     children: [
-      { path: 'editDictType/:id', component: _import('dict-type-manager/edit'), name: 'editDictType', meta: { title: 'editDictType', icon: 'form' }},
-      { path: 'dictTypeList', component: _import('dict-type-manager/list'), name: 'listDictType', meta: { title: 'listDictType', icon: 'table' }}
+      { path: 'bookPage', component: _import('book-manager/bookPage'), name: 'bookPage', meta: { title: 'bookPage', code: 'bookPage', icon: 'form' }},
+      { path: 'reBookPage', component: _import('book-manager/reBookPage'), name: 'reBookPage', meta: { title: 'reBookPage', code: 'reBookPage', icon: 'form' }},
+      { path: 'createBook', component: _import('book-manager/createBook'), name: 'createBook', meta: { title: 'createBook', icon: 'form' }},
+    ]
+  },
+
+  {
+    path: '/courseManager',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'courseManager',
+    meta: {
+      title: 'courseManager',
+      icon: 'table'
+    },
+    children: [
+      { path: 'coursePage', component: _import('course-manager/coursePage'), name: 'coursePage', meta: { title: 'coursePage', code: 'coursePage', icon: 'form' }},
+      { path: 'reCoursePage', component: _import('course-manager/reCoursePage'), name: 'reCoursePage', meta: { title: 'reCoursePage', code: 'reCoursePage', icon: 'form' }},
+      { path: 'createCourse', component: _import('course-manager/createCourse'), name: 'createCourse', meta: { title: 'createCourse', icon: 'form' }},
     ]
   },
 
