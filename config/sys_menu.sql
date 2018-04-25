@@ -120,15 +120,15 @@ INSERT INTO `sys_menu` VALUES
  ('300203', '3002', 'BUTTON', '彻底删除', '/userController/delete', '删除题目', null, null, null, null, '3', null, null, null, 'reQuestion-delete', null, null); 
  
   INSERT INTO `sys_menu` VALUES
- ('4000', '-1', 'MODULE', '试卷管理', '', '试卷管理', null, null, null, null, '4', null, 'icon-sucai', null, 'examPapperManager', null, null), 
- ('4001', '4000', 'PAGE', '试卷列表', '/resource/page', '试卷列表', null, null, null, null, '1', null, null, null, 'examPapperPage', null, null), 
- ('400101', '3001', 'BUTTON', '新增', '/userController/createUser', '新增试卷', null, null, null, '1', null, null, null, null, 'examPapper-create', null, null), 
- ('400102', '3001', 'BUTTON', '编辑', '/userController/update', '编辑试卷', null, null, null, null, '2', null, null, null, 'examPapper-update', null, null), 
- ('400103', '3001', 'BUTTON', '删除', '/userController/delete', '删除试卷', null, null, null, null, '3', null, null, null, 'examPapper-delete', null, null), 
- ('4002', '4000', 'PAGE', '试卷回收站', '/resource/page', '试卷回收站', null, null, null, null, '2', null, null, null, 'reExamPapperPage', null, null), 
- ('400201', '3002', 'BUTTON', '编辑', '/userController/update', '编辑试卷', null, null, null, null, '2', null, null, null, 'reExamPapper-update', null, null), 
- ('400202', '3002', 'BUTTON', '撤回', '/userController/reback', '撤回试卷', null, null, null, null, '3', null, null, null, 'reExamPapper-reback', null, null), 
- ('400203', '3002', 'BUTTON', '彻底删除', '/userController/delete', '彻底删除试卷', null, null, null, null, '3', null, null, null, 'reExamPapper-delete', null, null);
+ ('4000', '-1', 'MODULE', '试卷管理', '', '试卷管理', null, null, null, null, '4', null, 'icon-sucai', null, 'examPaperManager', null, null), 
+ ('4001', '4000', 'PAGE', '试卷列表', '/resource/page', '试卷列表', null, null, null, null, '1', null, null, null, 'examPaperPage', null, null), 
+ ('400101', '3001', 'BUTTON', '新增', '/userController/createUser', '新增试卷', null, null, null, '1', null, null, null, null, 'examPaper-create', null, null), 
+ ('400102', '3001', 'BUTTON', '编辑', '/userController/update', '编辑试卷', null, null, null, null, '2', null, null, null, 'examPaper-update', null, null), 
+ ('400103', '3001', 'BUTTON', '删除', '/userController/delete', '删除试卷', null, null, null, null, '3', null, null, null, 'examPaper-delete', null, null), 
+ ('4002', '4000', 'PAGE', '试卷回收站', '/resource/page', '试卷回收站', null, null, null, null, '2', null, null, null, 'reExamPaperPage', null, null), 
+ ('400201', '3002', 'BUTTON', '编辑', '/userController/update', '编辑试卷', null, null, null, null, '2', null, null, null, 'reExamPaper-update', null, null), 
+ ('400202', '3002', 'BUTTON', '撤回', '/userController/reback', '撤回试卷', null, null, null, null, '3', null, null, null, 'reExamPaper-reback', null, null), 
+ ('400203', '3002', 'BUTTON', '彻底删除', '/userController/delete', '彻底删除试卷', null, null, null, null, '3', null, null, null, 'reExamPaper-delete', null, null);
  
   INSERT INTO `sys_menu` VALUES
  ('5000', '-1', 'MODULE', '书本管理', '', '书本管理', null, null, null, null, '5', null, 'icon-sucai', null, 'bookManager', null, null), 
