@@ -123,6 +123,10 @@ export default {
     // 点击已选
     handleChoicedTag (item) {
       this.tagForm.choicedTagClass = item.classId;
+<<<<<<< HEAD
+=======
+      this.currentTagsJson = {};
+>>>>>>> a2d9b0872b6483f9cade0ec99f6ad9dea4476a09
     }
     
   }
