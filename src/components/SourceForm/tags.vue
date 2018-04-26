@@ -106,10 +106,10 @@ export default {
 
     // 标签改变
     handleChangeTags (item) {
-      if (!this.currentTagsJson[item.id]) {
-        this.currentTagsJson[item.id] = item;
+      if (!this.currentTagsJson[item.classId]) {
+        this.currentTagsJson[item.classId] = item;
       } else {
-        this.currentTagsJson[item.id] = '';
+        this.currentTagsJson[item.classId] = '';
       }
       
     },
@@ -117,12 +117,12 @@ export default {
     // 清空列表
     handeClearTags () {
       this.tagForm.choicedTags = [];
+      this.currentTagsJson = {};
     },
 
     // 点击已选
     handleChoicedTag (item) {
       this.tagForm.choicedTagClass = item.classId;
-      this.currentTagsJson = {  };
     }
     
   }
