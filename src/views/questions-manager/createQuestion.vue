@@ -7,8 +7,8 @@
       <el-row :gutter="40">
         <el-col :span="24">
           <el-form-item label="试题类型" prop="type">
-            <el-select v-model="questionForm.type" placeholder="选择试题类型">
-              <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id" @change="handleSelect(item)">
+            <el-select v-model="questionForm.type" placeholder="选择试题类型" @change="handleSelect">
+              <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.type">
               </el-option>
             </el-select>
           </el-form-item>
@@ -38,7 +38,7 @@
         <el-col :span="24" class="line"></el-col>
         <el-col :span="24">
           <el-form-item label="选项">
-            <choice :size="choiceSize" v-if="subType === 'siigleChoice' || subType === 'multipleChoice'" :type="subType"></choice>
+            <choice ref="choiceSub" :size="choiceSize" v-if="subType === 'singleChoice' || subType === 'multipleChoice'" :subType="subType"></choice>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -127,8 +127,10 @@ export default {
       this.handleChangeSub({ id: this.currentSubject });
     },
     // 题目类型切换
-    handleSelect (item) {
-      this.subType = item.type;
+    handleSelect (type) {
+      console.log(type);
+      this.subType = type;
+      this.$refs.choiceSub.changeSubType(this.subType);
     },    
     
     handleChangeSub (item) {

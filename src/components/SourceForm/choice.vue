@@ -6,7 +6,19 @@
         :autosize="{ minRows: 2, maxRows: 3}" style="width: 180px" placeholder="请输入内容">
       </el-input>
       <el-button @click="handleAddSource(item, index)" size="mini" type="primary">添加资源<i class="el-icon-circle-plus-outline el-icon--right"></i></el-button>
+    </div>
 
+    <div v-if="subType === 'singleChoice'">
+      <span style="margin-right: 10px">选择正确答案：</span>
+      <el-radio-group v-model="rightAnswer">
+        <el-radio v-for="item in enAlphabetNeed" :label="item" :key="item">{{item}}</el-radio>
+      </el-radio-group>
+    </div>
+
+    <div v-if="subType === 'multipleChoice'">
+      <el-checkbox-group v-model="rightAnswer">
+        <el-checkbox v-for="item in enAlphabetNeed" :key="item" :label="item">{{item}}</el-checkbox>
+      </el-checkbox-group>
     </div>
 
     <div class="checkedSourceBox">
@@ -40,20 +52,30 @@ export default {
     return {
       choices: [],
       enAlphabet: [], // 选项
+      enAlphabetNeed: [], // 需要的选项
       dialogTableVisible: false, // 控制资源列表显示
       currentIndex: '', // 当前操作的选项
       checkeds: '', // 选中的资源文件对象
       showCheckedJson: false, // 控制 已选资源是否显示
+
+      rightAnswer: [], // 正确答案
     }
   },
   props: {
     size: {
       type: Number,
       default: 4
+    },
+    subType: {
+      type: String,
+      default: 'singleChoice'
     }
   },
   components: { resourceTable },
   watch: {
+    subType () {
+      this.rightAnswer = [];
+    }
   },
   created () {
 
@@ -74,6 +96,7 @@ export default {
     // 组装选项 array
     packChoices () {
       for (let i = 0; i < this.size; i ++) {
+        this.enAlphabetNeed.push(this.enAlphabet[i]);
         let choice = {};
         choice.label = this.enAlphabet[i];
         choice.optionSeq = i;
@@ -104,6 +127,13 @@ export default {
     handleAddSource (item, index) {
       this.currentIndex = index;
       this.dialogTableVisible = true;
+    },
+
+    changeSubType (type) {
+      if (type !== 'singleChoice' || type !== 'multipleChoice') {
+        return;
+      }
+      this.subType = type
     }
   }
 }
