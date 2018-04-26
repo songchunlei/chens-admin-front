@@ -8,7 +8,7 @@
         <el-col :span="24">
           <el-form-item label="试题类型" prop="type">
             <el-select v-model="questionForm.type" placeholder="选择试题类型">
-              <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id">
+              <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id" @change="handleSelect(item)">
               </el-option>
             </el-select>
           </el-form-item>
@@ -38,7 +38,7 @@
         <el-col :span="24" class="line"></el-col>
         <el-col :span="24">
           <el-form-item label="选项">
-            <single-choice :size="3"></single-choice>
+            <choice :size="choiceSize" v-if="subType === 'siigleChoice' || subType === 'multipleChoice'" :type="subType"></choice>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -55,7 +55,7 @@
 </template>
 <script>
 import Rule from './config/rules'
-import singleChoice from '@/components/SourceForm/singleChoice'
+import choice from '@/components/SourceForm/choice'
 import vueUEditor from '@/components/Ueditor'
 
 export default {
@@ -63,14 +63,15 @@ export default {
   data () {
     return {
       questionRules: Rule.rules,
+      subType: 'siigleChoice', // 题目类型
+      choiceSize: 3, // 选项个数
       types: [
-        { name: '单选题', id: '001' },
-        { name: '多选题', id: '002' },
-        { name: '判断题', id: '003' },
-        { name: '填空题', id: '004' },
-        { name: '简答题', id: '005' },
+        { name: '单选题', id: '001', type: 'singleChoice' },
+        { name: '多选题', id: '002', type: 'multipleChoice' },
+        { name: '判断题', id: '003', type: 'trueFalse' },
+        { name: '填空题', id: '004', type: 'fillBlank' },
+        { name: '简答题', id: '005', type: 'shortAnswer' },
       ],
-
       subjects: [
         { name: '驾照题', id: '001' },
         { name: '高中毕业数学题', id: '002' },
@@ -105,7 +106,7 @@ export default {
       
     }
   },
-  components: { singleChoice, vueUEditor },
+  components: { choice, vueUEditor },
   filters: {
     getName (id, item) {
       return item.name
@@ -125,6 +126,11 @@ export default {
       this.currentSubject = this.subjects[0].id;
       this.handleChangeSub({ id: this.currentSubject });
     },
+    // 题目类型切换
+    handleSelect (item) {
+      this.subType = item.type;
+    },    
+    
     handleChangeSub (item) {
       this.subject_child = [];
       for (let i = 0; i < this.subject_child_data.length; i ++) {
@@ -133,6 +139,7 @@ export default {
         }
       }
     },
+
     handleSubjectChange (item) {
       this.currentSubjectJson[item.id] = item; 
       console.log(this.currentSubjectJson);
