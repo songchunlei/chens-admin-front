@@ -185,7 +185,7 @@ export const deleteTagClassApi = API_ROOT.concat(apiChens.deleteTagClassRes);
 
 export const getTagByIdApi = API_ROOT.concat(apiChens.getTagByIdRes);
 export const tagsApi = API_ROOT.concat(apiChens.tagRes);
-export const tagListApi = API_ROOT.concat(apiChens.tagListes);
+export const tagListApi = API_ROOT.concat(apiChens.tagListRes);
 export const createTagApi = API_ROOT.concat(apiChens.createTagRes);
 export const updateTagApi = API_ROOT.concat(apiChens.updateTagRes);
 export const deleteTagApi = API_ROOT.concat(apiChens.deleteTagRes);
