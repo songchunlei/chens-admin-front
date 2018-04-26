@@ -122,7 +122,7 @@ export default {
     // 点击已选
     handleChoicedTag (item) {
       this.tagForm.choicedTagClass = item.classId;
-      this.currentTagsJson = {  };
+      this.currentTagsJson = {};
     }
     
   }
