@@ -106,10 +106,10 @@ export default {
 
     // 标签改变
     handleChangeTags (item) {
-      if (!this.currentTagsJson[item.classId]) {
-        this.currentTagsJson[item.classId] = item;
+      if (!this.currentTagsJson[item.id]) {
+        this.currentTagsJson[item.id] = item;
       } else {
-        this.currentTagsJson[item.classId] = '';
+        this.currentTagsJson[item.id] = '';
       }
       
     },
