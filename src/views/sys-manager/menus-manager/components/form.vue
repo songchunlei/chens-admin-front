@@ -47,15 +47,15 @@ export default {
         }
     },
     created () {
-        console.log("=============");
-        console.log(this.form);
     },
     watch: {
-        'form.parentId' () { // 表单的值发生变化
-            debugger;
-            console.log("```````````````");
-            console.log(this.form);
-            this.menusForm = this.form;
+        'form' () { // 表单的值发生变化
+            if (this.handleStatus === 'append') {
+                
+            } else {
+                this.menusForm = this.form;
+            }
+            
         },
         deep: true
     },
