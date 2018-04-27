@@ -40,9 +40,10 @@
       </el-table-column>
       <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-          <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
-          <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button>
-          <slot name="btn"></slot>
+            <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
+            <slot name="btn"></slot>
+            <!-- 无法循环展示按钮,暂时注释.自己在父组件实现 btnFunc方法 <el-button @click="btnFunc(scope.row)" type="text" v-if="btnFuncVisable && scope.row.type!='FOLDER'" size="small">编辑</el-button> -->
+            <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button> 
         </template>
       </el-table-column>
     </el-table>
@@ -90,7 +91,10 @@ export default {
       type: Boolean,
       default: true
     },
-
+    btnFuncVisable: {
+      type: Boolean,
+      default: false
+    },
     noFolder: { // 不能选择文件夹
       type: Boolean,
       default: false
@@ -226,7 +230,11 @@ export default {
         }
         this.$router.push({ path: routerPath});
       }
-      
+    },
+
+    //自定义文件功能
+    btnFunc (item) {
+      this.$emit('btnFunc',item);
     },
 
     parantFolder (type) {

@@ -2,7 +2,9 @@
   <div id="bookSource" class="app-container">
 
     <div class="m-t-md">
-      <resource-table ref="resourceTable" :resourceType="resourceType"></resource-table>
+      <resource-table ref="resourceTable" :resourceType="resourceType" :btnFuncVisable="true" >
+        <el-button slot="btn" size="mini" type="text" @click="btnFunc(scope.row)">编辑目录</el-button>
+      </resource-table>
     </div>
 
   </div>
@@ -31,6 +33,10 @@ export default {
     // 刷新列表
     refrashTable () {
       this.$refs.resourceTable.handleReset();
+    },
+    //自定义按钮功能
+    btnFunc(){
+      
     }
   }
 }

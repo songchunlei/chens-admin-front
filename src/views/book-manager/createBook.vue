@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import Rule from './config/rules'
+import Rule from './bookRules'
 import vueUEditor from '@/components/Ueditor'
 import tagsForm from '@/components/SourceForm/tags'
 import { getTagClasses, getTagsByClassId } from '@/utils/tagSelect'
