@@ -10,16 +10,17 @@
         <h4 v-show="!showForm" v-html="title"></h4>  
         <div class="containerForm" v-show="showForm">
           <h5 class="p-sm" style="margin-bottom: 20px" v-html="title"></h5>
-          <menu-form :form="form" @subForm="subForm"></menu-form>
+          <menu-form :form="form" @subForm="subForm" :handleStatus="handleStatus"></menu-form>
         </div>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import api from '@/api';
-import menuTree from './components/tree';
-import menuForm from './components/form';
+import api from '@/api'
+import menuTree from './components/tree'
+import menuForm from './components/form'
+import { clearJson, deepClone} from '@/utils'
 
 export default {
     data () {
@@ -42,13 +43,15 @@ export default {
       }
     },
     watch: {
-      'currentNode.id' () {
+      'currentNode' () {
         debugger;
         this.rendForm();
         this.showForm = true;
         this.changeTitle();
       },
       handleStatus () {
+        this.rendForm();
+        this.showForm = true;
         this.changeTitle();
       },
       deep: true
@@ -84,10 +87,11 @@ export default {
       },
       rendForm () {
         const status = this.handleStatus;
+        this.form = clearJson(this.form);
         switch (status) {
           case 'append': this.form.parentId = this.currentNode.id;
           break;
-          case 'update': this.form = this.currentNode;
+          case 'update': this.form = deepClone(this.currentNode);
           break;
           case 'delete': '';
           default: break;
@@ -96,9 +100,12 @@ export default {
       
       // 添加或修改
       updateTree (data, type) {
+        debugger;
         this.handleStatus = type;
         this.currentNode = data;
       },
+
+
 
       // 
 

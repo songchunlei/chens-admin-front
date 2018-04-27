@@ -71,7 +71,9 @@ export default {
             this.$emit('updateTree', data, type);
         },
 
-        append (data) {
+        append (data, e) {
+            console.log("append", e);
+            e.stopPropagation();
             this.renderForm(data, 'append');
             //const newChild = { id: id++, label: 'testtest', children: [] };
             //if (!data.children) {
@@ -80,7 +82,8 @@ export default {
             //data.children.push(newChild);
         },
 
-        remove (node, data) {
+        remove (node, data, e) {
+            e.stopPropagation();
             //const parent = node.parent;
             //const children = parent.data.children || parent.data;
             //const index = children.findIndex(d => d.id === data.id);
@@ -91,8 +94,8 @@ export default {
             <span class="custom-tree-node">
                 <span>{node.label}</span>
                 <span>
-                <el-button size="mini" type="text" on-click={ () => this.append(data) }>添加</el-button>
-                <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>删除</el-button>
+                <el-button size="mini" type="text" on-click={ (e) => this.append(data, e) }>添加</el-button>
+                <el-button size="mini" type="text" on-click={ (e) => this.remove(node, data, e) }>删除</el-button>
                 </span>
             </span>);
         },
