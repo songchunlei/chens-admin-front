@@ -10,6 +10,7 @@ import {
     logoutApi,
     registerApi,
     menusApi,
+    getMenuTreeApi,
     createMenuApi,
     updateMenuApi,
     deleteMenuApi,
@@ -145,6 +146,11 @@ export default {
         return ajax({ url: menusApi });
     },
 
+    //菜单树
+    getMenuTree () {
+        return ajax({ url: getMenuTreeApi });
+    },
+    
     // 新增菜单
     createMenu (params) {
         return ajax({ url: createMenuApi, params: params, type: 'POST'});

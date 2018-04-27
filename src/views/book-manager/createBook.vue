@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="left">
+    <el-form :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
       <div class="title-container">
         <h3 class="title">新增书本</h3>
       </div>

@@ -36,6 +36,7 @@ const apiChens = {
     deleteRoleRes: proxyUrl + csweb + 'roleController/delete', // 删除角色信息
 
     /**菜单管理 */
+    getMenuTreeRes: proxyUrl + csweb + 'menuController/getAllMenuTreeList',//菜单树
     createMenuRes: proxyUrl + csweb + 'menuController/create', // 新增菜单
     updateMenuRes: proxyUrl + csweb + 'menuController/update', // 修改菜单
     deleteMenuRes: proxyUrl + csweb + 'menuController/delete', // 删除菜单
@@ -169,6 +170,7 @@ export const roleByIdApi = API_ROOT.concat(apiChens.roleByIdRes);
 export const createRoleApi = API_ROOT.concat(apiChens.createRoleRes);
 export const updateRoleApi = API_ROOT.concat(apiChens.updateRoleRes);
 export const deleteRoleApi = API_ROOT.concat(apiChens.deleteRoleRes);
+export const getMenuTreeApi = API_ROOT.concat(apiChens.getMenuTreeRes);
 export const createMenuApi = API_ROOT.concat(apiChens.createMenuRes);
 export const updateMenuApi = API_ROOT.concat(apiChens.updateMenuRes);
 export const deleteMenuApi = API_ROOT.concat(apiChens.deleteMenuRes);

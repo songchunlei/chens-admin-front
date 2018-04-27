@@ -18,7 +18,6 @@
 </template>
 <script>
 import api from '@/api';
-import { mapGetters } from 'vuex';
 import menuTree from './components/tree';
 import menuForm from './components/form';
 
@@ -42,12 +41,6 @@ export default {
         currentNode: '' // 触发的当前节点
       }
     },
-    computed: {
-      ...mapGetters([
-        'menusJson',
-        'menus'
-      ])
-    },
     watch: {
       'currentNode.id' () {
         debugger;
@@ -69,10 +62,16 @@ export default {
     },
     methods: {
       initData () {
-        debugger;
-        if (this.menus && this.menus.length > 0) {
-          this.menusData = JSON.parse(JSON.stringify(this.menus));
-        }
+              
+        api.getMenuTree().then((res) => {
+          const json = res.data;
+          if (json.code ===1) {
+            this.menusData = json.data;
+          }
+        }).catch((error) => {
+          this.$message.error(error);
+        });
+        
       },
       changeTitle () {
         if (this.handleStatus == 'append') {
@@ -97,7 +96,6 @@ export default {
       
       // 添加或修改
       updateTree (data, type) {
-        debugger;
         this.handleStatus = type;
         this.currentNode = data;
       },
@@ -106,7 +104,6 @@ export default {
 
       // 提交
       subForm (menusForm) {
-        debugger;
         const status = this.handleStatus;
         if (status == 'append') {
           api.createMenu(menusForm).then((res) => {
