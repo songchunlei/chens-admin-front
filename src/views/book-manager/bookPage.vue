@@ -2,8 +2,8 @@
   <div id="bookSource" class="app-container">
 
     <div class="m-t-md">
-      <resource-table ref="resourceTable" :resourceType="resourceType" :btnFuncVisable="true" >
-        <el-button slot="btn" size="mini" type="text" @click="btnFunc(scope.row)">编辑目录</el-button>
+      <resource-table ref="resourceTable" :resourceType="resourceType" :btnFuncVisable="true" @complete="completeResouce">
+        <el-button :slot="'btn' + index" v-for="(item, index) in dataSize" :key="index" size="mini" type="text" @click="btnFunc(scope.row)">编辑目录</el-button>
       </resource-table>
     </div>
 
@@ -19,6 +19,7 @@ export default {
       addType: '', // 添加方法
       sourceTitle: '', // 资源名 用来搜索
       resourceType: 'BOOK_APPROVE', // 模块类型
+      dataSize: 0,
     }
   },
 
@@ -35,8 +36,15 @@ export default {
       this.$refs.resourceTable.handleReset();
     },
     //自定义按钮功能
-    btnFunc(){
+    btnFunc() {
       
+    },
+
+    // 资源table加载完成
+    completeResouce (data) {
+      if (data && data.length > 0) {
+        this.dataSize = data.length
+      }
     }
   }
 }

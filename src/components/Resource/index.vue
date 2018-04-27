@@ -40,10 +40,10 @@
       </el-table-column>
       <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-            <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
-            <slot name="btn"></slot>
-            <!-- 无法循环展示按钮,暂时注释.自己在父组件实现 btnFunc方法 <el-button @click="btnFunc(scope.row)" type="text" v-if="btnFuncVisable && scope.row.type!='FOLDER'" size="small">编辑</el-button> -->
-            <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button> 
+          <slot :name="'btn' + scope.$index"></slot>
+          <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
+          <!-- 无法循环展示按钮,暂时注释.自己在父组件实现 btnFunc方法 <el-button @click="btnFunc(scope.row)" type="text" v-if="btnFuncVisable && scope.row.type!='FOLDER'" size="small">编辑</el-button> -->
+          <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button> 
         </template>
       </el-table-column>
     </el-table>
@@ -142,6 +142,11 @@ export default {
         if (json.code === 1) {
           this.currentFold = json.data;
           this.resourceData = json.data.children || [];
+
+          // 完成时告诉 父组件
+          this.$nextTick( ()=> {
+            this.$emit('complete', this.resourceData);
+          })
         }
       }).catch((error) => {
         this.$message.error(error);
