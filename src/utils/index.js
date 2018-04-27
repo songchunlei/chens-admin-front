@@ -267,7 +267,7 @@ export function deepClone(source, arrive) {
   return targetObj
 }
 
-export function confirm(title,func) {
+export function confirm(title, func) {
   Vue.prototype.$confirm(title, '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
@@ -282,4 +282,14 @@ export function confirm(title,func) {
       message: '已取消'
     });
   });
+}
+
+export function clearJson(json) {
+  if (!json || Object.keys(json).length < 1) {
+    return
+  }
+  for (const key in json) {
+    json[key] = ''
+  }
+  return json
 }
