@@ -4,6 +4,15 @@
       <div class="title-container">
         <h3 class="title">新增题目</h3>
       </div>
+
+      <el-row :gutter="40">
+        <el-col :span="24">
+          <el-form-item label="题目名称" prop="name">
+              <el-input v-model="questionForm.name" placeholder="题目名称"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
       <el-row :gutter="40">
         <el-col :span="24">
           <el-form-item label="试题类型" prop="type">
@@ -21,14 +30,14 @@
       <el-row :gutter="40">
         <el-col :span="24" class="line"></el-col>
         <el-col :span="12">
-          <el-form-item label="题目描述" prop="name">
+          <el-form-item label="题目内容" prop="content">
             <vueUEditor @ready="editorReady" style="width: 800px"></vueUEditor>
           </el-form-item>
         </el-col>
 
         <el-col :span="20">
-          <el-form-item label="内容">
-            <choice ref="choiceSub" :size="choiceSize" 
+          <el-form-item label="答案">
+            <choice ref="choiceSub" :size="choiceSize"
               v-if="questionForm.type === 'singleChoice' || questionForm.type === 'multipleChoice'" :subType="questionForm.type">
             </choice>
 
@@ -37,7 +46,7 @@
               <el-radio v-model="questionForm.answer" label="0">错误</el-radio>
             </div>
 
-            <el-input type="textarea" :rows="2"  placeholder="请输入内容" 
+            <el-input type="textarea" :rows="2"  placeholder="请输入内容"
              v-model="questionForm.answer"
              v-if="questionForm.type === 'fillBlank' || questionForm.type === 'shortAnswer'">
             </el-input>
@@ -64,7 +73,7 @@
     </el-form>
   </div>
 </template>
-<script> 
+<script>
 import api from '@/api'
 import Rule from './config/rules'
 import choice from '@/components/SourceForm/choice'
@@ -120,7 +129,7 @@ export default {
       editorInstance.addListener('contentChange', () => {
         const content = editorInstance.getContent();
         console.log('编辑器内容发生了变化：', content);
-        this.questionForm.name = content;
+        this.questionForm.content = content;
       });
     },
 
@@ -138,7 +147,7 @@ export default {
     packForm() {
       debugger;
       // 获取题型的已选项
-      this.questionForm.belongSubject = this.$refs.tagsForm.tagForm.choicedTags;
+      this.questionForm.tags = this.$refs.tagsForm.tagForm.choicedTags;
       const type = this.questionForm.type;
       if (type) {
         if (type === 'singleChoice' || type === 'multipleChoice') {
@@ -150,9 +159,13 @@ export default {
 
     // 提交表单
     onSubmit(formName) {
-      
+
       this.packForm();
       this.$refs[formName].validate((valid) => {
+
+        console.log("valid"+valid);
+        console.log("题目");
+          console.log(this.questionForm);
         if (valid) {
           api.saveQuestions(this.questionForm).then((res) => {
             const json = res.data;
