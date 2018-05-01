@@ -29,21 +29,7 @@
           <span>{{scope.row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="335" align="center">
-        <template slot-scope="scope">
-          <slot :name="'btn' + scope.$index"></slot>
-          <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
-          <!-- 无法循环展示按钮,暂时注释.自己在父组件实现 btnFunc方法 <el-button @click="btnFunc(scope.row)" type="text" v-if="btnFuncVisable && scope.row.type!='FOLDER'" size="small">编辑</el-button> -->
-          <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button> 
-        </template>
-      </el-table-column>
     </el-table>
-
-    <div>
-      <el-dialog title="文件夹" :visible.sync="editDialog.dialogTableVisible">
-        <folderEdit-dialog :busParId="editDialog.currentParId" :busType="editDialog.currentType" :busName="editDialog.currentName" v-if="editDialog.dialogTableVisible" :busId="editDialog.currentId" @completeUpdate="completeUpdate"></folderEdit-dialog>
-      </el-dialog>
-    </div>
   </div>
 </template>
 <script>
