@@ -58,6 +58,10 @@ import {
     unPublishSourceApi,
     deleteSourceApi,
     getSourceApi,
+    createSourceShareApi,
+    editSourceShareApi,
+    deleteSourceShareApi,
+    getSourceShareApi,
     //题目
     questionsFolderApi,
     createQuestionsFolderApi,
@@ -72,6 +76,10 @@ import {
     unPublishQuestionsApi,
     deleteQuestionsApi,
     getQuestionsApi,
+    createQuestionsShareApi,
+    editQuestionsShareApi,
+    deleteQuestionsShareApi,
+    getQuestionsShareApi,
     //试卷
     examPaperFolderApi,
     createExamPaperFolderApi,
@@ -88,6 +96,10 @@ import {
     getExamPaperApi,
     addQuestionsInExamPapperApi,
     deleteQuestionsInExamPapperApi,
+    createExamPaperShareApi,
+    editExamPaperShareApi,
+    deleteExamPaperShareApi,
+    getExamPaperShareApi,
     //书本
     bookFolderApi,
     createBookFolderApi,
@@ -102,6 +114,10 @@ import {
     unPublishBookApi,
     deleteBookApi,
     getBookApi,
+    createBookShareApi,
+    editBookShareApi,
+    deleteBookShareApi,
+    getBookShareApi,
     //课程
     courseFolderApi,
     createCourseFolderApi,
@@ -116,13 +132,19 @@ import {
     unPublishCourseApi,
     deleteCourseApi,
     getCourseApi,
+    createCourseShareApi,
+    editCourseShareApi,
+    deleteCourseShareApi,
+    getCourseShareApi,
     //待办
     undoApi,
     doneApi,
     myStartApi,
     //文件
     downloadFileApi,
-    deleteFileApi
+    deleteFileApi,
+    //分享
+    getShareApi
 } from './resource';
 
 export default {
@@ -376,9 +398,29 @@ export default {
         return ajax({ url: deleteSourceApi+ '/' + id  , type: 'DELETE' })
     },
 
-    // 资源-取消发布
+    // 资源-获取资源分页
     getSource (params) {
         return ajax({ url: getSourceApi , params: params, type: 'POST' })
+    },
+
+    //资源-创建分享
+    createSourceShare (params) {
+        return ajax({ url: createSourceShareApi , params: params, type: 'POST' })
+    },
+
+    //资源-编辑分享
+    editSourceShare (params) {
+        return ajax({ url: editSourceShareApi , params: params, type: 'PUT' })
+    },
+
+    // 资源-删除分享
+    deleteSourceShare (id) {
+        return ajax({ url: deleteSourceShareApi+ '/' + id  , type: 'DELETE' })
+    },
+
+    //题目-根据业务id获取分享
+    getSourceShare(id){
+        return ajax({ url: getSourceShareApi+ '/' + id  , type: 'GET' })
     },
 
     // 题目-目录
@@ -446,6 +488,26 @@ export default {
         return ajax({ url: getQuestionsApi , params: params, type: 'POST' })
     },
 
+    //题目-创建分享
+    createQuestionsShare (params) {
+        return ajax({ url: createQuestionsShareApi , params: params, type: 'POST' })
+    },
+
+    //题目-编辑分享
+    editQuestionsShare (params) {
+        return ajax({ url: editQuestionsShareApi , params: params, type: 'PUT' })
+    },
+
+    // 题目-删除分享
+    deleteQuestionsShare (id) {
+        return ajax({ url: deleteQuestionsShareApi+ '/' + id  , type: 'DELETE' })
+    },
+
+    //题目-根据业务id获取分享
+    getQuestionsShare(id){
+        return ajax({ url: getQuestionsShareApi+ '/' + id  , type: 'GET' })
+    },
+
     // 试卷-目录
     getExamPaperFolder (id) {
         return ajax({ url: examPaperFolderApi + '/' + id })
@@ -506,7 +568,7 @@ export default {
         return ajax({ url:  deleteExamPaperApi+ '/' + id  , type: 'DELETE' })
     },
 
-    // 试卷-取消发布
+    // 试卷-分页
     getExamPaper (params) {
         return ajax({ url: getExamPaperApi , params: params, type: 'POST' })
     },
@@ -519,6 +581,26 @@ export default {
     // 试卷-删除题目
     deleteQuestionsInExamPapper (params) {
         return ajax({ url: deleteQuestionsInExamPapperApi , params: params, type: 'DELETE' })
+    },
+
+    //试卷-创建分享
+    createExamPaperShare (params) {
+        return ajax({ url: createExamPaperShareApi , params: params, type: 'POST' })
+    },
+
+    //试卷-编辑分享
+    editExamPaperShare (params) {
+        return ajax({ url: editExamPaperShareApi , params: params, type: 'PUT' })
+    },
+
+    // 试卷-删除分享
+    deleteExamPaperShare (id) {
+        return ajax({ url: deleteExamPaperShareApi+ '/' + id  , type: 'DELETE' })
+    },
+
+    //试卷-根据业务id获取分享
+    getExamPaperShare(id){
+        return ajax({ url: getExamPaperShareApi+ '/' + id  , type: 'GET' })
     },
 
     // 书本-目录
@@ -586,6 +668,26 @@ export default {
         return ajax({ url: getBookApi , params: params, type: 'POST' })
     },
 
+    //书本-创建分享
+    createBookShare (params) {
+        return ajax({ url: createBookShareApi , params: params, type: 'POST' })
+    },
+
+    //书本-编辑分享
+    editBookShare (params) {
+        return ajax({ url: editBookShareApi , params: params, type: 'PUT' })
+    },
+
+    // 书本-删除分享
+    deleteBookShare (id) {
+        return ajax({ url: deleteBookShareApi+ '/' + id  , type: 'DELETE' })
+    },
+
+    //书本-根据业务id获取分享
+    getBookShare(id){
+        return ajax({ url: getBookShareApi+ '/' + id  , type: 'GET' })
+    },
+
     // 课程-目录
     getCourseFolder (id) {
         return ajax({ url: courseFolderApi + '/' + id })
@@ -651,6 +753,26 @@ export default {
         return ajax({ url: deleteCourseApi +"/"+id, type: 'DELETE' })
     },
 
+    //课程-创建分享
+    createCourseShare (params) {
+        return ajax({ url: createCourseShareApi , params: params, type: 'POST' })
+    },
+
+    //课程-编辑分享
+    editCourseShare (params) {
+        return ajax({ url: editCourseShareApi , params: params, type: 'PUT' })
+    },
+
+    // 课程-删除分享
+    deleteCourseShare (id) {
+        return ajax({ url: deleteCourseShareApi+ '/' + id  , type: 'DELETE' })
+    },
+
+    //课程-根据业务id获取分享
+    getCourseShare(id){
+        return ajax({ url: getCourseShareApi+ '/' + id  , type: 'GET' })
+    },
+
     // 待办
     getUndoPage (params) {
         return ajax({ url: undoApi, params: params, type: 'POST' })
@@ -671,9 +793,13 @@ export default {
        window.open(downloadFileApi+"?name="+name);
     },
 
-    //下载
+    //删除文件
     deleteFile (name){
         return ajax({ url: deleteFileApi + '/' + name, type: 'DELETE' })
+    },
+    //分享
+    getShare (id){
+        return ajax({ url: getShareApi + '/' + id, type: 'GET' })
     }
     
 }

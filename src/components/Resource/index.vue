@@ -9,14 +9,14 @@
         <span>{{tree.name}}</span><i v-if="index !== currentFold.tree.length">\</i>
       </a>
     </div>
-    
-    <!-- 
+
+    <!--
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item v-for="tree in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">{{tree.name}}</el-breadcrumb-item>
     </el-breadcrumb> -->
 
     <el-table @select="onSelect" @select-all="onSelectAll" :data="resourceData" v-loading.body="listLoading" stripe element-loading-text="拼命加载中" style="width: 100%">
-      <el-table-column 
+      <el-table-column
         type="selection"
         width="55">
       </el-table-column>
@@ -40,10 +40,11 @@
       </el-table-column>
       <el-table-column label="操作" width="335" align="center">
         <template slot-scope="scope">
-          <slot :name="'btn' + scope.$index"></slot>
           <el-button @click="routerUpdate(scope.row)" type="text" v-if="btnVisable" size="small">编辑</el-button>
+          <slot :name="'btn' + scope.$index"></slot>
           <!-- 无法循环展示按钮,暂时注释.自己在父组件实现 btnFunc方法 <el-button @click="btnFunc(scope.row)" type="text" v-if="btnFuncVisable && scope.row.type!='FOLDER'" size="small">编辑</el-button> -->
-          <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button> 
+          <el-button @click="handleShare(scope.row)" v-if="scope.row.type!='FOLDER'" type="text" size="small">分享</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text" v-if="btnVisable" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -54,6 +55,12 @@
       </el-dialog>
     </div>
 
+    <div>
+      <el-dialog title="分享" :visible.sync="editShareDialog.dialogTableVisible">
+        <shareEdit-dialog v-if="editShareDialog.dialogTableVisible" :source="editShareDialog.source" :dataId="editShareDialog.dataId"  @completeShare="completeShare"></shareEdit-dialog>
+      </el-dialog>
+    </div>
+
   </div>
 </template>
 <script>
@@ -61,6 +68,8 @@ import { mapGetters } from 'vuex'
 import api from '@/api'
 import fileTag from './fileTag'
 import folderEditDialog from './editFolder'
+import shareEditDialog from './editShare'
+
 
 export default {
   data () {
@@ -77,8 +86,12 @@ export default {
         currentName:'',
         currentType:''
       },
-
-      currentSource: '', // 当前资源类型
+      editShareDialog: {
+        dialogTableVisible: false,
+        dataId:'',
+        source:''
+      },
+      currentSource: [], // 当前资源类型
     }
   },
   props: {
@@ -105,12 +118,12 @@ export default {
       'sources'
     ])
   },
-  components: { fileTag ,folderEditDialog},
+  components: { fileTag ,folderEditDialog,shareEditDialog},
   created () {
     this.initData();
   },
   mounted () {
-    
+
   },
   methods: {
     initData () {
@@ -191,9 +204,23 @@ export default {
       });
     },
 
+    handleShare(item){
+      if(!item || !item.id)
+      {
+          return;
+      }
+      this.editShareDialog.dataId = item.id;
+      this.editShareDialog.source = this.currentSource;
+      this.editShareDialog.dialogTableVisible = true;
+    },
+    completeShare()
+    {
+        this.editShareDialog.dialogTableVisible = false;
+    },
+
     //更新文件夹
     routerUpdateFolder (item) {
-    
+
       if(!this.currentFold)
       {
           return;
@@ -209,10 +236,10 @@ export default {
           {
             this.editDialog.currentId = item.id;
             this.editDialog.currentName = item.name;
-          }    
+          }
       }
       this.editDialog.dialogTableVisible = true;
-      
+
     },
 
     //更新文件夹/文件
@@ -230,7 +257,7 @@ export default {
       {
         let routerPath = this.currentSource['createFileRoute'];
         if(item && item.id!=null && item.id!='')
-        { 
+        {
           routerPath = this.currentSource['editFileRoute'];
         }
         this.$router.push({ path: routerPath});
@@ -283,9 +310,9 @@ export default {
             this.checkeds[this.resourceData[i].id] = "";
           }
         }
-        
-      } 
-      
+
+      }
+
     }
   }
 }

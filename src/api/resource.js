@@ -78,6 +78,10 @@ const apiChens = {
     unPublishSourceRes: proxyUrl + examWms + 'sourceController/unPublish', // 资源-取消发布
     deleteSourceRes: proxyUrl + examWms + 'sourceController/delete', // 资源-删除
     getSourceRes: proxyUrl + examWms + 'sourceController/getApproveFormData', // 资源-获取表单信息
+    createSourceShareRes: proxyUrl + examWms + 'sourceShareController/create', // 资源-分享
+    editSourceShareRes: proxyUrl + examWms + 'sourceShareController/update', // 题目-编辑分享
+    deleteSourceShareRes: proxyUrl + examWms + 'sourceShareController/delete', //题目-删除分享
+    getSourceShareRes: proxyUrl + examWms + 'sourceShareController/data', // 题目-根据业务id取分享信息
 
     /**题目管理*/
     questionsFolderRes: proxyUrl + examWms + 'questionsFolderController/info', // 题目-文件/文件夹
@@ -93,6 +97,10 @@ const apiChens = {
     unPublishQuestionsRes: proxyUrl + examWms + 'questionsController/unPublish', // 题目-取消发布
     deleteQuestionsRes: proxyUrl + examWms + 'questionsController/delete', // 题目-删除
     getQuestionsRes: proxyUrl + examWms + 'questionsController/getApproveFormData', // 题目-获取表单信息
+    createQuestionsShareRes: proxyUrl + examWms + 'questionsShareController/create', // 题目-分享
+    editQuestionsShareRes: proxyUrl + examWms + 'questionsShareController/update', // 题目-编辑分享
+    deleteQuestionsShareRes: proxyUrl + examWms + 'questionsShareController/delete', //题目-删除分享
+    getQuestionsShareRes: proxyUrl + examWms + 'questionsShareController/data', // 试卷-根据业务id取分享信息
 
     /**试卷管理*/
     examPaperFolderRes: proxyUrl + examBook + 'examPaperFolderController/info', // 试卷-文件/文件夹
@@ -110,6 +118,10 @@ const apiChens = {
     getExamPaperRes: proxyUrl + examBook + 'examPaperController/getApproveFormData', // 试卷-获取表单信息
     addQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/addQuestions', // 试卷-增加题目
     deleteQuestionsInExamPapperRes: proxyUrl + examBook + 'examPaperController/deleteQuestions', // 试卷-删除题目
+    createExamPaperShareRes: proxyUrl + examBook + 'examPaperShareController/create', // 试卷-分享
+    editExamPaperShareRes: proxyUrl + examBook + 'examPaperShareController/update', // 试卷-编辑分享
+    deleteExamPaperShareRes: proxyUrl + examBook + 'examPaperShareController/delete', //试卷-删除分享
+    getExamPaperShareRes: proxyUrl + examBook + 'examPaperShareController/data', // 试卷-根据业务id取分享信息
 
     /**书本管理*/
     bookFolderRes: proxyUrl + examBook + 'bookFolderController/info', // 书本-文件/文件夹
@@ -125,6 +137,10 @@ const apiChens = {
     unPublishBookRes: proxyUrl + examBook + 'bookController/unPublish', // 书本-取消发布
     deleteBookRes: proxyUrl + examBook + 'bookController/delete', // 书本-删除
     getBookRes: proxyUrl + examBook + 'bookController/getApproveFormData', // 书本-获取表单信息
+    createBookShareRes: proxyUrl + examBook + 'bookShareController/create', // 书本-分享
+    editBookShareRes: proxyUrl + examBook + 'bookShareController/update', // 书本-编辑分享
+    deleteBookShareRes: proxyUrl + examBook + 'bookShareController/delete', //书本-删除分享
+    getBookShareRes: proxyUrl + examBook + 'bookShareController/data', // 书本-根据业务id取分享信息
 
     /**课程管理*/
     courseFolderRes: proxyUrl + examBook + 'courseFolderController/info', //课程-文件/文件夹
@@ -140,6 +156,10 @@ const apiChens = {
     unPublishCourseRes: proxyUrl + examBook + 'courseController/unPublish', // 课程-取消发布
     deleteCourseRes: proxyUrl + examBook + 'courseController/delete', // 课程-删除
     getCourseRes: proxyUrl + examBook + 'courseController/getApproveFormData', // 课程-获取表单信息
+    createCourseShareRes: proxyUrl + examBook + 'courseShareController/create', // 课程-分享
+    editCourseShareRes: proxyUrl + examBook + 'courseShareController/update', // 课程-编辑分享
+    deleteCourseShareRes: proxyUrl + examBook + 'courseShareController/delete', // 课程-删除分享
+    getCourseShareRes: proxyUrl + examBook + 'courseShareController/data', // 课程-根据业务id取分享信息
 
     /**审批管理*/
     undoRes: proxyUrl + examWms + 'bpmController/getMyTodoTaskPage', // 我的代办
@@ -149,6 +169,9 @@ const apiChens = {
     /**文件*/
     downloadFileRes: proxyUrl + examWms + 'fileController/download',
     deleteFileRes: proxyUrl + examWms + 'fileController/delete',
+
+    /**分享 */
+    getShareRes: proxyUrl + examWms + 'shareController/data'
 }
 
 export const loginApi = API_ROOT.concat(apiChens.loginRes);
@@ -205,6 +228,10 @@ export const publishSourceApi = API_ROOT.concat(apiChens.publishSourceRes);
 export const unPublishSourceApi = API_ROOT.concat(apiChens.unPublishSourceRes);
 export const deleteSourceApi = API_ROOT.concat(apiChens.deleteSourceRes);
 export const getSourceApi = API_ROOT.concat(apiChens.getSourceRes);
+export const createSourceShareApi = API_ROOT.concat(apiChens.createSourceShareRes);
+export const editSourceShareApi = API_ROOT.concat(apiChens.editSourceShareRes);
+export const deleteSourceShareApi = API_ROOT.concat(apiChens.deleteSourceShareRes);
+export const getSourceShareApi = API_ROOT.concat(apiChens.getSourceShareRes);
 
 export const questionsFolderApi = API_ROOT.concat(apiChens.questionsFolderRes);
 export const createQuestionsFolderApi = API_ROOT.concat(apiChens.createQuestionsFolderRes);
@@ -219,6 +246,10 @@ export const publishQuestionsApi = API_ROOT.concat(apiChens.publishQuestionsRes)
 export const unPublishQuestionsApi = API_ROOT.concat(apiChens.unPublishQuestionsRes);
 export const deleteQuestionsApi = API_ROOT.concat(apiChens.deleteQuestionsRes);
 export const getQuestionsApi = API_ROOT.concat(apiChens.getQuestionsRes);
+export const createQuestionsShareApi = API_ROOT.concat(apiChens.createQuestionsShareRes);
+export const editQuestionsShareApi = API_ROOT.concat(apiChens.editQuestionsShareRes);
+export const deleteQuestionsShareApi = API_ROOT.concat(apiChens.deleteQuestionsShareRes);
+export const getQuestionsShareApi = API_ROOT.concat(apiChens.getQuestionsShareRes);
 
 export const examPaperFolderApi = API_ROOT.concat(apiChens.examPaperFolderRes);
 export const createExamPaperFolderApi = API_ROOT.concat(apiChens.createExamPaperFolderRes);
@@ -235,6 +266,10 @@ export const deleteExamPaperApi = API_ROOT.concat(apiChens.deleteExamPaperRes);
 export const getExamPaperApi = API_ROOT.concat(apiChens.getExamPaperRes);
 export const addQuestionsInExamPapperApi = API_ROOT.concat(apiChens.addQuestionsInExamPapperRes);
 export const deleteQuestionsInExamPapperApi = API_ROOT.concat(apiChens.deleteQuestionsInExamPapperRes);
+export const createExamPaperShareApi = API_ROOT.concat(apiChens.createExamPaperShareRes);
+export const editExamPaperShareApi = API_ROOT.concat(apiChens.editExamPaperShareRes);
+export const deleteExamPaperShareApi = API_ROOT.concat(apiChens.deleteExamPaperShareRes);
+export const getExamPaperShareApi = API_ROOT.concat(apiChens.getExamPaperShareRes);
 
 export const bookFolderApi = API_ROOT.concat(apiChens.bookFolderRes);
 export const createBookFolderApi = API_ROOT.concat(apiChens.createBookFolderRes);
@@ -249,6 +284,10 @@ export const publishBookApi = API_ROOT.concat(apiChens.publishBookRes);
 export const unPublishBookApi = API_ROOT.concat(apiChens.unPublishBookRes);
 export const deleteBookApi = API_ROOT.concat(apiChens.deleteBookRes);
 export const getBookApi = API_ROOT.concat(apiChens.getBookRes);
+export const createBookShareApi = API_ROOT.concat(apiChens.createBookShareRes);
+export const editBookShareApi = API_ROOT.concat(apiChens.editBookShareRes);
+export const deleteBookShareApi = API_ROOT.concat(apiChens.deleteBookShareRes);
+export const getBookShareApi = API_ROOT.concat(apiChens.getBookShareRes);
 
 export const courseFolderApi = API_ROOT.concat(apiChens.courseFolderRes);
 export const createCourseFolderApi = API_ROOT.concat(apiChens.createCourseFolderRes);
@@ -263,6 +302,10 @@ export const publishCourseApi = API_ROOT.concat(apiChens.publishCourseRes);
 export const unPublishCourseApi = API_ROOT.concat(apiChens.unPublishCourseRes);
 export const deleteCourseApi = API_ROOT.concat(apiChens.deleteCourseRes);
 export const getCourseApi = API_ROOT.concat(apiChens.getCourseRes);
+export const createCourseShareApi = API_ROOT.concat(apiChens.createCourseShareRes);
+export const editCourseShareApi = API_ROOT.concat(apiChens.editCourseShareRes);
+export const deleteCourseShareApi = API_ROOT.concat(apiChens.deleteCourseShareRes);
+export const getCourseShareApi = API_ROOT.concat(apiChens.getCourseShareRes);
 
 export const undoApi = API_ROOT.concat(apiChens.undoRes);
 export const doneApi = API_ROOT.concat(apiChens.doneRes);
@@ -270,6 +313,8 @@ export const myStartApi = API_ROOT.concat(apiChens.myStartRes);
 
 export const downloadFileApi = API_ROOT.concat(apiChens.downloadFileRes);
 export const deleteFileApi = API_ROOT.concat(apiChens.deleteFileRes);
+
+export const getShareApi = API_ROOT.concat(apiChens.getShareRes);
 
 
 
