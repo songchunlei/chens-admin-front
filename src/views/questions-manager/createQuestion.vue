@@ -147,7 +147,7 @@ export default {
     packForm() {
       debugger;
       // 获取题型的已选项
-      this.questionForm.tags = this.$refs.tagsForm.tagForm.choicedTags;
+      this.questionForm.tagRels = this.$refs.tagsForm.tagForm.choicedTags;
       const type = this.questionForm.type;
       if (type) {
         if (type === 'singleChoice' || type === 'multipleChoice') {
