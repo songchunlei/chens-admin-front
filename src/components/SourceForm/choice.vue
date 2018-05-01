@@ -115,10 +115,10 @@ export default {
         }
       }
       for (var key in this.checkeds) {
-        if (!this.choices[this.currentIndex].questionsOptionQuoteList) {
-          this.choices[this.currentIndex].questionsOptionQuoteList = [];
+        if (!this.choices[this.currentIndex].quoteRels) {
+          this.choices[this.currentIndex].quoteRels = [];
         }
-        this.choices[this.currentIndex].questionsOptionQuoteList.push(this.checkeds[key].id);
+        this.choices[this.currentIndex].quoteRels.push(this.checkeds[key].id);
       }
       this.dialogTableVisible = false;
       !this.showCheckedJson ? this.showCheckedJson = true : '';
