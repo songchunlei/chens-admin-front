@@ -8,14 +8,13 @@ export default {
             { required: true, message: '请选择组卷方式', trigger: 'blur' }
         ],
         passPoint: [
-            { type: 'number', required: true, message: '请输入及格分数', trigger: 'change' }
+            { required: true, message: '请输入及格分数', trigger: 'blur' }
         ],
         totalPoint: [
-            { type: 'number', required: true, message: '请输入总分数', trigger: 'change' }
+            { required: true, message: '请输入总分数', trigger: 'blur' }
         ],
-        
         duration: [
-            { type: 'number', required: true, message: '请输入考试时长', trigger: 'change' }
+            { required: true, message: '请输入考试时长', trigger: 'blur' }
         ]
     }
 }
