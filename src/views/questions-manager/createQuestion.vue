@@ -14,28 +14,58 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <tags-form></tags-form>
+
+      <!-- 知识分类 -->
+      <tags-form ref="tagsForm"></tags-form>
 
       <el-row :gutter="40">
         <el-col :span="24" class="line"></el-col>
-        <el-col :span="24">
-          <el-form-item label="选项">
-            <choice ref="choiceSub" :size="choiceSize" v-if="subType === 'singleChoice' || subType === 'multipleChoice'" :subType="subType"></choice>
+        <el-col :span="12">
+          <el-form-item label="题目描述" prop="name">
+            <vueUEditor @ready="editorReady" style="width: 800px"></vueUEditor>
           </el-form-item>
         </el-col>
+
+        <el-col :span="20">
+          <el-form-item label="内容">
+            <choice ref="choiceSub" :size="choiceSize" 
+              v-if="questionForm.type === 'singleChoice' || questionForm.type === 'multipleChoice'" :subType="questionForm.type">
+            </choice>
+
+            <div v-if="questionForm.type === 'trueFalse'">
+              <el-radio v-model="questionForm.answer" label="1">正确</el-radio>
+              <el-radio v-model="questionForm.answer" label="0">错误</el-radio>
+            </div>
+
+            <el-input type="textarea" :rows="2"  placeholder="请输入内容" 
+             v-model="questionForm.answer"
+             v-if="questionForm.type === 'fillBlank' || questionForm.type === 'shortAnswer'">
+            </el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="40">
+        <el-col :span="20">
+          <el-form-item label="题目解析">
+            <vueUEditor @ready="editorAnalysis" style="width: 800px"></vueUEditor>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :gutter="40">
         <el-col :span="12">
-          <el-form-item label="题目名" prop="name">
-            <!--
-            <el-input name="name" type="textarea" v-model="questionForm.name" placeholder="请输入题目名称" />
-            -->
-            <vueUEditor @ready="editorReady" style="width: 800px"></vueUEditor>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit('questionForm')">立即创建</el-button>
+            <el-button>取消</el-button>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
   </div>
 </template>
-<script>
+<script> 
+import api from '@/api'
 import Rule from './config/rules'
 import choice from '@/components/SourceForm/choice'
 import vueUEditor from '@/components/Ueditor'
@@ -49,14 +79,13 @@ export default {
           type:"singleChoice"
       },
       questionRules: Rule.rules,
-      subType: '', // 题目类型
       choiceSize: 3, // 选项个数
       types: [
         { name: '单选题', id: '001', type: 'singleChoice' },
         { name: '多选题', id: '002', type: 'multipleChoice' },
         { name: '判断题', id: '003', type: 'trueFalse' },
         { name: '填空题', id: '004', type: 'fillBlank' },
-        { name: '简答题', id: '005', type: 'shortAnswer' },
+        { name: '简答题', id: '005', type: 'shortAnswer' }
       ]
 
     }
@@ -82,15 +111,58 @@ export default {
     },
     // 题目类型切换
     handleSelect (type) {
-      console.log(type);
-      this.subType = type;
-      //this.$refs.choiceSub.changeSubType(this.subType);
+      this.questionForm.type = type;
     },
 
+    // 题目、试题内容
     editorReady (editorInstance) {
-      editorInstance.setContent('Hello world!<br>你可以在这里初始化编辑器的初始内容。');
+      editorInstance.setContent('');
       editorInstance.addListener('contentChange', () => {
-        console.log('编辑器内容发生了变化：', editorInstance.getContent());
+        const content = editorInstance.getContent();
+        console.log('编辑器内容发生了变化：', content);
+        this.questionForm.name = content;
+      });
+    },
+
+    // 题目解析
+    editorAnalysis (editorInstance) {
+      editorInstance.setContent('请填写题目解析');
+      editorInstance.addListener('contentChange', () => {
+        const content = editorInstance.getContent();
+        console.log('编辑器内容发生了变化：', content);
+        this.questionForm.analysis = content;
+      });
+    },
+
+    // 组装form
+    packForm() {
+      debugger;
+      // 获取题型的已选项
+      this.questionForm.belongSubject = this.$refs.tagsForm.tagForm.choicedTags;
+      const type = this.questionForm.type;
+      if (type) {
+        if (type === 'singleChoice' || type === 'multipleChoice') {
+          debugger;
+          this.questionForm.questionsOptionList = this.$refs.choiceSub.choices;
+        }
+      }
+    },
+
+    // 提交表单
+    onSubmit(formName) {
+      
+      this.packForm();
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          api.saveQuestions(this.questionForm).then((res) => {
+            const json = res.data;
+            if (json.code === 1) {
+              this.$message.success('保存成功.');
+            }
+          }).catch((error) => {
+            this.$message.error(error);
+          });
+        }
       });
     }
   }

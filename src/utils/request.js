@@ -1,5 +1,5 @@
 'use strict'
-
+import Vue from 'vue'
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
@@ -38,8 +38,9 @@ service.interceptors.response.use(
         duration: 5 * 1000
       });
       // 101:非法的token; 102:token为空;  100:Token 过期了;
+      debugger;
       if (res.code === 100 || res.code === 101 || res.code === 102) {
-        MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+        Vue.$confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
           type: 'warning'
