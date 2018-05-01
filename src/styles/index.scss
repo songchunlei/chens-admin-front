@@ -261,3 +261,6 @@ label.el-radio+label.el-radio,
 label.el-checkbox+label.el-checkbox {
   margin-left: 0px;
 }
+.el-checkbox, .el-checkbox__input {
+  display: initial;
+}
