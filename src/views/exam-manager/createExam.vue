@@ -28,7 +28,7 @@
             <el-form-item style="margin-top: 35px;">
               <el-button type="success" @click="onSubmit('save')">保存</el-button>
               <el-button type="warning" @click="onSubmit('submit')">提交审批</el-button>
-              <el-button>取消</el-button>
+              <el-button @click="$router.go(-1)">取消</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -57,7 +57,7 @@ export default {
     return {
       dialogTableVisible: false,
       examForm: {
-        forderId: '',
+        folderId: '',
         packExam: 'auto',
         point: 60,
         time: 120
@@ -78,7 +78,24 @@ export default {
       console.log(Rule.rules);
       this.examRules = Rule.rules;
       console.log(this.examRules);
-      this.examForm.forderId = this.$route.query.forderId || '-1'
+      this.examForm.folderId = this.$route.query.folderId;
+      this.examForm.id = this.$route.query.id;
+      if (this.examForm.id) {
+        this.getExam();
+      }
+    },
+
+    // 获取exam信息
+    getExam () {
+      debugger;
+      api.getExamPaper({ id: this.examForm.id }).then((res) => {
+        const json = res.data;
+        if (json.code === 1) {
+          this.examForm = json.data.businessData;
+        }
+      }).catch((error) => {
+        this.$message.error(error);
+      })
     },
 
     // 提交表单
@@ -90,6 +107,7 @@ export default {
             const json = res.data;
             if (json.code ===1) {
               this.$message.success(json.msg);
+              this.$router.push({ path: '/examPaperManager/examPaperPage' })
             }
           }).catch((error) => {
             this.$message.error(error)

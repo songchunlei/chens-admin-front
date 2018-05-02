@@ -568,7 +568,7 @@ export default {
         return ajax({ url:  deleteExamPaperApi+ '/' + id  , type: 'DELETE' })
     },
 
-    // 试卷-分页
+    // 试卷-详情
     getExamPaper (params) {
         return ajax({ url: getExamPaperApi , params: params, type: 'POST' })
     },

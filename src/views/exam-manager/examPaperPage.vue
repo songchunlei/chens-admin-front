@@ -1,14 +1,8 @@
 <template>
   <div id="examSource" class="app-container">
-    <div class="i-header">
-      <el-button type="default" icon="el-icon-share" class="m-lr-md">新建文件夹</el-button>
-      <el-button type="success" icon="el-icon-share" class="m-lr-md" @click="handleRouter">新建试卷</el-button>
-    </div>
-
     <div class="m-t-md">
       <resource-table ref="resourceTable" :resourceType="resourceType"></resource-table>
     </div>
-
   </div>
 </template>
 <script>

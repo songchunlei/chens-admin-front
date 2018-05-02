@@ -10,28 +10,18 @@
       </a>
     </div>
 
-    <!--
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item v-for="tree in currentFold.tree" :key="tree.id" @click="getResourceFolder(tree.id)">{{tree.name}}</el-breadcrumb-item>
-    </el-breadcrumb> -->
-
     <el-table @select="onSelect" @select-all="onSelectAll" :data="resourceData" v-loading.body="listLoading" stripe element-loading-text="拼命加载中" style="width: 100%">
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
+      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="文件名">
         <template slot-scope="scope">
           <file-tag :item="scope.row" @resetFolder="getResourceFolder(scope.row.id)"></file-tag>
         </template>
       </el-table-column>
-
       <el-table-column label="文件类型" width="140">
         <template slot-scope="scope">
           {{scope.row.type | parseDict('fileTag')}}
         </template>
       </el-table-column>
-
       <el-table-column align="center" label="更新日期" width="160">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -48,7 +38,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <div>
       <el-dialog title="文件夹" :visible.sync="editDialog.dialogTableVisible">
         <folderEdit-dialog :busParId="editDialog.currentParId" :busType="editDialog.currentType" :busName="editDialog.currentName" v-if="editDialog.dialogTableVisible" :busId="editDialog.currentId" @completeUpdate="completeUpdate"></folderEdit-dialog>
@@ -118,7 +107,7 @@ export default {
       'sources'
     ])
   },
-  components: { fileTag ,folderEditDialog,shareEditDialog},
+  components: { fileTag, folderEditDialog, shareEditDialog },
   created () {
     this.initData();
   },
@@ -220,47 +209,39 @@ export default {
 
     //更新文件夹
     routerUpdateFolder (item) {
-
-      if(!this.currentFold)
-      {
+      if (!this.currentFold) {
           return;
       }
-      //当前文件夹id就是要创建的父id
+      // 当前文件夹id就是要创建的父id
       this.editDialog.currentParId = this.currentFold.id;
       this.editDialog.currentType = this.resourceType;
 
-      //当类型为文件夹时，修改文件夹
-      if(item && item.type && item.type == 'FOLDER')
-      {
-          if(item && item.id)
-          {
-            this.editDialog.currentId = item.id;
-            this.editDialog.currentName = item.name;
-          }
+      // 当类型为文件夹时，修改文件夹
+      if (item && item.type && item.type == 'FOLDER') {
+        if (item && item.id) {
+          this.editDialog.currentId = item.id;
+          this.editDialog.currentName = item.name;
+        }
       }
       this.editDialog.dialogTableVisible = true;
-
     },
 
     //更新文件夹/文件
     routerUpdate (item) {
-      if(!this.currentFold)
-      {
-          return;
+      if (!this.currentFold) {
+        return;
       }
-      //当类型为文件夹时，修改文件夹
-      if(item && item.type == 'FOLDER')
-      {
-          this.routerUpdateFolder(item);
-      }
-      else
-      {
+      // 当类型为文件夹时，修改文件夹名
+      if (item && item.type == 'FOLDER') {
+        this.routerUpdateFolder(item);
+      } else {
+        let query = { folderId: this.currentFold.id };
         let routerPath = this.currentSource['createFileRoute'];
-        if(item && item.id!=null && item.id!='')
-        {
+        if (item && item.id!=null && item.id!='') {
+          query.id = item.id;
           routerPath = this.currentSource['editFileRoute'];
         }
-        this.$router.push({ path: routerPath});
+        this.$router.push({ path: routerPath, query: query });
       }
     },
 
