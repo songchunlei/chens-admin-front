@@ -31,7 +31,7 @@
                 </el-form-item>
 
                 <el-form-item v-if="shareForm.id!='' && shareForm.id!=null" label="二维码" prop="url">
-                    <el-input v-model="shareForm.url" placeholder="url"></el-input>
+                    <img :src="shareForm.url"/>
                 </el-form-item>
 
                 <el-form-item>
@@ -133,7 +133,9 @@ export default {
         let json = res.data;
         if (json.code == 1) {
           this.shareForm = json.data;
-          getUrlDesc();
+          console.log(this.shareForm)
+          this.getUrlDesc();
+
         }
         
       }).catch((error) => {
@@ -190,8 +192,10 @@ export default {
             }
             this.$message.success(json.msg || '生成分享链接成功。');
             this.shareForm = json.data;
-            getUrlDesc();
-          }) 
+            this.getUrlDesc();
+          }).catch((error) => {
+            this.$message.error(error);
+          })
         } else {
           console.log('error submit!!');
           return false;
@@ -214,11 +218,11 @@ export default {
         }
         if(this.shareForm.invalidTime!='' && this.shareForm.invalidTime != null)
         {
-           shareFormVo.invalidType = "DATE";
+           this.shareFormVo.invalidType = "DATE";
         }
         else
         {
-          shareFormVo.invalidType = "ALWAYS";
+          this.shareFormVo.invalidType = "ALWAYS";
         }
       }
       
