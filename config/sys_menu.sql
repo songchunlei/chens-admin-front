@@ -49,7 +49,7 @@ CREATE TABLE `sys_menu` (
 BEGIN;
 
 INSERT INTO `sys_menu`
-VALUES ('1', '-1', 'PAGE', '统计', '', '统计', null, null, null, null, '1', null, 'icon-home', null, 'dashboard', null, null);
+VALUES ('1', '-1', 'PAGE', '统计', '', '统计', null, null, null, null, '1', null, 'icon-shouye', null, 'dashboard', null, null);
 
 INSERT INTO `sys_menu` VALUES 
 ('1000', '-1', 'MODULE', '系统管理', '/**', '系统管理', null, null, null, null, '6', null, 'icon-system', null, 'sysManager', null, null), 
@@ -90,14 +90,14 @@ INSERT INTO `sys_menu` VALUES
  ('1006', '1000', 'PAGE', '系统日志', '/sysLog/page', '系统日志', null, null, null, null, '6', null, null, null, 'sysLogList', null, null);
 
   INSERT INTO `sys_menu` VALUES
- ('1100', '-1', 'MODULE', '个人中心', '/bpmController/**', '个人中心', null, null, null, null, '2', null, null, null, 'myCenter', null, null), 
+ ('1100', '-1', 'MODULE', '个人中心', '/bpmController/**', '个人中心', null, null, null, null, '2', null, 'icon-account', null, 'myCenter', null, null), 
  ('1101', '1100', 'PAGE', '我的待办', '/bpmController/getMyTodoTaskPage', '我的待办', null, null, null, null, '1', null, null, null, 'myUndoPage', null, null), 
  ('1102', '1100', 'PAGE', '我的已办', '/bpmController/getMyDoneTaskPage', '我的已办', null, null, null, null, '2', null, null, null, 'myDonePage', null, null),
  ('1103', '1100', 'PAGE', '我发起的审批', '/bpmController/getMyStartProcessInstancePage', '我发起的审批', null, null, null, null, '2', null, null, null, 'myStartPage', null, null);
 
 
   INSERT INTO `sys_menu` VALUES
- ('2000', '-1', 'MODULE', '素材管理', '', '素材管理', null, null, null, null, '2', null, 'icon-sucai', null, 'sourceManager', null, null), 
+ ('2000', '-1', 'MODULE', '素材管理', '', '素材管理', null, null, null, null, '2', null, 'icon-folder', null, 'sourceManager', null, null), 
  ('2001', '2000', 'PAGE', '素材列表', '/resource/page', '素材列表', null, null, null, null, '1', null, null, null, 'sourcePage', null, null), 
  ('200101', '2001', 'BUTTON', '新增', '/userController/createUser', '新增素材', null, null, null, '1', null, null, null, null, 'source-create', null, null), 
  ('200102', '2001', 'BUTTON', '编辑', '/userController/update', '编辑素材', null, null, null, null, '2', null, null, null, 'source-update', null, null), 
@@ -109,7 +109,7 @@ INSERT INTO `sys_menu` VALUES
  
  
   INSERT INTO `sys_menu` VALUES
- ('3000', '-1', 'MODULE', '题目管理', '', '题目管理', null, null, null, null, '3', null, 'icon-sucai', null, 'questionManager', null, null), 
+ ('3000', '-1', 'MODULE', '题目管理', '', '题目管理', null, null, null, null, '3', null, 'icon-text', null, 'questionManager', null, null), 
  ('3001', '3000', 'PAGE', '题目列表', '/resource/page', '题目列表', null, null, null, null, '1', null, null, null, 'questionPage', null, null), 
  ('300101', '3001', 'BUTTON', '新增', '/userController/createUser', '新增题目', null, null, null, '1', null, null, null, null, 'question-create', null, null), 
  ('300102', '3001', 'BUTTON', '编辑', '/userController/update', '编辑题目', null, null, null, null, '2', null, null, null, 'question-update', null, null), 
@@ -120,7 +120,7 @@ INSERT INTO `sys_menu` VALUES
  ('300203', '3002', 'BUTTON', '彻底删除', '/userController/delete', '删除题目', null, null, null, null, '3', null, null, null, 'reQuestion-delete', null, null); 
  
   INSERT INTO `sys_menu` VALUES
- ('4000', '-1', 'MODULE', '试卷管理', '', '试卷管理', null, null, null, null, '4', null, 'icon-sucai', null, 'examPaperManager', null, null), 
+ ('4000', '-1', 'MODULE', '试卷管理', '', '试卷管理', null, null, null, null, '4', null, 'icon-form', null, 'examPaperManager', null, null), 
  ('4001', '4000', 'PAGE', '试卷列表', '/resource/page', '试卷列表', null, null, null, null, '1', null, null, null, 'examPaperPage', null, null), 
  ('400101', '3001', 'BUTTON', '新增', '/userController/createUser', '新增试卷', null, null, null, '1', null, null, null, null, 'examPaper-create', null, null), 
  ('400102', '3001', 'BUTTON', '编辑', '/userController/update', '编辑试卷', null, null, null, null, '2', null, null, null, 'examPaper-update', null, null), 
@@ -131,7 +131,7 @@ INSERT INTO `sys_menu` VALUES
  ('400203', '3002', 'BUTTON', '彻底删除', '/userController/delete', '彻底删除试卷', null, null, null, null, '3', null, null, null, 'reExamPaper-delete', null, null);
  
   INSERT INTO `sys_menu` VALUES
- ('5000', '-1', 'MODULE', '书本管理', '', '书本管理', null, null, null, null, '5', null, 'icon-sucai', null, 'bookManager', null, null), 
+ ('5000', '-1', 'MODULE', '书本管理', '', '书本管理', null, null, null, null, '5', null, 'icon-templatedefault', null, 'bookManager', null, null), 
  ('5001', '5000', 'PAGE', '书本列表', '/resource/page', '书本列表', null, null, null, null, '1', null, null, null, 'bookPage', null, null), 
  ('500101', '5001', 'BUTTON', '新增', '/userController/createUser', '新增书本', null, null, null, '1', null, null, null, null, 'book-create', null, null), 
  ('500102', '5001', 'BUTTON', '编辑', '/userController/update', '编辑书本', null, null, null, null, '2', null, null, null, 'book-update', null, null), 
@@ -142,7 +142,7 @@ INSERT INTO `sys_menu` VALUES
  ('500203', '6002', 'BUTTON', '彻底删除', '/userController/delete', '彻底删除书本', null, null, null, null, '3', null, null, null, 'reBook-delete', null, null); 
  
   INSERT INTO `sys_menu` VALUES
- ('6000', '-1', 'MODULE', '课程管理', '', '课程管理', null, null, null, null, '6', null, 'icon-sucai', null, 'courseManager', null, null), 
+ ('6000', '-1', 'MODULE', '课程管理', '', '课程管理', null, null, null, null, '6', null, 'icon-lunwentimu', null, 'courseManager', null, null), 
  ('6001', '6000', 'PAGE', '课程列表', '/resource/page', '课程列表', null, null, null, null, '1', null, null, null, 'coursePage', null, null), 
  ('600101', '6001', 'BUTTON', '新增', '/userController/createUser', '新增课程', null, null, null, '1', null, null, null, null, 'course-create', null, null), 
  ('600102', '6001', 'BUTTON', '编辑', '/userController/update', '编辑课程', null, null, null, null, '2', null, null, null, 'course-update', null, null), 
@@ -154,7 +154,7 @@ INSERT INTO `sys_menu` VALUES
 
  
  INSERT INTO `sys_menu` VALUES 
-('7000', '-1', 'MODULE', '通用数据管理', '/**', '通用数据管理', null, null, null, null, '6', null, 'icon-system', null, 'commonDataManager', null, null);
+('7000', '-1', 'MODULE', '通用数据管理', '/**', '通用数据管理', null, null, null, null, '6', null, 'icon-qiehuan', null, 'commonDataManager', null, null);
  INSERT INTO `sys_menu` VALUES 
  ('7001', '7000', 'PAGE', '标签分类管理', '/tagClassController/**', '标签分类管理', null, null, null, null, '5', null, null, null, 'tagClassList', null, null),
  ('700101', '7001', 'BUTTON', '新增', '/tagClassController/create', '创建标签分类', null, null, null, null, null, null, null, null, 'tagClass-create', null, null), 

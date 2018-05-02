@@ -171,7 +171,7 @@ const apiChens = {
     deleteFileRes: proxyUrl + examWms + 'fileController/delete',
 
     /**分享 */
-    getShareRes: proxyUrl + examWms + 'shareController/data'
+    getShareRes: proxyUrl + examWms + 'allShareController/pagelist'
 }
 
 export const loginApi = API_ROOT.concat(apiChens.loginRes);

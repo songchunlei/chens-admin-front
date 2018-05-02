@@ -797,9 +797,10 @@ export default {
     deleteFile (name){
         return ajax({ url: deleteFileApi + '/' + name, type: 'DELETE' })
     },
-    //分享
-    getShare (id){
-        return ajax({ url: getShareApi + '/' + id, type: 'GET' })
+
+    //我的分享列表
+    getShare (params){
+        return ajax({ url: getShareApi , params: params, type: 'POST' })
     }
     
 }
