@@ -72,7 +72,7 @@ export default {
       if (this.bookForm.id) {
         this.getBook();
       }
-      this.editorReady();
+      
     },
 
     // 获取书本信息
@@ -81,6 +81,7 @@ export default {
         const json = res.data;
         if (json.code === 1) {
           this.bookForm = json.data.businessData;
+          this.editorReady();
         }
       }).catch((error) => {
         this.$message.error(error);
