@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-import upTable from './components/upTable'
 import uploadTable from './components/upLoad'
 import resourceTable from '@/components/Resource'
 
@@ -49,7 +48,7 @@ export default {
     }
   },
 
-  components: { upTable, uploadTable, resourceTable },
+  components: { uploadTable, resourceTable },
   created () {
 
   },

@@ -22,6 +22,8 @@ const getters = {
   addRouters: state => state.permission.addRouters,
   errorLogs: state => state.errorLog.logs,
 
-  sources: state => state.resource.sources
+  sources: state => state.resource.sources,
+  
+  visiableUpload: state => state.upload.visiableUpload,
 }
 export default getters
