@@ -16,7 +16,7 @@
 <script>
 import api from '@/api';
 import { mapGetters }  from 'vuex';
-import Rule from './rules'
+import Rule from './folderRules'
 
 export default {
   name: 'folderEdit-dialog',

@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     initDate () {
-      this.sysLogList();
+      
     },
     complete (res) {
       this.listLoading = false;

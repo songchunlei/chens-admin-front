@@ -31,7 +31,7 @@
 import Rules from '../bookSectionRules';
 
 export default {
-    name: 'menu-form',
+    name: 'book-form',
     data () {
         return {
             rules: Rules.rules,
