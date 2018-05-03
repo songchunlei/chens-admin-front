@@ -13,14 +13,20 @@
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" stripe fit highlight-current-row>
       <el-table-column label="文件名" width="180">
         <template slot-scope="scope">
-          {{scope.row.fileNmae}}
+          {{scope.row.name}}
         </template>
       </el-table-column>
       <el-table-column label="文件大小">
         <template slot-scope="scope">{{scope.row.size}}</template>
       </el-table-column>
-      <el-table-column label="进度">
-        <template slot-scope="scope">{{scope.row.spading}}</template>
+      <el-table-column label="文件类型">
+        <template slot-scope="scope">{{scope.row.type}}</template>
+      </el-table-column>
+      <el-table-column label="速度">
+        <template slot-scope="scope">{{scope.row.speed}}KB/S</template>
+      </el-table-column>
+      <el-table-column label="完成进度">
+        <template slot-scope="scope">{{scope.row.progress}}</template>
       </el-table-column>
 
       <el-table-column label="操作">
@@ -30,6 +36,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: '',
   data () {
@@ -37,6 +45,21 @@ export default {
       listLoading: false,
       tabPosition: 'top',
       list: []
+    }
+  },
+  props: {
+
+  },
+  computed: {
+    ...mapGetters([
+      'uploadingFiles'
+    ])
+  },
+  
+  watch: {
+    uploadingFiles () {
+      console.log('watch upload: ', this.uploadingFiles);
+      this.list = this.uploadingFiles
     }
   },
   components: {},
@@ -48,7 +71,8 @@ export default {
   },
   methods: {
     initData () {
-      
+      console.log('initData upload: ', this.uploadingFiles);
+      this.list = this.uploadingFiles
     },
     handleCancel () {
           

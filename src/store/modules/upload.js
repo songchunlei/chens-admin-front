@@ -7,16 +7,16 @@ const upload = {
     TOGGLE_UPLOAD: (state, visable) => {
       state.visiableUpload = visable;
     },
-    SET_UPLOADING_FILES: (state, files) => {
-      state.uploadingFiles = files; 
+    PUSH_UPLOADING_FILES: (state, file) => {
+      state.uploadingFiles.push(file);
     }
   },
   actions: {
     toggleUpload({ commit }, visable) {
       commit('TOGGLE_UPLOAD', visable)
     },
-    setUploadingFiles({ commit }, files) {
-      commit(SET_UPLOADING_FILES, files)
+    pushUploadingFiles({ commit }, file) {
+      commit('PUSH_UPLOADING_FILES', file)
     }
   }
 }

@@ -465,7 +465,9 @@ export default {
           if (newFile.size >= 0 && this.minSize > 0 && newFile.size < this.minSize) {
             this.$refs.upload.update(newFile, { error: 'size' })
           }
-          this.$store.dispatch('setUploadingFiles', this.files);
+          debugger;
+          console.log(this.files);
+          this.$store.dispatch('pushUploadingFiles', this.files);
         }
 
         if (newFile.progress !== oldFile.progress) {
