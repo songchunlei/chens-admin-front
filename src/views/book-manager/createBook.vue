@@ -1,6 +1,14 @@
 <template>
   <div class="app-container">
-    <el-form :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
+    <el-steps :active="active" finish-status="success">
+      <el-step title="步骤 1" @click="step1" description="编辑书本明细"></el-step>
+      <el-step title="步骤 2" @click="step2" description="编辑书本目录"></el-step>
+      <el-step title="步骤 3" @click="step3" description="提交审批"></el-step>
+    </el-steps>
+    <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+    <el-button style="margin-top: 12px;">关闭</el-button>
+    <book-edit > </book-edit>
+    <el-form v-show="false" :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
       <div class="title-container">
         <h3 class="title">新增书本</h3>
       </div>
@@ -34,7 +42,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
     </el-form>
   </div>
 </template>
@@ -43,7 +50,9 @@ import api from '@/api'
 import Rule from './bookRules'
 import vueUEditor from '@/components/Ueditor'
 import tagsForm from '@/components/SourceForm/tags'
+import editBook from './components/editBookSection'
 import { getTagClasses, getTagsByClassId } from '@/utils/tagSelect'
+
 
 export default {
   name: '',
@@ -55,10 +64,11 @@ export default {
         name:'',//书本名称
         description:'',//描述
         folderId:'-1'//文件夹id
-      }
+      },
+      active: 1
     }
   },
-  components: { vueUEditor, tagsForm },
+  components: { vueUEditor, tagsForm,editBook },
   created () {
     this.initData();
   },
@@ -73,6 +83,25 @@ export default {
         this.getBook();
       }
       
+    },
+    next() {
+      if (this.active++ > 3) 
+      {
+          this.active = 3;
+          this.$message({
+            showClose: true,
+            message: '已经是最后一步了'
+          });
+      }
+    },
+    step1(){
+      this.active = 1;
+    },
+    step2(){
+      this.active = 2;
+    },
+    step3(){
+      this.active = 3;
     },
 
     // 获取书本信息

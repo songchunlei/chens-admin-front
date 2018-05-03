@@ -58,7 +58,7 @@ import api from '@/api'
 import fileTag from './fileTag'
 import folderEditDialog from './editFolder'
 import shareEditDialog from './editShare'
-
+import { confirm } from '@/utils'
 
 export default {
   data () {
@@ -181,16 +181,24 @@ export default {
       {
         funName = this.currentSource['deleteFile'];
       }
-      //删除
-      api[funName](item.id).then((res) => {
-        const json = res.data;
-        if (json.code ===1) {
-          this.$message.success(json.msg);
-          this.handleReset();
-        }
-      }).catch((error) => {
-        this.$message.error(error);
-      });
+
+      let $this = this;
+      let func =  function(){
+        //删除
+        api[funName](item.id).then((res) => {
+          const json = res.data;
+          if (json.code ===1) {
+            $this.$message.success(json.msg || '删除成功');
+            $this.handleReset();
+          }
+          else{
+            $this.$message.success(json.msg || '删除失败');
+          }
+        }).catch((error) => {
+          $this.$message.error(error);
+        });
+      }
+      confirm("此操作将删除该记录, 是否继续?",func);
     },
 
     handleShare(item){

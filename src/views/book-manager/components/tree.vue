@@ -23,7 +23,7 @@
 
 <script>
 export default {
-    name: 'menu-tree',
+    name: 'book-tree',
     data () {
         return {
             filterText: '',
