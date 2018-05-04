@@ -1,14 +1,18 @@
 <template>
   <div class="app-container">
-    <el-steps :active="active" finish-status="success">
+    <el-steps :active="stepJson.active" finish-status="success">
       <el-step title="步骤 1" @click="step1" description="编辑书本明细"></el-step>
       <el-step title="步骤 2" @click="step2" description="编辑书本目录"></el-step>
       <el-step title="步骤 3" @click="step3" description="提交审批"></el-step>
     </el-steps>
-    <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
-    <el-button style="margin-top: 12px;">关闭</el-button>
-    <book-edit > </book-edit>
-    <el-form v-show="false" :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
+
+    <div class="m-b-md text-right w-full">
+    <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
+    <el-button style="margin-top: 12px;">取消</el-button>
+    </div>
+
+    <book-edit> </book-edit>
+    <el-form v-show="stepJson.active === 1" :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
       <div class="title-container">
         <h3 class="title">新增书本</h3>
       </div>
@@ -33,15 +37,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <el-row :gutter="40">
-        <el-col :span="12">
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit('bookForm')">立即创建</el-button>
-            <el-button>取消</el-button>
-          </el-form-item>
-        </el-col>
-      </el-row>
     </el-form>
   </div>
 </template>
@@ -60,15 +55,30 @@ export default {
     return {
       bookRules: Rule.rules,
       bookForm: {
-        id:'',//id
-        name:'',//书本名称
-        description:'',//描述
-        folderId:'-1'//文件夹id
+        id: '', // id
+        name: '', // 书本名称
+        description: '', // 描述
+        folderId: '-1' // 文件夹id
       },
-      active: 1
+      stepJson: {
+        active: 1,
+        stepBtnTitle: '创建书本'
+      },
     }
   },
   components: { vueUEditor, tagsForm,editBook },
+  watch: {
+    'stepJson.active' () {
+      if (this.stepJson.active === 1) {
+        this.stepJson.stepBtnTitle = '创建书本'
+      } else if (this.stepJson.active === 2) {
+        this.stepJson.stepBtnTitle = '创建目录'
+      } else if (this.stepJson.active === 3) {
+        this.stepJson.stepBtnTitle = '提交审核'
+      }
+    },
+    deep: true
+  },
   created () {
     this.initData();
   },
@@ -85,8 +95,7 @@ export default {
       
     },
     next() {
-      if (this.active++ > 3) 
-      {
+      if (this.active++ > 3) {
           this.active = 3;
           this.$message({
             showClose: true,
@@ -95,13 +104,13 @@ export default {
       }
     },
     step1(){
-      this.active = 1;
+      this.stepJson.active = 1;
     },
     step2(){
-      this.active = 2;
+      this.stepJson.active = 2;
     },
     step3(){
-      this.active = 3;
+      this.stepJson.active = 3;
     },
 
     // 获取书本信息
@@ -130,13 +139,12 @@ export default {
 
     // 提交表单
     onSubmit(formName) {
-
       this.$refs[formName].validate((valid) => {
-
         if (valid) {
           api.saveBook(this.bookForm).then((res) => {
             const json = res.data;
             if (json.code === 1) {
+              this.next();
               this.$message.success('保存成功');
             }
           }).catch((error) => {
