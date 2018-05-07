@@ -11,13 +11,19 @@
     </div>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" stripe fit highlight-current-row>
+      <el-table-column label="略缩图" width="80">
+        <template slot-scope="scope">
+          <img v-if="scope.row.thumb" :src="scope.row.thumb" width="40" height="auto" />
+        </template>
+      </el-table-column>
+      
       <el-table-column label="文件名" width="180">
         <template slot-scope="scope">
           {{scope.row.name}}
         </template>
       </el-table-column>
       <el-table-column label="文件大小">
-        <template slot-scope="scope">{{scope.row.size}}</template>
+        <template slot-scope="scope">{{scope.row.size | formatSize}}</template>
       </el-table-column>
       <el-table-column label="文件类型">
         <template slot-scope="scope">{{scope.row.type}}</template>
@@ -59,7 +65,7 @@ export default {
   watch: {
     uploadingFiles () {
       console.log('watch upload: ', this.uploadingFiles);
-      this.list = this.uploadingFiles
+      this.list = this.uploadingFiles;
     }
   },
   components: {},

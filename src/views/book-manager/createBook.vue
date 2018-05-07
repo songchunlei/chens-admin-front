@@ -24,7 +24,7 @@
         </el-col>
       </el-row>
 
-      <tags-form></tags-form>
+      <tags-form ref="tagsForm"></tags-form>
 
       <el-row :gutter="40">
         <el-col :span="24" class="line"></el-col>
@@ -95,21 +95,21 @@ export default {
       
     },
     next() {
-      if (this.active++ > 3) {
-          this.active = 3;
+      if (this.stepJson.active ++ > 3) {
+          this.stepJson.active = 3;
           this.$message({
             showClose: true,
             message: '已经是最后一步了'
           });
       }
     },
-    step1(){
+    step1 () {
       this.stepJson.active = 1;
     },
-    step2(){
+    step2 () {
       this.stepJson.active = 2;
     },
-    step3(){
+    step3 () {
       this.stepJson.active = 3;
     },
 
@@ -141,7 +141,9 @@ export default {
     onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          api.saveBook(this.bookForm).then((res) => {
+          let params = this.bookForm;
+          params.choicedTags = this.$refs.tagsForm.tagForm.choicedTags;
+          api.saveBook(params).then((res) => {
             const json = res.data;
             if (json.code === 1) {
               this.next();
