@@ -467,7 +467,7 @@ export default {
           }
           debugger;
           console.log(this.files);
-          this.$store.dispatch('pushUploadingFiles', this.files);
+          this.$store.dispatch('pushUploadingFiles', newFile);
         }
 
         if (newFile.progress !== oldFile.progress) {
