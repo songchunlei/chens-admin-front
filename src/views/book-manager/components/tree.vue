@@ -5,7 +5,7 @@
                 placeholder="输入关键字进行过滤"
                 v-model="filterText">
             </el-input>
-            <p>系统菜单</p>
+            <p>当前目录</p>
             <el-tree
             :data="data"
             node-key="id"

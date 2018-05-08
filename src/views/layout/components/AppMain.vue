@@ -5,12 +5,14 @@
         <router-view></router-view>
       </keep-alive>
     </transition>
+    <!--
     <upload v-if="uploadVisable"></upload>
+    -->
   </section>
 </template>
 
 <script>
-import Upload from '@/components/Upload'
+// import Upload from '@/components/Upload'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -33,6 +35,6 @@ export default {
       this.uploadVisable = this.visiableUpload
     }
   },
-  components: { Upload }
+  components: { }
 }
 </script>

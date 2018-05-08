@@ -7,11 +7,14 @@
     </el-steps>
 
     <div class="m-b-md text-right w-full">
-    <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
-    <el-button style="margin-top: 12px;">取消</el-button>
+      <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
+      <el-button style="margin-top: 12px;">取消</el-button>
     </div>
 
+    <!--
     <book-edit> </book-edit>
+    -->
+
     <el-form v-show="stepJson.active === 1" :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
       <div class="title-container">
         <h3 class="title">新增书本</h3>
@@ -38,6 +41,11 @@
         </el-col>
       </el-row>
     </el-form>
+
+    <div v-show="stepJson.active === 2">
+      <h3 class="m-b-md">创建目录</h3>
+      <tree :data="treeList" v-if="stepJson.active === 2"></tree>
+    </div>
   </div>
 </template>
 <script>
@@ -47,6 +55,7 @@ import vueUEditor from '@/components/Ueditor'
 import tagsForm from '@/components/SourceForm/tags'
 import editBook from './components/editBookSection'
 import { getTagClasses, getTagsByClassId } from '@/utils/tagSelect'
+import tree from './components/tree'
 
 
 export default {
@@ -64,9 +73,11 @@ export default {
         active: 1,
         stepBtnTitle: '创建书本'
       },
+
+      treeList: [], // 目录
     }
   },
-  components: { vueUEditor, tagsForm,editBook },
+  components: { vueUEditor, tagsForm, editBook, tree },
   watch: {
     'stepJson.active' () {
       if (this.stepJson.active === 1) {
@@ -95,8 +106,8 @@ export default {
       
     },
     next() {
-      if (this.active++ > 3) {
-          this.active = 3;
+      if (this.stepJson.active++ > 3) {
+          this.stepJson.active = 3;
           this.$message({
             showClose: true,
             message: '已经是最后一步了'
@@ -144,6 +155,7 @@ export default {
           api.saveBook(this.bookForm).then((res) => {
             const json = res.data;
             if (json.code === 1) {
+              this.bookForm.id = json.data;
               this.next();
               this.$message.success('保存成功');
             }
