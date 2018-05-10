@@ -8,7 +8,7 @@
 
     <div class="m-b-md text-right w-full">
     <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
-    <el-button style="margin-top: 12px;">取消</el-button>
+    <el-button style="margin-top: 12px;" @click="prev()">上一步</el-button>
     </div>
 
     <book-edit> </book-edit>
@@ -38,6 +38,11 @@
         </el-col>
       </el-row>
     </el-form>
+
+    <el-form v-show="stepJson.active === 2" :model="chapterForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
+
+    </el-form>
+
   </div>
 </template>
 <script>
@@ -59,6 +64,9 @@ export default {
         name: '', // 书本名称
         description: '', // 描述
         folderId: '-1' // 文件夹id
+      },
+      chapterForm: { // 创建章节（目录）
+
       },
       stepJson: {
         active: 1,
@@ -100,6 +108,15 @@ export default {
           this.$message({
             showClose: true,
             message: '已经是最后一步了'
+          });
+      }
+    },
+    prev () {
+      if (this.stepJson.active -- < 1) {
+          this.stepJson.active = 1;
+          this.$message({
+            showClose: true,
+            message: '已经是最第一步了'
           });
       }
     },
