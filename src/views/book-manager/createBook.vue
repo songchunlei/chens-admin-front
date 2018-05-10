@@ -7,13 +7,8 @@
     </el-steps>
 
     <div class="m-b-md text-right w-full">
-<<<<<<< HEAD
-    <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
-    <el-button style="margin-top: 12px;" @click="prev()">上一步</el-button>
-=======
       <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
       <el-button style="margin-top: 12px;">取消</el-button>
->>>>>>> 64491e2fe09ac1747eb9bc332428cfc2984044ca
     </div>
 
     <!--
@@ -47,12 +42,6 @@
       </el-row>
     </el-form>
 
-<<<<<<< HEAD
-    <el-form v-show="stepJson.active === 2" :model="chapterForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
-
-    </el-form>
-
-=======
     <div v-show="stepJson.active === 2">
       <el-row :gutter="40">
         <el-col :span="8">
@@ -65,7 +54,6 @@
         </el-col>
       </el-row>
     </div>
->>>>>>> 64491e2fe09ac1747eb9bc332428cfc2984044ca
   </div>
 </template>
 <script>
