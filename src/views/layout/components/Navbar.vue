@@ -6,9 +6,9 @@
 
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"></error-log>
-      
+      <!--
       <upload class="right-menu-item"></upload>
-      
+      -->
       <el-tooltip effect="light" :content="$t('navbar.screenfull')" placement="bottom">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
@@ -52,7 +52,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
-import Upload from '@/components/Upload/tooltip'
+// import Upload from '@/components/Upload/tooltip'
 
 export default {
   data () {
@@ -66,8 +66,7 @@ export default {
     ErrorLog,
     Screenfull,
     LangSelect,
-    ThemePicker,
-    Upload
+    ThemePicker
   },
   computed: {
     ...mapGetters([

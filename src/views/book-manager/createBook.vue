@@ -7,11 +7,19 @@
     </el-steps>
 
     <div class="m-b-md text-right w-full">
+<<<<<<< HEAD
     <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
     <el-button style="margin-top: 12px;" @click="prev()">上一步</el-button>
+=======
+      <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
+      <el-button style="margin-top: 12px;">取消</el-button>
+>>>>>>> 64491e2fe09ac1747eb9bc332428cfc2984044ca
     </div>
 
+    <!--
     <book-edit> </book-edit>
+    -->
+
     <el-form v-show="stepJson.active === 1" :model="bookForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
       <div class="title-container">
         <h3 class="title">新增书本</h3>
@@ -39,10 +47,25 @@
       </el-row>
     </el-form>
 
+<<<<<<< HEAD
     <el-form v-show="stepJson.active === 2" :model="chapterForm" :rules="bookRules" ref="bookForm" label-width="100px" label-position="right">
 
     </el-form>
 
+=======
+    <div v-show="stepJson.active === 2">
+      <el-row :gutter="40">
+        <el-col :span="8">
+          <h3 class="m-b-md">创建目录</h3>
+          <tree :data="treeList" v-if="stepJson.active === 2"></tree>
+        </el-col>
+        <el-col :span="16">
+          <h5 class="p-sm" style="margin-bottom: 20px" v-html="title"></h5>
+          <catalogForm :form="form" @subForm="subForm" :handleStatus="handleStatus"></catalogForm>
+        </el-col>
+      </el-row>
+    </div>
+>>>>>>> 64491e2fe09ac1747eb9bc332428cfc2984044ca
   </div>
 </template>
 <script>
@@ -52,7 +75,8 @@ import vueUEditor from '@/components/Ueditor'
 import tagsForm from '@/components/SourceForm/tags'
 import editBook from './components/editBookSection'
 import { getTagClasses, getTagsByClassId } from '@/utils/tagSelect'
-
+import tree from './components/tree'
+import catalogForm from './components/form'
 
 export default {
   name: '',
@@ -72,9 +96,14 @@ export default {
         active: 1,
         stepBtnTitle: '创建书本'
       },
+
+      treeList: [], // 目录
+      title: '<span class="sugMsg">点击左侧菜单对应的按钮进行操作<span>', // 操作提示
+      handleStatus: '', // 树触发的方法 ('append', 'update', 'delete')
+      currentNode: '' // 触发的当前节点
     }
   },
-  components: { vueUEditor, tagsForm,editBook },
+  components: { vueUEditor, tagsForm, editBook, tree, catalogForm },
   watch: {
     'stepJson.active' () {
       if (this.stepJson.active === 1) {
@@ -95,10 +124,15 @@ export default {
   },
   methods: {
     initData () {
-      this.bookForm.folderId = this.$route.query.folderId;
-      this.bookForm.id = this.$route.query.id;
+      this.bookForm.folderId = this.$route.query.folderId || -1;
+      this.bookForm.id = this.$route.query.id || '';
       if (this.bookForm.id) {
         this.getBook();
+      } else {
+        this.treeList = [{
+          name: '主目录',
+          id: '-1'
+        }]
       }
       
     },
@@ -152,7 +186,38 @@ export default {
       });
     },
 
+    changeTitle () {
+      if (this.handleStatus == 'append') {
+        this.title = '新增<span class="font-mark">' + this.currentNode.name + '</span>菜单的子菜单。';
+      } else if (this.handleStatus == 'update') {
+        this.title = '修改<span class="font-mark">' + this.currentNode.name + '</span>菜单。';
+      } else {
+        this.title = '<span class="sugMsg">点击左侧菜单对应的按钮进行操作<span>';
+      }
+    },
+    rendForm () {
+      const status = this.handleStatus;
+      this.form = clearJson(this.form);
+      switch (status) {
+        case 'append': this.form.parentId = this.currentNode.id;
+        break;
+        case 'update': this.form = deepClone(this.currentNode);
+        break;
+        case 'delete': '';
+        default: break;
+      }
+    },
+    
+    // 添加或修改
+    updateTree (data, type) {
+      debugger;
+      this.handleStatus = type;
+      this.currentNode = data;
+    },
 
+    subForm () {
+      console.log('subForm');
+    },
 
     // 提交表单
     onSubmit(formName) {
@@ -163,6 +228,7 @@ export default {
           api.saveBook(params).then((res) => {
             const json = res.data;
             if (json.code === 1) {
+              this.bookForm.id = json.data;
               this.next();
               this.$message.success('保存成功');
             }
@@ -177,4 +243,5 @@ export default {
 }
 </script>
 <style scoped>
+
 </style>
