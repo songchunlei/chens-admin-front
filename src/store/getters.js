@@ -23,8 +23,8 @@ const getters = {
   errorLogs: state => state.errorLog.logs,
 
   sources: state => state.resource.sources,
-
+  
+  visiableUpload: state => state.upload.visiableUpload,
   uploadingFiles: state => state.upload.uploadingFiles,
-  visiableUpload: state => state.upload.visiableUpload
 }
 export default getters

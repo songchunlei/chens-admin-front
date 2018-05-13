@@ -8,7 +8,7 @@
 
     <div class="m-b-md text-right w-full">
       <el-button style="margin-top: 12px;" type="success" @click="onSubmit('bookForm')">{{stepJson.stepBtnTitle}}</el-button>
-      <el-button style="margin-top: 12px;">取消</el-button>
+      <el-button style="margin-top: 12px;" @click="prev" v-if="stepJson.active > 1">上一步</el-button>
     </div>
 
     <!--
@@ -43,40 +43,38 @@
     </el-form>
 
     <div v-show="stepJson.active === 2">
-      <el-row :gutter="40">
-        <el-col :span="8">
-          <h3 class="m-b-md">创建目录</h3>
-          <tree :data="treeList" v-if="stepJson.active === 2"></tree>
-        </el-col>
-        <el-col :span="16">
-          <h5 class="p-sm" style="margin-bottom: 20px" v-html="title"></h5>
-          <catalogForm :form="form" @subForm="subForm" :handleStatus="handleStatus"></catalogForm>
-        </el-col>
-      </el-row>
+      <tree-form v-if="treeList.length > 0" :tree="treeList" :renderForm="renderForm" :rules="bookRules">
+      </tree-form>
+    </div>
+
+    <div v-show="stepJson.active === 3">
+      <h4 class="text-center">已保存您书本创建，可提交审批。</h4>
     </div>
   </div>
 </template>
 <script>
 import api from '@/api'
-import Rule from './bookRules'
 import vueUEditor from '@/components/Ueditor'
 import tagsForm from '@/components/SourceForm/tags'
 import editBook from './components/editBookSection'
 import { getTagClasses, getTagsByClassId } from '@/utils/tagSelect'
 import tree from './components/tree'
 import catalogForm from './components/form'
+import treeForm from '@/components/TreeForm'
+import Render from './config/render'
 
 export default {
   name: '',
   data () {
     return {
-      bookRules: Rule.rules,
+      bookRules: Render.rules,
       bookForm: {
         id: '', // id
-        name: '', // 书本名称
+        name:'', // 书本名称
         description: '', // 描述
         folderId: '-1' // 文件夹id
       },
+      renderForm: Render.renderForm,
       chapterForm: { // 创建章节（目录）
 
       },
@@ -91,7 +89,7 @@ export default {
       currentNode: '' // 触发的当前节点
     }
   },
-  components: { vueUEditor, tagsForm, editBook, tree, catalogForm },
+  components: { vueUEditor, tagsForm, editBook, tree, catalogForm, treeForm },
   watch: {
     'stepJson.active' () {
       if (this.stepJson.active === 1) {
@@ -112,6 +110,7 @@ export default {
   },
   methods: {
     initData () {
+
       this.bookForm.folderId = this.$route.query.folderId || -1;
       this.bookForm.id = this.$route.query.id || '';
       if (this.bookForm.id) {
@@ -209,22 +208,33 @@ export default {
 
     // 提交表单
     onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          let params = this.bookForm;
-          params.choicedTags = this.$refs.tagsForm.tagForm.choicedTags;
-          api.saveBook(params).then((res) => {
-            const json = res.data;
-            if (json.code === 1) {
-              this.bookForm.id = json.data;
-              this.next();
-              this.$message.success('保存成功');
-            }
-          }).catch((error) => {
-            this.$message.error(error);
-          });
-        }
-      });
+      const active = this.stepJson.active;
+      if (active === 1) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let params = this.bookForm;
+            params.choicedTags = this.$refs.tagsForm.tagForm.choicedTags;
+            api.saveBook(params).then((res) => {
+              const json = res.data;
+              if (json.code === 1) {
+                this.bookForm.id = json.data;
+                this.next();
+                this.$message.success('保存成功');
+              }
+            }).catch((error) => {
+              this.$message.error(error);
+            });
+          }
+        });
+      } else if (active === 2) {
+        this.next();
+      }
+      
+    },
+    
+    // 上一步
+    handleCancel () {
+      this.prev();
     }
 
   }
