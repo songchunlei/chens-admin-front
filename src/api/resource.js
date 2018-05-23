@@ -36,7 +36,7 @@ const apiChens = {
     deleteRoleRes: proxyUrl + csweb + 'roleController/delete', // 删除角色信息
 
     /**菜单管理 */
-    getMenuTreeRes: proxyUrl + csweb + 'menuController/getAllMenuTreeList',//菜单树
+    getMenuTreeRes: proxyUrl + csweb + 'menuController/tree',//菜单树
     createMenuRes: proxyUrl + csweb + 'menuController/create', // 新增菜单
     updateMenuRes: proxyUrl + csweb + 'menuController/update', // 修改菜单
     deleteMenuRes: proxyUrl + csweb + 'menuController/delete', // 删除菜单
